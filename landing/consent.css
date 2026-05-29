@@ -1,0 +1,164 @@
+/* Cookie consent banner — shared across all landing pages */
+
+#roomy-consent {
+  --consent-bg: #1a1b22;
+  --consent-border: rgba(255, 255, 255, 0.1);
+  --consent-text: #ececf1;
+  --consent-muted: #9b9ba8;
+  --consent-accent: #4f8ff7;
+
+  position: fixed;
+  z-index: 10000;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 18px 20px;
+  border-radius: 14px;
+  border: 1px solid var(--consent-border);
+  background: var(--consent-bg);
+  color: var(--consent-text);
+  font-family: "Geist Sans", system-ui, -apple-system, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.55);
+}
+
+#roomy-consent[hidden] {
+  display: none !important;
+}
+
+#roomy-consent-title {
+  margin: 0 0 6px;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+#roomy-consent-desc {
+  margin: 0 0 14px;
+  color: var(--consent-muted);
+  font-size: 13px;
+}
+
+#roomy-consent-desc a {
+  color: var(--consent-accent);
+  text-decoration: none;
+}
+
+#roomy-consent-desc a:hover {
+  text-decoration: underline;
+}
+
+#roomy-consent-prefs {
+  margin: 0 0 14px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--consent-border);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+#roomy-consent-prefs[hidden] {
+  display: none !important;
+}
+
+.roomy-consent-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.roomy-consent-row + .roomy-consent-row {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--consent-border);
+}
+
+.roomy-consent-row strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.roomy-consent-row span {
+  display: block;
+  margin-top: 2px;
+  color: var(--consent-muted);
+  font-size: 12px;
+}
+
+.roomy-consent-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.roomy-consent-btn {
+  appearance: none;
+  border: 1px solid var(--consent-border);
+  border-radius: 8px;
+  padding: 8px 14px;
+  background: transparent;
+  color: var(--consent-text);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.roomy-consent-btn:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.roomy-consent-btn--primary {
+  border-color: rgba(79, 143, 247, 0.5);
+  background: rgba(79, 143, 247, 0.18);
+  color: #dce8ff;
+}
+
+.roomy-consent-btn--primary:hover {
+  background: rgba(79, 143, 247, 0.28);
+}
+
+.roomy-consent-toggle {
+  flex-shrink: 0;
+  width: 42px;
+  height: 24px;
+  border: none;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  position: relative;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.roomy-consent-toggle[aria-checked="true"] {
+  background: var(--consent-accent);
+}
+
+.roomy-consent-toggle::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  transition: transform 0.15s ease;
+}
+
+.roomy-consent-toggle[aria-checked="true"]::after {
+  transform: translateX(18px);
+}
+
+@media (min-width: 640px) {
+  #roomy-consent {
+    left: auto;
+    right: 24px;
+    bottom: 24px;
+    margin: 0;
+  }
+}

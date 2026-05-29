@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Roomy v1.0.0 release notes — first public release for reclaiming disk space from dormant projects."
+    />
+    <title>Roomy — Release Notes v1.0.0</title>
+    <link rel="icon" href="logo.png" type="image/png" />
+    <link rel="apple-touch-icon" href="logo.png" />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@fontsource/geist-sans@5.2.5/latin.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@fontsource/geist-mono@5.2.5/latin.css"
+    />
+    <link rel="stylesheet" href="consent.css" />
+    <script src="site-config.js"></script>
+    <script src="consent.js"></script>
+    <style>
+      :root {
+        --bg-base: #0f1014;
+        --bg-elevated: #1a1b22;
+        --accent: #4f8ff7;
+        --text-primary: #ececf1;
+        --text-secondary: #9b9ba8;
+        --text-tertiary: #65656b;
+        --border-subtle: rgba(255, 255, 255, 0.08);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg-base);
+        color: var(--text-primary);
+        font-family: "Geist Sans", system-ui, -apple-system, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .wrap {
+        width: min(880px, calc(100vw - 32px));
+        margin: 0 auto;
+      }
+
+      .top {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        backdrop-filter: blur(20px);
+        background: rgba(15, 16, 20, 0.9);
+        border-bottom: 1px solid var(--border-subtle);
+      }
+
+      .top .wrap {
+        min-height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--text-primary);
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+      }
+
+      .brand img {
+        width: 24px;
+        height: 24px;
+        border-radius: 6px;
+      }
+
+      .back {
+        color: var(--text-secondary);
+        text-decoration: none;
+        font-size: 14px;
+      }
+
+      .back:hover {
+        color: var(--text-primary);
+      }
+
+      main {
+        padding: 56px 0 84px;
+      }
+
+      .kicker {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 999px;
+        border: 1px solid rgba(79, 143, 247, 0.4);
+        background: rgba(79, 143, 247, 0.14);
+        color: var(--accent);
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+      }
+
+      h1 {
+        margin: 16px 0 8px;
+        font-size: clamp(32px, 5vw, 48px);
+        line-height: 1.1;
+        letter-spacing: -0.02em;
+      }
+
+      .sub {
+        margin: 0;
+        font-size: 16px;
+        color: var(--text-secondary);
+      }
+
+      .meta {
+        margin-top: 16px;
+        color: var(--text-tertiary);
+        font-size: 13px;
+      }
+
+      .card {
+        margin-top: 28px;
+        background: var(--bg-elevated);
+        border: 1px solid var(--border-subtle);
+        border-radius: 14px;
+        padding: 28px;
+      }
+
+      h2 {
+        margin: 0 0 14px;
+        font-size: 24px;
+        letter-spacing: -0.01em;
+      }
+
+      ul {
+        margin: 0;
+        padding-left: 20px;
+      }
+
+      li {
+        margin-bottom: 10px;
+        color: var(--text-secondary);
+        line-height: 1.6;
+      }
+
+      code {
+        font-family: "Geist Mono", ui-monospace, monospace;
+        font-size: 12px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid var(--border-subtle);
+        border-radius: 6px;
+        padding: 2px 6px;
+        color: var(--text-primary);
+      }
+
+      .foot {
+        margin-top: 26px;
+        font-size: 13px;
+        color: var(--text-tertiary);
+      }
+    </style>
+  </head>
+  <body>
+    <header class="top">
+      <div class="wrap">
+        <a class="brand" href="index.html">
+          <img src="logo.png" alt="" />
+          <span>Roomy</span>
+        </a>
+        <a class="back" href="index.html">Back to landing</a>
+      </div>
+    </header>
+
+    <main>
+      <div class="wrap">
+        <span class="kicker">Release notes</span>
+        <h1>Roomy v1.0.0</h1>
+        <p class="sub">First public release. Reclaim disk space from dormant developer projects.</p>
+        <p class="meta">May 20, 2026 · macOS 13+ · Apple Silicon & Intel</p>
+
+        <section class="card">
+          <h2>Highlights</h2>
+          <ul>
+            <li>Full filesystem scan for regenerable developer artifacts across Node.js, Python, Rust, Ruby, Go, Java, and Swift projects.</li>
+            <li>Project activity classification using git history and file modification times: Active, Recent, Inactive, Dormant.</li>
+            <li>Results overview with total reclaimable space, ecosystem breakdown, and project-age distribution.</li>
+            <li>Selection review workflow with grouped artifacts and before/after storage impact preview.</li>
+            <li>Safe deletion pipeline that moves items to Trash via <code>NSWorkspace.recycle()</code> instead of permanent deletion APIs.</li>
+          </ul>
+        </section>
+
+        <section class="card">
+          <h2>What you can do in 1.0.0</h2>
+          <ul>
+            <li>Scan large developer directories and stream findings live as artifacts are discovered.</li>
+            <li>Review projects in one list and prioritize old, dormant repositories first.</li>
+            <li>Deselect any project or artifact before deletion.</li>
+            <li>Run a full cleanup session and view a detailed reclaimed-space summary.</li>
+            <li>Configure scan exclusions and reuse settings across sessions.</li>
+          </ul>
+        </section>
+
+        <section class="card">
+          <h2>Stability and quality</h2>
+          <ul>
+            <li>Native SwiftUI macOS app with a dark-first UI and responsive layouts for compact and wide windows.</li>
+            <li>Persistent scan session and last-result state so reopening Roomy does not reset context unexpectedly.</li>
+            <li>Improved deletion safeguards including countdown confirmation before destructive actions.</li>
+          </ul>
+        </section>
+
+        <p class="foot">Roomy is currently free. Future release notes will be published on this page.</p>
+        <p class="foot" style="margin-top: 20px">
+          <a href="privacy.html">Privacy</a> · <a href="cookies.html">Cookies</a> ·
+          <a href="#" onclick="window.roomyOpenCookiePreferences(); return false;">Cookie preferences</a>
+        </p>
+      </div>
+    </main>
+  </body>
+</html>

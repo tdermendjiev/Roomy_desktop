@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Roomy Privacy Policy. Roomy runs locally on your Mac and does not transmit your filenames, project contents, or personal files."
+    />
+    <title>Roomy — Privacy Policy</title>
+    <link rel="icon" href="logo.png" type="image/png" />
+    <link rel="apple-touch-icon" href="logo.png" />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@fontsource/geist-sans@5.2.5/latin.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@fontsource/geist-mono@5.2.5/latin.css"
+    />
+    <link rel="stylesheet" href="consent.css" />
+    <script src="site-config.js"></script>
+    <script src="consent.js"></script>
+    <style>
+      :root {
+        --bg-base: #0f1014;
+        --bg-elevated: #1a1b22;
+        --bg-inset: #0c0d11;
+        --accent: #4f8ff7;
+        --text-primary: #ececf1;
+        --text-secondary: #9b9ba8;
+        --text-tertiary: #65656b;
+        --border-subtle: rgba(255, 255, 255, 0.08);
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        background: var(--bg-base);
+        color: var(--text-primary);
+        font-family: "Geist Sans", system-ui, -apple-system, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        line-height: 1.6;
+      }
+
+      a { color: var(--accent); text-decoration: none; }
+      a:hover { text-decoration: underline; }
+
+      .top {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        background: rgba(15, 16, 20, 0.9);
+        border-bottom: 1px solid var(--border-subtle);
+      }
+
+      .wrap {
+        width: min(820px, calc(100vw - 32px));
+        margin: 0 auto;
+      }
+
+      .top .wrap {
+        min-height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--text-primary);
+      }
+
+      .brand img { width: 24px; height: 24px; border-radius: 6px; }
+
+      .top-links {
+        display: inline-flex;
+        align-items: center;
+        gap: 14px;
+        color: var(--text-secondary);
+        font-size: 14px;
+      }
+
+      .top-links a { color: var(--text-secondary); }
+      .top-links a:hover { color: var(--text-primary); text-decoration: none; }
+
+      main { padding: 56px 0 90px; }
+
+      .kicker {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 999px;
+        background: rgba(79, 143, 247, 0.14);
+        border: 1px solid rgba(79, 143, 247, 0.4);
+        color: var(--accent);
+        font-size: 12px;
+        font-weight: 600;
+      }
+
+      h1 {
+        margin: 14px 0 10px;
+        font-size: clamp(30px, 4.4vw, 44px);
+        line-height: 1.1;
+        letter-spacing: -0.02em;
+      }
+
+      h2 {
+        margin: 28px 0 8px;
+        font-size: 18px;
+        letter-spacing: -0.005em;
+        color: var(--text-primary);
+      }
+
+      .meta {
+        margin: 0 0 24px;
+        color: var(--text-tertiary);
+        font-size: 13px;
+      }
+
+      p, li {
+        color: var(--text-secondary);
+        font-size: 15px;
+      }
+
+      ul { padding-left: 22px; }
+      li { margin-bottom: 6px; }
+
+      .panel {
+        background: var(--bg-elevated);
+        border: 1px solid var(--border-subtle);
+        border-radius: 14px;
+        padding: 24px 28px;
+        margin-top: 24px;
+      }
+
+      strong { color: var(--text-primary); }
+
+      code {
+        font-family: "Geist Mono", ui-monospace, monospace;
+        font-size: 13px;
+        color: var(--text-primary);
+        background: rgba(255,255,255,0.04);
+        border: 1px solid var(--border-subtle);
+        border-radius: 6px;
+        padding: 2px 6px;
+      }
+
+      .footer-note {
+        margin-top: 28px;
+        font-size: 13px;
+        color: var(--text-tertiary);
+      }
+
+      .note {
+        margin-top: 12px;
+        padding: 10px 12px;
+        border-left: 3px solid var(--accent);
+        background: rgba(79, 143, 247, 0.08);
+        color: var(--text-secondary);
+        border-radius: 8px;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="top">
+      <div class="wrap">
+        <a class="brand" href="index.html">
+          <img src="logo.png" alt="" />
+          <span>Roomy</span>
+        </a>
+        <nav class="top-links">
+          <a href="index.html">Landing</a>
+          <a href="documentation.html">Docs</a>
+          <a href="cookies.html">Cookies</a>
+          <a href="eula.html">EULA</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <div class="wrap">
+        <span class="kicker">Legal</span>
+        <h1>Privacy Policy</h1>
+        <p class="meta">Last updated: May 22, 2026 · Applies to Roomy v1.0.0 and later.</p>
+
+        <div class="panel">
+          <p>
+            Roomy is a native macOS application made by <strong>Azbouki</strong>. This Privacy Policy describes
+            what information the Roomy application and its marketing website (<a href="https://getroomy.dev">getroomy.dev</a>)
+            handle, and what they do not.
+          </p>
+
+          <div class="note">
+            Roomy is designed to operate locally on Your Mac. The app does not require an account, and does not
+            transmit Your filenames, project contents, or personal files to Azbouki or any third party as part
+            of normal operation.
+          </div>
+
+          <h2>1. What Roomy does locally</h2>
+          <ul>
+            <li>Scans the filesystem locations You authorize (such as Your home folder, a custom path, or the entire Mac) to find regenerable artifact directories.</li>
+            <li>Reports recoverable artifacts and project metadata, grouped by project root.</li>
+            <li>Persists Your settings, exclusions, and a summary of Your last scan locally using <code>UserDefaults</code> and Application Support storage.</li>
+            <li>Deletes the files You select either to the system Trash or, if You enable it, permanently.</li>
+          </ul>
+
+          <h2>2. What Roomy does not do</h2>
+          <ul>
+            <li>It does not require a Roomy account, sign-up, or login.</li>
+            <li>It does not upload Your scan results, project contents, or filenames to a Roomy server.</li>
+            <li>It does not send analytics, telemetry, or crash reports to Azbouki in v1.0.0.</li>
+            <li>It does not contain in-app advertising or third-party trackers.</li>
+          </ul>
+
+          <h2>3. Marketing website</h2>
+          <p>
+            The Roomy marketing website is a static site hosted on
+            <a href="https://firebase.google.com/docs/hosting" target="_blank" rel="noopener">Google Firebase Hosting</a>.
+            When You request a page, Your browser may share standard request information (IP address, user agent,
+            referer, requested URL) with Google as the hosting provider. The Site also loads public web fonts from
+            <a href="https://www.jsdelivr.com/" target="_blank" rel="noopener">jsDelivr</a>, which may receive
+            similar request metadata.
+          </p>
+          <p>
+            <strong>Optional analytics.</strong> If You accept optional cookies on the Site, Azbouki uses
+            <strong>Google Analytics 4</strong> (enabled via our Firebase project) to understand aggregate traffic
+            and usage — for example, page views, approximate geographic region derived from IP, browser and device
+            type, and referrer. We do not use this data to identify You personally, and we configure analytics
+            without advertising personalization signals. Analytics cookies are not placed unless You opt in via the
+            cookie banner. See our <a href="cookies.html">Cookie Policy</a> for details and
+            <a href="#" onclick="window.roomyOpenCookiePreferences(); return false;">manage your choices</a>.
+          </p>
+          <p>
+            <strong>Legal basis (EEA / UK).</strong> Hosting and font delivery are based on our legitimate interest
+            in operating the Site. Analytics is based on Your consent, which You may withdraw at any time.
+          </p>
+
+          <h2>4. International transfers</h2>
+          <p>
+            Service providers such as Google may process Site data in the United States and other countries. Where
+            required, appropriate safeguards (such as standard contractual clauses) may apply as described in
+            Google's documentation.
+          </p>
+
+          <h2>5. Your privacy rights</h2>
+          <p>
+            Depending on where You live, You may have rights to access, correct, delete, or restrict processing of
+            personal information, or to object to certain processing. To exercise these rights regarding the Site,
+            contact <a href="mailto:teodor@azbouki.com">teodor@azbouki.com</a>. You may also lodge a complaint
+            with Your local data protection authority.
+          </p>
+          <p>
+            <strong>California residents.</strong> We do not sell personal information for money. When You consent to
+            analytics cookies, usage data may be shared with Google as a service provider. For more information or
+            to opt out of optional analytics on the Site, use the cookie banner or
+            <a href="#" onclick="window.roomyOpenCookiePreferences(); return false;">cookie preferences</a>.
+          </p>
+
+          <h2>6. Crash logs and macOS</h2>
+          <p>
+            macOS may collect crash logs for installed applications and may offer to share them with Apple if You
+            have opted in to Apple's diagnostics. Azbouki does not directly receive crash logs from Your Mac.
+          </p>
+
+          <h2>7. Support communications</h2>
+          <p>
+            If You contact <a href="mailto:teodor@azbouki.com">teodor@azbouki.com</a>, Azbouki will receive
+            the contents of Your message and Your email address, and may store them for the purpose of providing
+            support and improving Roomy. Please do not include sensitive personal data in support emails.
+          </p>
+
+          <h2>8. Children</h2>
+          <p>
+            Roomy is a developer-focused tool and is not directed to children under 13. Azbouki does not
+            knowingly collect personal information from children under 13.
+          </p>
+
+          <h2>9. Changes</h2>
+          <p>
+            Azbouki may update this Privacy Policy from time to time. The "Last updated" date above reflects the
+            most recent revision. Material changes will be reflected on this page.
+          </p>
+
+          <h2>10. Contact</h2>
+          <p>
+            For questions about this Privacy Policy or about Roomy's data handling, contact
+            <a href="mailto:teodor@azbouki.com">teodor@azbouki.com</a>.
+          </p>
+
+          <p class="footer-note">© 2026 Azbouki. All rights reserved.</p>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Roomy End-User License Agreement (EULA). Terms governing your use of the Roomy macOS application."
+    />
+    <title>Roomy — End-User License Agreement</title>
+    <link rel="icon" href="logo.png" type="image/png" />
+    <link rel="apple-touch-icon" href="logo.png" />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@fontsource/geist-sans@5.2.5/latin.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@fontsource/geist-mono@5.2.5/latin.css"
+    />
+    <link rel="stylesheet" href="consent.css" />
+    <script src="site-config.js"></script>
+    <script src="consent.js"></script>
+    <style>
+      :root {
+        --bg-base: #0f1014;
+        --bg-elevated: #1a1b22;
+        --bg-inset: #0c0d11;
+        --accent: #4f8ff7;
+        --text-primary: #ececf1;
+        --text-secondary: #9b9ba8;
+        --text-tertiary: #65656b;
+        --border-subtle: rgba(255, 255, 255, 0.08);
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        background: var(--bg-base);
+        color: var(--text-primary);
+        font-family: "Geist Sans", system-ui, -apple-system, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        line-height: 1.6;
+      }
+
+      a { color: var(--accent); text-decoration: none; }
+      a:hover { text-decoration: underline; }
+
+      .top {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        background: rgba(15, 16, 20, 0.9);
+        border-bottom: 1px solid var(--border-subtle);
+      }
+
+      .wrap {
+        width: min(820px, calc(100vw - 32px));
+        margin: 0 auto;
+      }
+
+      .top .wrap {
+        min-height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--text-primary);
+      }
+
+      .brand img { width: 24px; height: 24px; border-radius: 6px; }
+
+      .top-links {
+        display: inline-flex;
+        align-items: center;
+        gap: 14px;
+        color: var(--text-secondary);
+        font-size: 14px;
+      }
+
+      .top-links a { color: var(--text-secondary); }
+      .top-links a:hover { color: var(--text-primary); text-decoration: none; }
+
+      main { padding: 56px 0 90px; }
+
+      .kicker {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 999px;
+        background: rgba(79, 143, 247, 0.14);
+        border: 1px solid rgba(79, 143, 247, 0.4);
+        color: var(--accent);
+        font-size: 12px;
+        font-weight: 600;
+      }
+
+      h1 {
+        margin: 14px 0 10px;
+        font-size: clamp(30px, 4.4vw, 44px);
+        line-height: 1.1;
+        letter-spacing: -0.02em;
+      }
+
+      h2 {
+        margin: 28px 0 8px;
+        font-size: 18px;
+        letter-spacing: -0.005em;
+        color: var(--text-primary);
+      }
+
+      .meta {
+        margin: 0 0 24px;
+        color: var(--text-tertiary);
+        font-size: 13px;
+      }
+
+      p, li {
+        color: var(--text-secondary);
+        font-size: 15px;
+      }
+
+      ul { padding-left: 22px; }
+      li { margin-bottom: 6px; }
+
+      .panel {
+        background: var(--bg-elevated);
+        border: 1px solid var(--border-subtle);
+        border-radius: 14px;
+        padding: 24px 28px;
+        margin-top: 24px;
+      }
+
+      .uppercase {
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        font-size: 12px;
+        color: var(--text-tertiary);
+        font-weight: 600;
+      }
+
+      strong { color: var(--text-primary); }
+
+      code {
+        font-family: "Geist Mono", ui-monospace, monospace;
+        font-size: 13px;
+        color: var(--text-primary);
+        background: rgba(255,255,255,0.04);
+        border: 1px solid var(--border-subtle);
+        border-radius: 6px;
+        padding: 2px 6px;
+      }
+
+      .footer-note {
+        margin-top: 28px;
+        font-size: 13px;
+        color: var(--text-tertiary);
+      }
+    </style>
+  </head>
+  <body>
+    <header class="top">
+      <div class="wrap">
+        <a class="brand" href="index.html">
+          <img src="logo.png" alt="" />
+          <span>Roomy</span>
+        </a>
+        <nav class="top-links">
+          <a href="index.html">Landing</a>
+          <a href="documentation.html">Docs</a>
+          <a href="privacy.html">Privacy</a>
+          <a href="cookies.html">Cookies</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <div class="wrap">
+        <span class="kicker">Legal</span>
+        <h1>End-User License Agreement</h1>
+        <p class="meta">Last updated: May 20, 2026 · Applies to Roomy v1.0.0 and later, until superseded.</p>
+
+        <div class="panel">
+          <p>
+            This End-User License Agreement (the <strong>"Agreement"</strong>) is a legal agreement between you
+            (<strong>"You"</strong> or <strong>"Licensee"</strong>) and <strong>Azbouki</strong> (the
+            <strong>"Licensor"</strong>) for the use of the macOS application named <strong>"Roomy"</strong>,
+            including the executable, accompanying files, fonts, images, documentation, updates, and any related
+            materials (collectively, the <strong>"Software"</strong>).
+          </p>
+          <p>
+            BY DOWNLOADING, INSTALLING, OR USING THE SOFTWARE, YOU AGREE TO BE BOUND BY THIS AGREEMENT.
+            IF YOU DO NOT AGREE, DO NOT DOWNLOAD, INSTALL, OR USE THE SOFTWARE.
+          </p>
+
+          <h2>1. License Grant</h2>
+          <p>Subject to Your compliance with this Agreement, the Licensor grants You a personal, non-exclusive,
+          non-transferable, non-sublicensable, revocable license to:</p>
+          <ul>
+            <li>install and use the Software on Mac computers that You own or control, for Your personal or internal business use; and</li>
+            <li>make one copy of the Software solely for backup purposes.</li>
+          </ul>
+          <p>The Software is <strong>licensed, not sold</strong>. No title or ownership rights in the Software are transferred to You.</p>
+
+          <h2>2. Restrictions</h2>
+          <p>You shall not, and shall not permit any third party to:</p>
+          <ul>
+            <li>copy, distribute, sublicense, lease, rent, lend, sell, resell, or otherwise transfer the Software;</li>
+            <li>modify, adapt, translate, or create derivative works based on the Software;</li>
+            <li>reverse engineer, decompile, disassemble, or otherwise attempt to derive the source code, except to the extent such restriction is expressly prohibited by applicable law;</li>
+            <li>remove, alter, or obscure any proprietary notices on or in the Software;</li>
+            <li>use the Software to develop a competing product or service; or</li>
+            <li>use the Software in violation of any applicable law or regulation.</li>
+          </ul>
+
+          <h2>3. Ownership</h2>
+          <p>
+            The Software is protected by copyright and other intellectual property laws and treaties. The Licensor
+            and its licensors own all right, title, and interest in and to the Software, including all intellectual
+            property rights. All rights not expressly granted to You are reserved.
+          </p>
+
+          <h2>4. Updates</h2>
+          <p>
+            The Licensor may, but is not obligated to, provide updates, upgrades, patches, or new versions of the
+            Software. Any such updates are considered part of the Software and are governed by this Agreement unless
+            accompanied by a separate license.
+          </p>
+
+          <h2>5. Local Operation and Data</h2>
+          <p>
+            Roomy operates locally on Your Mac. It scans the filesystem locations You authorize and reports
+            recoverable artifacts. The Licensor does not collect, transmit, or store Your scanned filenames,
+            project contents, or personal files as part of normal operation. See the
+            <a href="privacy.html">Privacy Policy</a> for further details.
+          </p>
+
+          <h2>6. Deletion of Files</h2>
+          <p>
+            The Software includes functionality that deletes files at Your direction. <strong>You are solely
+            responsible</strong> for selecting which files to delete and for confirming each deletion. The Licensor
+            is not responsible for any data loss arising from Your use of these features, regardless of whether
+            deletion is performed via the system Trash or as a permanent removal.
+          </p>
+
+          <h2>7. Third-Party Components</h2>
+          <p>
+            The Software and its accompanying website may include or rely upon third-party components governed by
+            their own licenses. Such components are listed in <code>THIRD_PARTY_NOTICES.md</code> in the Roomy
+            source repository. The terms of those licenses apply to those components.
+          </p>
+
+          <h2>8. Trademarks</h2>
+          <p>
+            "Roomy" and any associated logos and design marks are trademarks of the Licensor. Nothing in this
+            Agreement grants You any right to use the Licensor's trademarks, trade names, or branding without prior
+            written permission.
+          </p>
+
+          <h2>9. Termination</h2>
+          <p>
+            This Agreement is effective until terminated. It will terminate automatically and without notice if You
+            fail to comply with any of its terms. Upon termination, You must cease all use of the Software and
+            destroy all copies in Your possession or control. Sections 2, 3, 6, 10, 11, 12, and 13 survive termination.
+          </p>
+
+          <h2>10. Disclaimer of Warranties</h2>
+          <p>
+            THE SOFTWARE IS PROVIDED <strong>"AS IS"</strong> AND <strong>"AS AVAILABLE"</strong>, WITHOUT WARRANTY
+            OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY WARRANTIES OF MERCHANTABILITY, FITNESS
+            FOR A PARTICULAR PURPOSE, NONINFRINGEMENT, ACCURACY, OR QUIET ENJOYMENT. THE LICENSOR DOES NOT WARRANT
+            THAT THE SOFTWARE WILL BE UNINTERRUPTED, ERROR-FREE, OR FREE OF HARMFUL COMPONENTS.
+          </p>
+
+          <h2>11. Limitation of Liability</h2>
+          <p>
+            TO THE MAXIMUM EXTENT PERMITTED BY LAW, IN NO EVENT SHALL THE LICENSOR BE LIABLE FOR ANY INDIRECT,
+            INCIDENTAL, SPECIAL, CONSEQUENTIAL, EXEMPLARY, OR PUNITIVE DAMAGES, OR FOR ANY LOSS OF PROFITS, DATA,
+            BUSINESS, OR GOODWILL, ARISING OUT OF OR RELATED TO THIS AGREEMENT OR THE SOFTWARE, EVEN IF ADVISED OF
+            THE POSSIBILITY OF SUCH DAMAGES. THE LICENSOR'S TOTAL CUMULATIVE LIABILITY ARISING OUT OF OR RELATED
+            TO THIS AGREEMENT OR THE SOFTWARE SHALL NOT EXCEED THE GREATER OF (A) THE AMOUNT, IF ANY, YOU PAID
+            FOR THE SOFTWARE DURING THE TWELVE (12) MONTHS PRECEDING THE EVENT GIVING RISE TO LIABILITY, OR
+            (B) USD&nbsp;$50.
+          </p>
+
+          <h2>12. Export and Compliance</h2>
+          <p>You agree to comply with all applicable export, re-export, and trade sanctions laws and regulations.</p>
+
+          <h2>13. Governing Law</h2>
+          <p>
+            This Agreement is governed by and construed in accordance with the laws of the jurisdiction in which
+            the Licensor is established, without regard to its conflict-of-laws principles. Any dispute arising out
+            of or in connection with this Agreement shall be subject to the exclusive jurisdiction of the courts of
+            that jurisdiction.
+          </p>
+
+          <h2>14. Entire Agreement; Severability</h2>
+          <p>
+            This Agreement constitutes the entire agreement between You and the Licensor concerning the Software
+            and supersedes all prior or contemporaneous communications and proposals. If any provision is held to
+            be unenforceable, the remaining provisions shall remain in full force and effect.
+          </p>
+
+          <h2>15. Changes to this Agreement</h2>
+          <p>
+            The Licensor may modify this Agreement from time to time. The "Last updated" date above reflects the
+            most recent revision. Continued use of the Software after such changes constitutes Your acceptance of
+            the revised Agreement.
+          </p>
+
+          <h2>16. Contact</h2>
+          <p>
+            For questions regarding this Agreement, contact:
+            <a href="mailto:teodor@azbouki.com">teodor@azbouki.com</a>.
+          </p>
+
+          <p class="footer-note">© 2026 Azbouki. All rights reserved.</p>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

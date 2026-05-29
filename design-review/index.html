@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Roomy — Design review (01 &amp; 02)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">?</span>
+        <span>Roomy design review</span>
+      </div>
+      <nav class="nav" aria-label="Sections">
+        <a href="#visual-identity">01 Visual identity</a>
+        <a href="#app-icon">02 App icon</a>
+      </nav>
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle color theme">
+        Light mode
+      </button>
+    </header>
+
+    <main>
+      <section id="visual-identity" class="section">
+        <div class="section-head">
+          <p class="section-kicker">Step 1.1 · roomy_01_visual_identity.md</p>
+          <h1>Visual identity &amp; design language</h1>
+          <p>
+            Living reference for tokens, type, spacing, and component states. UI font:
+            <strong>DM Sans</strong>; monospace: <strong>JetBrains Mono</strong> (stand-ins for Geist /
+            Geist Mono). Brand mark in the header is a placeholder until the real icon ships.
+          </p>
+        </div>
+
+        <div class="grid-2" style="margin-bottom: 20px">
+          <div class="card">
+            <h3>Personality</h3>
+            <p class="body" style="margin: 0; color: var(--text-secondary)">
+              Precision tool for developers — Raycast meets Linear meets a quality CLI. Dark-first,
+              dense but calm, monospace for technical data.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Tagline options</h3>
+            <ul class="voice-list" style="margin: 0">
+              <li>Reclaim disk space from dormant projects.</li>
+              <li>Make room. Delete nothing permanent.</li>
+              <li>Your projects are hoarding. Roomy helps.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom: 20px">
+          <h3>Accent &amp; surfaces</h3>
+          <div class="token-grid" style="margin-top: 12px">
+            <div class="token-swatch">
+              <div class="chip" style="background: var(--accent); height: 48px"></div>
+              <div class="meta"><strong>--accent</strong>Primary actions</div>
+            </div>
+            <div class="token-swatch">
+              <div class="chip" style="background: var(--accent-hover); height: 48px"></div>
+              <div class="meta"><strong>--accent-hover</strong>Hover</div>
+            </div>
+            <div class="token-swatch">
+              <div class="chip" style="background: var(--accent-subtle); height: 48px"></div>
+              <div class="meta"><strong>--accent-subtle</strong>Selection tint</div>
+            </div>
+            <div class="token-swatch">
+              <div class="chip" style="background: var(--bg-base); height: 48px; border-bottom: 1px solid var(--border-subtle)"></div>
+              <div class="meta"><strong>--bg-base</strong>Window</div>
+            </div>
+            <div class="token-swatch">
+              <div class="chip" style="background: var(--bg-elevated); height: 48px"></div>
+              <div class="meta"><strong>--bg-elevated</strong>Panels</div>
+            </div>
+            <div class="token-swatch">
+              <div class="chip" style="background: var(--bg-inset); height: 48px"></div>
+              <div class="meta"><strong>--bg-inset</strong>Inputs</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom: 20px">
+          <h3>Text &amp; borders</h3>
+          <div class="token-grid" style="margin-top: 12px">
+            <div class="token-swatch">
+              <div class="chip" style="background: var(--text-primary); height: 48px"></div>
+              <div class="meta"><strong>--text-primary</strong></div>
+            </div>
+            <div class="token-swatch">
+              <div class="chip" style="background: var(--text-secondary); height: 48px"></div>
+              <div class="meta"><strong>--text-secondary</strong></div>
+            </div>
+            <div class="token-swatch">
+              <div class="chip" style="background: var(--text-tertiary); height: 48px"></div>
+              <div class="meta"><strong>--text-tertiary</strong></div>
+            </div>
+            <div class="token-swatch">
+              <div class="chip" style="background: var(--border-subtle); height: 48px"></div>
+              <div class="meta"><strong>--border-subtle</strong></div>
+            </div>
+            <div class="token-swatch">
+              <div class="chip" style="background: var(--border-default); height: 48px"></div>
+              <div class="meta"><strong>--border-default</strong></div>
+            </div>
+            <div class="token-swatch">
+              <div class="chip" style="background: var(--border-strong); height: 48px"></div>
+              <div class="meta"><strong>--border-strong</strong></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom: 20px">
+          <h3>Status colors (semantic)</h3>
+          <p class="caption" style="margin: 0 0 12px">
+            <code class="mono-sm">--status-recent</code> is cyan-leaning so it reads apart from
+            <code class="mono-sm">--accent</code>.
+          </p>
+          <div class="status-row">
+            <div class="status-pill" style="background: var(--status-active-bg)">
+              <span class="dot" style="background: var(--status-active)"></span>
+              <span style="color: var(--status-active-text)">Active · 12 days ago</span>
+            </div>
+            <div class="status-pill" style="background: var(--status-recent-bg)">
+              <span class="dot" style="background: var(--status-recent)"></span>
+              <span style="color: var(--status-recent-text)">Recent · 4 months ago</span>
+            </div>
+            <div class="status-pill" style="background: var(--status-inactive-bg)">
+              <span class="dot" style="background: var(--status-inactive)"></span>
+              <span style="color: var(--status-inactive-text)">Inactive · 18 months ago</span>
+            </div>
+            <div class="status-pill" style="background: var(--status-dormant-bg)">
+              <span class="dot" style="background: var(--status-dormant)"></span>
+              <span style="color: var(--status-dormant-text)">Dormant · 3 years ago</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom: 20px">
+          <h3>Danger</h3>
+          <div class="token-grid" style="margin-top: 12px">
+            <div class="token-swatch">
+              <div class="chip" style="background: var(--danger); height: 48px"></div>
+              <div class="meta"><strong>--danger</strong></div>
+            </div>
+            <div class="token-swatch">
+              <div class="chip" style="background: var(--danger-hover); height: 48px"></div>
+              <div class="meta"><strong>--danger-hover</strong></div>
+            </div>
+            <div class="token-swatch">
+              <div class="chip" style="background: var(--danger-subtle); height: 48px"></div>
+              <div class="meta"><strong>--danger-subtle</strong></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-2" style="margin-bottom: 20px">
+          <div class="card">
+            <h3>Typography scale</h3>
+            <div class="type-sample">
+              <div class="label">display · 28/600/1.2</div>
+              <div class="display">47.3 GB reclaimed</div>
+            </div>
+            <div class="type-sample">
+              <div class="label">title-lg · 20/600</div>
+              <div class="title-lg">Scan complete</div>
+            </div>
+            <div class="type-sample">
+              <div class="label">title-md · 16/600</div>
+              <div class="title-md">Selected projects</div>
+            </div>
+            <div class="type-sample">
+              <div class="label">body / body-medium</div>
+              <div class="body">Primary content at 14px regular.</div>
+              <div class="body-medium" style="margin-top: 4px">Emphasized total or selection.</div>
+            </div>
+            <div class="type-sample">
+              <div class="label">label / label-medium</div>
+              <div class="label-t">~/projects/legacy-app — last commit Mar 2021</div>
+              <div class="label-medium" style="margin-top: 4px; color: var(--status-dormant-text)">Dormant</div>
+            </div>
+            <div class="type-sample">
+              <div class="label">caption</div>
+              <div class="caption">Holds npm dependencies. Safe to delete; run npm install to restore.</div>
+            </div>
+            <div class="type-sample">
+              <div class="label">mono-body / mono-sm</div>
+              <div class="mono-body">~/projects/old-cli…/node_modules</div>
+              <div class="mono-sm" style="margin-top: 4px">a1b2c3d</div>
+            </div>
+          </div>
+          <div class="card">
+            <h3>Spacing (4px base)</h3>
+            <div class="spacing-row" style="margin-top: 12px">
+              <div class="spacing-block">
+                <div class="bar" style="width: 4px; height: 4px"></div>
+                <span>4</span>
+              </div>
+              <div class="spacing-block">
+                <div class="bar" style="width: 8px; height: 8px"></div>
+                <span>8</span>
+              </div>
+              <div class="spacing-block">
+                <div class="bar" style="width: 12px; height: 12px"></div>
+                <span>12</span>
+              </div>
+              <div class="spacing-block">
+                <div class="bar" style="width: 16px; height: 16px"></div>
+                <span>16</span>
+              </div>
+              <div class="spacing-block">
+                <div class="bar" style="width: 20px; height: 20px"></div>
+                <span>20</span>
+              </div>
+              <div class="spacing-block">
+                <div class="bar" style="width: 24px; height: 24px"></div>
+                <span>24</span>
+              </div>
+              <div class="spacing-block">
+                <div class="bar" style="width: 32px; height: 32px"></div>
+                <span>32</span>
+              </div>
+            </div>
+            <h3 style="margin-top: 24px">Elevation (no decorative shadow)</h3>
+            <div class="elevation-stack" style="margin-top: 12px">
+              <div class="layer" style="background: var(--bg-base)">
+                bg-base
+                <small>main window</small>
+              </div>
+              <div class="layer" style="background: var(--bg-elevated)">
+                bg-elevated
+                <small>sidebar / toolbar</small>
+              </div>
+              <div class="layer" style="background: var(--bg-inset)">
+                bg-inset
+                <small>wells, inputs</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Component states (reference)</h3>
+          <div class="components">
+            <div class="comp-block">
+              <h4>Primary (accent)</h4>
+              <div class="btn-row">
+                <button type="button" class="btn btn-primary">Default</button>
+                <button type="button" class="btn btn-primary" style="background: var(--accent-hover)">Hover</button>
+                <button type="button" class="btn btn-primary" style="opacity: 0.85; transform: scale(0.98)">Pressed</button>
+                <button type="button" class="btn btn-primary" disabled>Disabled</button>
+                <button type="button" class="btn btn-primary"><span class="spinner" aria-hidden="true"></span>Loading</button>
+              </div>
+            </div>
+            <div class="comp-block">
+              <h4>Destructive</h4>
+              <div class="btn-row">
+                <button type="button" class="btn btn-danger">Delete 31.4 GB</button>
+                <button type="button" class="btn btn-danger" style="background: var(--danger-hover)">Hover</button>
+                <button type="button" class="btn btn-danger" disabled>Disabled</button>
+                <button type="button" class="btn btn-danger" id="btn-countdown">Countdown (demo)</button>
+              </div>
+            </div>
+            <div class="comp-block">
+              <h4>Ghost / secondary</h4>
+              <div class="btn-row">
+                <button type="button" class="btn btn-ghost">Default</button>
+                <button type="button" class="btn btn-ghost" style="background: var(--bg-hover)">Hover</button>
+                <button type="button" class="btn btn-ghost" style="opacity: 0.7; transform: scale(0.98)">Pressed</button>
+                <button type="button" class="btn btn-ghost" disabled>Disabled</button>
+              </div>
+            </div>
+            <div class="comp-block">
+              <h4>Project row</h4>
+              <div style="display: flex; flex-direction: column; gap: 8px">
+                <div class="project-row">
+                  <div class="checkbox" aria-hidden="true"></div>
+                  <div>
+                    <div class="body-medium">legacy-dashboard</div>
+                    <div class="path">~/projects/legacy-dashboard</div>
+                  </div>
+                </div>
+                <div class="project-row" style="background: var(--bg-hover)">
+                  <div class="checkbox" aria-hidden="true"></div>
+                  <div>
+                    <div class="body-medium">Hover state</div>
+                    <div class="path">~/projects/example</div>
+                  </div>
+                </div>
+                <div class="project-row selected">
+                  <div class="checkbox checked" aria-hidden="true">
+                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+                      <path d="M2 5l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                    </svg>
+                  </div>
+                  <div>
+                    <div class="body-medium">Selected</div>
+                    <div class="path">~/projects/selected</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="comp-block">
+              <h4>Checkbox</h4>
+              <div class="btn-row" style="align-items: center">
+                <div class="checkbox" aria-hidden="true" title="unchecked"></div>
+                <div class="checkbox" style="border-color: var(--accent)" aria-hidden="true" title="hover"></div>
+                <div class="checkbox checked" aria-hidden="true">
+                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                    <path d="M2 5l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                  </svg>
+                </div>
+                <div class="checkbox indeterminate" aria-hidden="true">
+                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                    <path d="M2 5h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div class="comp-block">
+              <h4>Input</h4>
+              <div class="btn-row" style="flex-direction: column; align-items: flex-start">
+                <input class="input" type="text" placeholder="Scan path…" />
+                <input class="input" type="text" value="~/projects" style="margin-top: 8px" />
+                <input class="input error" type="text" value="Invalid path" style="margin-top: 8px" aria-invalid="true" />
+              </div>
+            </div>
+            <div class="comp-block">
+              <h4>Chip / filter</h4>
+              <div class="btn-row">
+                <span class="chip">All</span>
+                <span class="chip" style="background: var(--bg-hover)">Hover</span>
+                <span class="chip active">Dormant only</span>
+              </div>
+            </div>
+            <div class="comp-block">
+              <h4>Tooltip</h4>
+              <div class="tooltip-bubble">
+                <strong style="color: var(--text-primary)">node_modules</strong><br />
+                npm dependency cache. Run <code>npm install</code> to restore. Safe to delete.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top: 20px">
+          <h3>Brand voice (microcopy)</h3>
+          <ul class="voice-list">
+            <li><strong style="color: var(--text-primary)">Empty:</strong> Nothing to clean up in ~/projects</li>
+            <li><strong style="color: var(--text-primary)">Confirm:</strong> Move 31.4 GB to Trash</li>
+            <li><strong style="color: var(--text-primary)">Done:</strong> 31.4 GB reclaimed</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="app-icon" class="section">
+        <div class="section-head">
+          <p class="section-kicker">Step 1.2 · roomy_02_app_icon.md</p>
+          <h2>App icon concepts</h2>
+          <p>
+            Placeholder mark inside a squircle (≈22% radius — not Apple’s exact superellipse). Three
+            directions from the brief sketched in SVG for discussion; final artwork will replace these.
+          </p>
+        </div>
+
+        <div class="card" style="margin-bottom: 20px">
+          <div class="icon-hero">
+            <div class="squircle" aria-label="Placeholder app icon master">
+              <!-- Placeholder: abstract “room / frame” -->
+              <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <rect x="12" y="18" width="40" height="36" rx="3" stroke="#4f8ff7" stroke-width="2.5" />
+                <path d="M20 26h24M20 34h18" stroke="#4f8ff7" stroke-width="2" stroke-linecap="round" opacity="0.5" />
+                <circle cx="44" cy="44" r="3" fill="#4f8ff7" opacity="0.85" />
+              </svg>
+            </div>
+            <div>
+              <h3 style="margin: 0 0 8px; font-size: 16px">Master placeholder (1024×1024 stand-in)</h3>
+              <p class="label-t" style="margin: 0; color: var(--text-secondary); max-width: 52ch">
+                Deep blue-black field, electric blue strokes. This is only for layout review — not final
+                silhouette or color tuning.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="concept-grid" style="margin-bottom: 20px">
+          <div class="concept-card">
+            <h3>Concept A — Expanding room</h3>
+            <p>Isometric room outline, mostly empty floor; one small dot / stack in the corner.</p>
+            <div class="concept-preview">
+              <svg viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 55 L60 30 L100 55 L60 68 Z" stroke="#4f8ff7" stroke-width="2" />
+                <path d="M20 55 L20 38 L60 18 L60 30" stroke="#4f8ff7" stroke-width="2" />
+                <path d="M60 18 L100 38 L100 55" stroke="#4f8ff7" stroke-width="2" />
+                <rect x="72" y="48" width="6" height="6" rx="1" fill="#4f8ff7" opacity="0.7" />
+              </svg>
+            </div>
+          </div>
+          <div class="concept-card">
+            <h3>Concept B — Receding boxes</h3>
+            <p>Compressed blocks on one side, open accent field on the other; implied motion.</p>
+            <div class="concept-preview">
+              <svg viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="18" y="28" width="22" height="22" rx="2" stroke="#71717a" stroke-width="2" />
+                <rect x="28" y="38" width="22" height="22" rx="2" stroke="#71717a" stroke-width="2" opacity="0.85" />
+                <rect x="38" y="48" width="22" height="22" rx="2" stroke="#71717a" stroke-width="2" opacity="0.7" />
+                <path d="M78 40 L98 40 M88 32 L98 40 L88 48" stroke="#4f8ff7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <rect x="72" y="24" width="36" height="40" rx="3" fill="#4f8ff7" opacity="0.12" />
+              </svg>
+            </div>
+          </div>
+          <div class="concept-card">
+            <h3>Concept C — Negative space</h3>
+            <p>Solid accent field with white / near-white cut-out chevrons or letterform void.</p>
+            <div class="concept-preview" style="background: #4f8ff7">
+              <svg viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M35 55 L55 25 L75 55 M65 55 L85 25 L105 55" stroke="#f8fafc" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3>Size ladder (scaled preview)</h3>
+            <p class="caption" style="margin: 0 0 8px">Same placeholder scaled — real delivery needs per-size tuning.</p>
+            <div class="size-ladder">
+              <div class="size-item">
+                <div class="box" style="width: 64px; height: 64px">
+                  <svg viewBox="0 0 64 64" width="40" height="40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="12" y="18" width="40" height="36" rx="3" stroke="#4f8ff7" stroke-width="2.5" />
+                    <circle cx="44" cy="44" r="3" fill="#4f8ff7" />
+                  </svg>
+                </div>
+                <span>64</span>
+              </div>
+              <div class="size-item">
+                <div class="box" style="width: 48px; height: 48px">
+                  <svg viewBox="0 0 64 64" width="30" height="30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="12" y="18" width="40" height="36" rx="3" stroke="#4f8ff7" stroke-width="2.5" />
+                    <circle cx="44" cy="44" r="3" fill="#4f8ff7" />
+                  </svg>
+                </div>
+                <span>48</span>
+              </div>
+              <div class="size-item">
+                <div class="box" style="width: 32px; height: 32px">
+                  <svg viewBox="0 0 64 64" width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="12" y="18" width="40" height="36" rx="3" stroke="#4f8ff7" stroke-width="2.5" />
+                    <circle cx="44" cy="44" r="3" fill="#4f8ff7" />
+                  </svg>
+                </div>
+                <span>32</span>
+              </div>
+              <div class="size-item">
+                <div class="box" style="width: 16px; height: 16px">
+                  <svg viewBox="0 0 64 64" width="10" height="10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="12" y="18" width="40" height="36" rx="3" stroke="#4f8ff7" stroke-width="2.5" />
+                    <circle cx="44" cy="44" r="3" fill="#4f8ff7" />
+                  </svg>
+                </div>
+                <span>16</span>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <h3>Dock context (mock)</h3>
+            <p class="caption" style="margin: 0 0 8px">Roomy placeholder next to generic “app” tiles.</p>
+            <div class="dock-mock">
+              <div class="dock-icon">IDE</div>
+              <div class="dock-icon">Term</div>
+              <div class="dock-icon roomy" aria-label="Roomy">
+                <svg viewBox="0 0 64 64" fill="none" width="30" height="30">
+                  <rect x="12" y="18" width="40" height="36" rx="3" stroke="#4f8ff7" stroke-width="2.5" />
+                  <circle cx="44" cy="44" r="3" fill="#4f8ff7" />
+                </svg>
+              </div>
+              <div class="dock-icon">Find</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-2" style="margin-top: 20px">
+          <div class="card">
+            <h3>16px template (monochrome stand-in)</h3>
+            <p class="caption" style="margin: 0 0 8px">Single-color silhouette for Finder sidebar exploration.</p>
+            <div style="display: flex; align-items: center; gap: 16px">
+              <div class="mono-icon-demo" title="16px mono placeholder"></div>
+              <span class="mono-sm" style="color: var(--text-tertiary)">Filled rounded square — replace with real glyph</span>
+            </div>
+          </div>
+          <div class="card">
+            <h3>16px @ 400% zoom</h3>
+            <p class="caption" style="margin: 0 0 8px">Pixelated scale for legibility check.</p>
+            <div class="px-zoom">
+              <div class="zoom-box">
+                <svg width="16" height="16" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="12" y="18" width="40" height="36" rx="3" stroke="#4f8ff7" stroke-width="2.5" />
+                  <circle cx="44" cy="44" r="3" fill="#4f8ff7" />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <p class="footer-note">
+        Open this folder in a browser: <code class="mono-sm">design-review/index.html</code>. Next up:
+        <code class="mono-sm">roomy_03_component_library.md</code>.
+      </p>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>

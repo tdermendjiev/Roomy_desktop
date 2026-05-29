@@ -1,0 +1,10 @@
+# Firebase
+.firebase/
+firebase-debug.log
+firebase-debug.*.log
+
+# Node (firebase-tools for deploy)
+node_modules/
+
+# macOS
+.DS_Store

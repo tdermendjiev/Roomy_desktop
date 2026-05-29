@@ -1,0 +1,10 @@
+{
+  "name": "roomy",
+  "private": true,
+  "scripts": {
+    "deploy:landing": "firebase deploy --only hosting"
+  },
+  "devDependencies": {
+    "firebase-tools": "^15.18.0"
+  }
+}
