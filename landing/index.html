@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Roomy scans your projects for regenerable artifacts and helps you reclaim disk space from dormant projects. Native macOS. Free."
+      content="Roomy scans projects and developer system caches — node_modules, DerivedData, Docker, Homebrew — and helps you reclaim disk space safely. Native macOS. Free."
     />
     <title>Roomy — Reclaim disk space from dormant projects</title>
     <link rel="icon" href="logo.png" type="image/png" />
@@ -52,13 +52,13 @@
           <p class="eyebrow">Native macOS · Free · No account required</p>
           <h1 class="hero-title" id="hero-title">47 GB of node_modules. You had no idea.</h1>
           <p class="body-lg hero-sub">
-            Roomy scans your projects for regenerable artifacts — node_modules, Python venvs, Rust target directories — and helps you reclaim disk space from projects you abandoned years ago. Nothing permanent. Everything safe.
+            Roomy scans your projects for regenerable artifacts — node_modules, Python venvs, Rust target directories — and hunts down system caches you forgot about: Xcode DerivedData, npm and pip caches, Homebrew, Docker, and more. Nothing permanent by default. Everything reviewed first.
           </p>
           <div class="hero-ctas">
             <a href="#features" class="btn btn-hero-secondary cta-text">See features</a>
             <a href="#download" class="btn btn-hero-primary cta-text">Download</a>
           </div>
-          <p class="hero-meta">macOS 13+ · Apple Silicon &amp; Intel · Free · v1.0.0</p>
+          <p class="hero-meta">macOS 13+ · Apple Silicon &amp; Intel · Free · v1.1.0</p>
         </div>
 
         <div class="hero-window-wrap">
@@ -163,6 +163,68 @@
         </div>
       </section>
 
+      <!-- 04b Feature — System caches -->
+      <section class="section-pad wrap">
+        <div class="feature-grid feature-grid--shot-right">
+          <div class="copy-col">
+            <h2 class="section-title reveal" data-reveal>40 GB of DerivedData. Not in any project folder.</h2>
+            <p class="body-lg reveal reveal-delay-1" data-reveal style="margin-top: 16px; max-width: 480px">
+              Developer bloat lives outside your repos too. Roomy runs a second scan pass for fixed-path system caches — the folders that grow silently while you work.
+            </p>
+            <ul class="feature-bullets reveal reveal-delay-2" data-reveal>
+              <li>Xcode DerivedData, simulators, device support, and archives</li>
+              <li>Global npm, pip, yarn, pnpm, NuGet, Poetry, and uv caches</li>
+              <li>Homebrew, Conda, pyenv, Docker images, volumes, and build cache</li>
+              <li>Safety tiers — Safe, Review, Irreversible — so you know what you're deleting</li>
+              <li>Toggle each category in Settings; scans run even when your project path is narrow</li>
+            </ul>
+          </div>
+          <div class="mock-col reveal reveal-shot reveal-delay-shot" data-reveal>
+            <div class="parallax-layer" data-parallax>
+            <div class="mac-window">
+              <div class="mac-titlebar">
+                <div class="traffic" aria-hidden="true">
+                  <span class="r"></span><span class="y"></span><span class="g"></span>
+                </div>
+                <div class="titlebar-title">Roomy — Projects</div>
+              </div>
+              <div class="mock-s04">
+                <div class="mock-row active" style="border-left: 2px solid var(--accent); padding-left: 10px">
+                  <div>
+                    <div class="mock-path">Xcode &amp; iOS tooling</div>
+                    <div class="mock-meta">DerivedData · Simulators · Device Support</div>
+                  </div>
+                  <span>18.4 GB</span>
+                </div>
+                <div class="mock-row active" style="border-left: 2px solid var(--accent); padding-left: 10px">
+                  <div>
+                    <div class="mock-path">Global package caches</div>
+                    <div class="mock-meta">npm · pip · pnpm · NuGet</div>
+                  </div>
+                  <span>6.1 GB</span>
+                </div>
+                <div class="mock-row active" style="border-left: 2px solid var(--accent); padding-left: 10px">
+                  <div>
+                    <div class="mock-path">Docker</div>
+                    <div class="mock-meta">Images · volumes · build cache</div>
+                  </div>
+                  <span>12.8 GB</span>
+                </div>
+                <div class="mock-row dormant">
+                  <span class="status-dot" style="background: var(--status-dormant)"></span>
+                  <div>
+                    <div class="mock-path">~/Dev/old-spa</div>
+                    <div class="mock-meta">Dormant · node_modules</div>
+                  </div>
+                  <span>6.2 GB</span>
+                </div>
+              </div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- 05 Feature 2 -->
       <section class="section-pad wrap">
         <div class="feature-grid feature-grid--shot-right">
@@ -263,12 +325,13 @@
           <div class="copy-col">
             <h2 class="section-title reveal" data-reveal>Nothing gets deleted without your say.</h2>
             <p class="body-lg reveal reveal-delay-1" data-reveal style="margin-top: 16px; max-width: 480px">
-              Browse every project, understand every artifact, deselect anything you're not sure about. Roomy shows you exactly what will move to Trash before you commit — and it always goes to Trash, never permanently deleted.
+              Browse every project and system cache, understand every artifact, deselect anything you're not sure about. Roomy shows you exactly what will be removed before you commit — project files go to Trash by default; Docker and Conda cleanup runs via their native CLIs.
             </p>
             <ul class="feature-bullets reveal reveal-delay-2" data-reveal>
-              <li>Every artifact explained in plain language</li>
+              <li>Every artifact explained in plain language with safety badges</li>
               <li>Remove individual items from the deletion list at any time</li>
-              <li>Moves to Trash — restoreable anytime before you empty it</li>
+              <li>Project artifacts move to Trash — restoreable before you empty it</li>
+              <li>Extra warnings for irreversible items like Xcode Archives and Docker volumes</li>
             </ul>
             <div class="trust-callout reveal" data-reveal>
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="flex-shrink: 0; color: var(--accent)">
@@ -281,7 +344,7 @@
               </svg>
               <p>
                 <strong class="caption-strong" style="color: var(--text-primary); display: block; margin-bottom: 4px">Safe by design</strong>
-                Roomy uses <span class="mono">NSWorkspace.recycle()</span> — the macOS API for moving to Trash. It never calls <span class="mono">FileManager.removeItem()</span>. Your files are not permanently deleted.
+                Project artifacts use <span class="mono">NSWorkspace.recycle()</span> — the macOS Trash API. Irreversible items get an extra warning before deletion. Docker and Conda cleanups use their official CLI tools, not Trash.
               </p>
             </div>
           </div>
@@ -295,7 +358,7 @@
             <h2 class="section-title">31.4 GB reclaimed.</h2>
             <p class="section-title" style="margin-top: 8px; color: var(--text-secondary)">In under 5 minutes.</p>
             <p class="body-lg result-sub">
-              That's what a developer with 3 years of project history typically recovers on their first scan. node_modules alone accounts for ~65% of it. The rest is Python venvs, Rust build artifacts, and Xcode caches you forgot existed.
+              That's what a developer with 3 years of project history typically recovers on their first scan. node_modules alone accounts for ~65% of it. The rest is Python venvs, Rust build artifacts, and system caches — DerivedData, Docker layers, and npm caches you forgot existed.
             </p>
           </div>
           <div class="result-window reveal reveal-shot" data-reveal>
@@ -404,6 +467,14 @@
             <h4>Do I need an account?</h4>
             <p>No. Download and run. Nothing to sign up for.</p>
           </div>
+          <div class="faq-item reveal reveal-delay-3" data-reveal>
+            <h4>What are system caches?</h4>
+            <p>Fixed-path developer folders outside your projects — Xcode DerivedData, global npm/pip caches, Homebrew, Docker, and more. Roomy scans them in a separate pass and groups them at the top of your results.</p>
+          </div>
+          <div class="faq-item reveal reveal-delay-4" data-reveal>
+            <h4>Is deleting DerivedData safe?</h4>
+            <p>Yes. Xcode rebuilds DerivedData on the next build. Roomy labels it Safe and explains what each cache does before you delete anything.</p>
+          </div>
         </div>
       </section>
 
@@ -417,8 +488,8 @@
               </span>
               <span class="nav-text">Roomy</span>
             </a>
-            <p>Reclaim disk space from dormant projects.</p>
-            <p class="caption" style="margin-top: 16px">© 2026 Azbouki. All rights reserved. · v1.0.0</p>
+            <p>Reclaim disk space from dormant projects and forgotten system caches.</p>
+            <p class="caption" style="margin-top: 16px">© 2026 Azbouki. All rights reserved. · v1.1.0</p>
           </div>
           <div class="footer-col-center">
             <div class="footer-links">

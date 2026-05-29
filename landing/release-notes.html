@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Roomy v1.0.0 release notes — first public release for reclaiming disk space from dormant projects."
+      content="Roomy release notes — v1.1.0 adds system cache scanning for Xcode, Docker, Homebrew, and global package caches."
     />
-    <title>Roomy — Release Notes v1.0.0</title>
+    <title>Roomy — Release Notes</title>
     <link rel="icon" href="logo.png" type="image/png" />
     <link rel="apple-touch-icon" href="logo.png" />
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
@@ -128,17 +128,37 @@
         font-size: 13px;
       }
 
-      .card {
+      .release-block {
+        margin-top: 40px;
+      }
+
+      .release-block:first-of-type {
         margin-top: 28px;
+      }
+
+      .card {
+        margin-top: 16px;
         background: var(--bg-elevated);
         border: 1px solid var(--border-subtle);
         border-radius: 14px;
         padding: 28px;
       }
 
-      h2 {
+      .release-block h2.version {
+        margin: 0 0 4px;
+        font-size: 28px;
+        letter-spacing: -0.01em;
+      }
+
+      .release-block .release-meta {
+        margin: 0 0 0;
+        font-size: 13px;
+        color: var(--text-tertiary);
+      }
+
+      h3 {
         margin: 0 0 14px;
-        font-size: 24px;
+        font-size: 20px;
         letter-spacing: -0.01em;
       }
 
@@ -168,6 +188,10 @@
         font-size: 13px;
         color: var(--text-tertiary);
       }
+
+      a {
+        color: var(--accent);
+      }
     </style>
   </head>
   <body>
@@ -184,43 +208,86 @@
     <main>
       <div class="wrap">
         <span class="kicker">Release notes</span>
-        <h1>Roomy v1.0.0</h1>
-        <p class="sub">First public release. Reclaim disk space from dormant developer projects.</p>
-        <p class="meta">May 20, 2026 · macOS 13+ · Apple Silicon & Intel</p>
+        <h1>Changelog</h1>
+        <p class="sub">What's new in Roomy for macOS.</p>
 
-        <section class="card">
-          <h2>Highlights</h2>
-          <ul>
-            <li>Full filesystem scan for regenerable developer artifacts across Node.js, Python, Rust, Ruby, Go, Java, and Swift projects.</li>
-            <li>Project activity classification using git history and file modification times: Active, Recent, Inactive, Dormant.</li>
-            <li>Results overview with total reclaimable space, ecosystem breakdown, and project-age distribution.</li>
-            <li>Selection review workflow with grouped artifacts and before/after storage impact preview.</li>
-            <li>Safe deletion pipeline that moves items to Trash via <code>NSWorkspace.recycle()</code> instead of permanent deletion APIs.</li>
-          </ul>
+        <section class="release-block">
+          <h2 class="version">v1.1.0</h2>
+          <p class="release-meta">May 29, 2026 · macOS 13+ · Apple Silicon & Intel</p>
+
+          <section class="card">
+            <h3>System cache scanning</h3>
+            <ul>
+              <li>Two-phase scan: project walk, then a dedicated system-cache pass that runs even when your scan root is a single projects folder.</li>
+              <li>New Settings section — <strong>System caches</strong> — with per-category toggles for Xcode, global package caches, global CLI packages, Python/Conda, Homebrew, and Docker.</li>
+              <li>System findings appear as pinned groups at the top of the project list (Xcode & iOS tooling, Global package caches, Docker, and more).</li>
+              <li>Results overview shows a separate system-cache total alongside project recoverable space.</li>
+            </ul>
+          </section>
+
+          <section class="card">
+            <h3>What Roomy now detects outside project folders</h3>
+            <ul>
+              <li><strong>Xcode & iOS tooling</strong> — DerivedData, iOS Device Support, Xcode Archives, iOS Simulator data.</li>
+              <li><strong>Global package caches</strong> — npm, pip, yarn, pnpm, NuGet, Poetry, and uv download caches.</li>
+              <li><strong>Global CLI packages</strong> — globally installed npm and yarn <code>node_modules</code> trees.</li>
+              <li><strong>Python / Conda</strong> — unused Conda packages and tarballs, dormant conda environments, pyenv versions, pip packages in venvs not listed in <code>requirements.txt</code>.</li>
+              <li><strong>Homebrew</strong> — download cache and logs.</li>
+              <li><strong>Docker</strong> — unused images, volumes, and build cache (via <code>docker</code> CLI).</li>
+            </ul>
+          </section>
+
+          <section class="card">
+            <h3>Safety and deletion</h3>
+            <ul>
+              <li>Three safety tiers on every artifact: <strong>Safe</strong>, <strong>Review</strong>, and <strong>Irreversible</strong>.</li>
+              <li>Irreversible items (Xcode Archives, Docker volumes with data) are never bulk-selected and show extra warnings in review.</li>
+              <li>Docker cleanup via <code>docker rmi</code>, <code>docker volume rm</code>, and <code>docker builder prune</code>.</li>
+              <li>Conda cleanup via <code>conda clean</code> and <code>conda env remove</code>.</li>
+              <li>Each artifact includes a plain-language explanation and restore hint in the detail view.</li>
+            </ul>
+          </section>
+
+          <section class="card">
+            <h3>Other improvements</h3>
+            <ul>
+              <li>.NET / NuGet added as a supported ecosystem for global package cache scanning.</li>
+              <li>Scan persistence bumped to v2 schema with backward-compatible decode of v1 snapshots.</li>
+              <li>Updated documentation covering system caches, safety tiers, and CLI deletion behavior.</li>
+            </ul>
+          </section>
         </section>
 
-        <section class="card">
-          <h2>What you can do in 1.0.0</h2>
-          <ul>
-            <li>Scan large developer directories and stream findings live as artifacts are discovered.</li>
-            <li>Review projects in one list and prioritize old, dormant repositories first.</li>
-            <li>Deselect any project or artifact before deletion.</li>
-            <li>Run a full cleanup session and view a detailed reclaimed-space summary.</li>
-            <li>Configure scan exclusions and reuse settings across sessions.</li>
-          </ul>
+        <section class="release-block">
+          <h2 class="version">v1.0.0</h2>
+          <p class="release-meta">May 20, 2026 · Initial public release</p>
+
+          <section class="card">
+            <h3>Highlights</h3>
+            <ul>
+              <li>Full filesystem scan for regenerable developer artifacts across Node.js, Python, Rust, Ruby, Go, Java, and Swift projects.</li>
+              <li>Project activity classification using git history and file modification times: Active, Recent, Inactive, Dormant.</li>
+              <li>Results overview with total reclaimable space, ecosystem breakdown, and project-age distribution.</li>
+              <li>Selection review workflow with grouped artifacts and before/after storage impact preview.</li>
+              <li>Safe deletion pipeline that moves items to Trash via <code>NSWorkspace.recycle()</code> by default.</li>
+            </ul>
+          </section>
+
+          <section class="card">
+            <h3>What you could do in 1.0.0</h3>
+            <ul>
+              <li>Scan large developer directories and stream findings live as artifacts are discovered.</li>
+              <li>Review projects in one list and prioritize old, dormant repositories first.</li>
+              <li>Deselect any project or artifact before deletion.</li>
+              <li>Run a full cleanup session and view a detailed reclaimed-space summary.</li>
+              <li>Configure scan exclusions and reuse settings across sessions.</li>
+            </ul>
+          </section>
         </section>
 
-        <section class="card">
-          <h2>Stability and quality</h2>
-          <ul>
-            <li>Native SwiftUI macOS app with a dark-first UI and responsive layouts for compact and wide windows.</li>
-            <li>Persistent scan session and last-result state so reopening Roomy does not reset context unexpectedly.</li>
-            <li>Improved deletion safeguards including countdown confirmation before destructive actions.</li>
-          </ul>
-        </section>
-
-        <p class="foot">Roomy is currently free. Future release notes will be published on this page.</p>
+        <p class="foot">Roomy is currently free. New releases are published on this page.</p>
         <p class="foot" style="margin-top: 20px">
+          <a href="documentation.html">Documentation</a> ·
           <a href="privacy.html">Privacy</a> · <a href="cookies.html">Cookies</a> ·
           <a href="#" onclick="window.roomyOpenCookiePreferences(); return false;">Cookie preferences</a>
         </p>
