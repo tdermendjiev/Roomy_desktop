@@ -459,7 +459,7 @@ Three columns:
 - Product: Download · Pricing · Changelog
 - Support: Documentation · Contact · Privacy Policy
 
-**Right:** "Made with care for macOS developers." + macOS badge (SF Symbol `apple.logo` + "macOS") in a pill. + Social link: X/Twitter icon.
+**Right:** "Made with care for developers." + macOS badge (SF Symbol `apple.logo` + "macOS") in a pill. + Social link: X/Twitter icon.
 
 All footer text: `caption` (13px/400), `--text-tertiary`. Links hover to `--text-secondary`. Logo/wordmark: `--text-primary`.
 

@@ -7,7 +7,7 @@
       name="description"
       content="Roomy scans projects and developer system caches — node_modules, DerivedData, Docker, Homebrew — and helps you reclaim disk space safely. Native macOS. Free."
     />
-    <title>Roomy — Reclaim disk space from dormant projects</title>
+    <title>Roomy — Find regenerable developer artifacts on macOS</title>
     <link rel="icon" href="logo.png" type="image/png" />
     <link rel="apple-touch-icon" href="logo.png" />
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
@@ -50,12 +50,12 @@
       <section class="hero" aria-labelledby="hero-title">
         <div class="hero-inner">
           <p class="eyebrow">Native macOS · Free · No account required</p>
-          <h1 class="hero-title" id="hero-title">47 GB of node_modules. You had no idea.</h1>
+          <h1 class="hero-title" id="hero-title">Find regenerable developer artifacts</h1>
           <p class="body-lg hero-sub">
-            Roomy scans your projects for regenerable artifacts — node_modules, Python venvs, Rust target directories — and hunts down system caches you forgot about: Xcode DerivedData, npm and pip caches, Homebrew, Docker, and more. Nothing permanent by default. Everything reviewed first.
+            Roomy scans project folders for node_modules, Python venvs, Rust target directories, and fixed-path system caches — Xcode DerivedData, npm and pip caches, Homebrew, Docker, and more. Nothing is deleted until you review and confirm.
           </p>
           <div class="hero-ctas">
-            <a href="#features" class="btn btn-hero-secondary cta-text">See features</a>
+            <a href="#features" class="btn btn-hero-secondary cta-text">How it works</a>
             <a href="#download" class="btn btn-hero-primary cta-text">Download</a>
           </div>
           <p class="hero-meta">macOS 13+ · Apple Silicon &amp; Intel · Free · v1.1.0</p>
@@ -149,78 +149,15 @@
             </div>
           </div>
           <div class="copy-col">
-            <h2 class="section-title reveal" data-reveal>Scan your entire project history in under 60 seconds.</h2>
+            <h2 class="section-title reveal" data-reveal>Two-phase scan</h2>
             <p class="body-lg reveal reveal-delay-1" data-reveal style="margin-top: 16px; max-width: 480px">
-              Roomy traverses your filesystem at full speed, identifying regenerable artifacts across every project — regardless of how deep they're buried. Node.js, Python, Rust, Ruby, Go, Java, Swift, .NET. All of it.
+              Pass 1 walks your chosen root and finds per-project artifacts. Pass 2 probes known developer cache paths outside your repos. Results stream in as they are found.
             </p>
             <ul class="feature-bullets reveal reveal-delay-2" data-reveal>
-              <li>Scans 100,000 directories in under 60 seconds on M1</li>
-              <li>Streams results live — see findings appear as they're discovered</li>
-              <li>Detects 9 ecosystems and 30+ artifact types</li>
-              <li>Finds system caches too — DerivedData, npm/pip caches, Homebrew, Docker, and more</li>
+              <li>Project artifacts: Node, Python, Rust, Ruby, Go, Java, Swift, .NET</li>
+              <li>System caches: Xcode DerivedData, global package caches, Homebrew, Docker, Conda, pyenv</li>
+              <li>Safety tiers: Safe, Review, Irreversible</li>
             </ul>
-          </div>
-        </div>
-      </section>
-
-      <!-- 04b Feature — System caches -->
-      <section class="section-pad wrap">
-        <div class="feature-grid feature-grid--shot-right">
-          <div class="copy-col">
-            <h2 class="section-title reveal" data-reveal>40 GB of DerivedData. Not in any project folder.</h2>
-            <p class="body-lg reveal reveal-delay-1" data-reveal style="margin-top: 16px; max-width: 480px">
-              Developer bloat lives outside your repos too. Roomy runs a second scan pass for fixed-path system caches — the folders that grow silently while you work.
-            </p>
-            <ul class="feature-bullets reveal reveal-delay-2" data-reveal>
-              <li>Xcode DerivedData, simulators, device support, and archives</li>
-              <li>Global npm, pip, yarn, pnpm, NuGet, Poetry, and uv caches</li>
-              <li>Homebrew, Conda, pyenv, Docker images, volumes, and build cache</li>
-              <li>Safety tiers — Safe, Review, Irreversible — so you know what you're deleting</li>
-              <li>Toggle each category in Settings; scans run even when your project path is narrow</li>
-            </ul>
-          </div>
-          <div class="mock-col reveal reveal-shot reveal-delay-shot" data-reveal>
-            <div class="parallax-layer" data-parallax>
-            <div class="mac-window">
-              <div class="mac-titlebar">
-                <div class="traffic" aria-hidden="true">
-                  <span class="r"></span><span class="y"></span><span class="g"></span>
-                </div>
-                <div class="titlebar-title">Roomy — Projects</div>
-              </div>
-              <div class="mock-s04">
-                <div class="mock-row active" style="border-left: 2px solid var(--accent); padding-left: 10px">
-                  <div>
-                    <div class="mock-path">Xcode &amp; iOS tooling</div>
-                    <div class="mock-meta">DerivedData · Simulators · Device Support</div>
-                  </div>
-                  <span>18.4 GB</span>
-                </div>
-                <div class="mock-row active" style="border-left: 2px solid var(--accent); padding-left: 10px">
-                  <div>
-                    <div class="mock-path">Global package caches</div>
-                    <div class="mock-meta">npm · pip · pnpm · NuGet</div>
-                  </div>
-                  <span>6.1 GB</span>
-                </div>
-                <div class="mock-row active" style="border-left: 2px solid var(--accent); padding-left: 10px">
-                  <div>
-                    <div class="mock-path">Docker</div>
-                    <div class="mock-meta">Images · volumes · build cache</div>
-                  </div>
-                  <span>12.8 GB</span>
-                </div>
-                <div class="mock-row dormant">
-                  <span class="status-dot" style="background: var(--status-dormant)"></span>
-                  <div>
-                    <div class="mock-path">~/Dev/old-spa</div>
-                    <div class="mock-meta">Dormant · node_modules</div>
-                  </div>
-                  <span>6.2 GB</span>
-                </div>
-              </div>
-            </div>
-            </div>
           </div>
         </div>
       </section>
@@ -235,14 +172,14 @@
               <span><span class="status-dot" style="background: var(--status-inactive)"></span> Inactive</span>
               <span><span class="status-dot" style="background: var(--status-dormant)"></span> Dormant</span>
             </div>
-            <h2 class="section-title reveal" data-reveal style="margin-top: 8px">Knows which projects you abandoned in 2021.</h2>
+            <h2 class="section-title reveal" data-reveal style="margin-top: 8px">Project activity levels</h2>
             <p class="body-lg reveal reveal-delay-1" data-reveal style="margin-top: 16px; max-width: 480px">
-              Roomy reads your git history and file modification dates to classify every project by activity. Dormant projects rise to the top. Active projects stay protected. You never have to guess what's safe.
+              Each project is classified from git commit dates and file modification time into Active, Recent, Inactive, or Dormant.
             </p>
             <ul class="feature-bullets reveal reveal-delay-2" data-reveal>
-              <li>Four activity levels: Active · Recent · Inactive · Dormant</li>
-              <li>Based on last git commit date and file modification time</li>
-              <li>Dormant projects pre-selected — delete with one click</li>
+              <li>Four levels: Active · Recent · Inactive · Dormant</li>
+              <li>Based on last git commit and file modification time</li>
+              <li>Dormant projects are pre-selected for bulk cleanup</li>
             </ul>
           </div>
           <div class="mock-col reveal reveal-shot reveal-delay-shot" data-reveal>
@@ -323,15 +260,14 @@
             </div>
           </div>
           <div class="copy-col">
-            <h2 class="section-title reveal" data-reveal>Nothing gets deleted without your say.</h2>
+            <h2 class="section-title reveal" data-reveal>Review before deleting</h2>
             <p class="body-lg reveal reveal-delay-1" data-reveal style="margin-top: 16px; max-width: 480px">
-              Browse every project and system cache, understand every artifact, deselect anything you're not sure about. Roomy shows you exactly what will be removed before you commit — project files go to Trash by default; Docker and Conda cleanup runs via their native CLIs.
+              Browse projects and system caches, deselect items, and see disk impact before confirming. Project artifacts go to Trash; Docker and Conda use their native CLIs.
             </p>
             <ul class="feature-bullets reveal reveal-delay-2" data-reveal>
-              <li>Every artifact explained in plain language with safety badges</li>
-              <li>Remove individual items from the deletion list at any time</li>
+              <li>Plain-language labels and safety badges on every artifact</li>
               <li>Project artifacts move to Trash — restoreable before you empty it</li>
-              <li>Extra warnings for irreversible items like Xcode Archives and Docker volumes</li>
+              <li>Extra warnings for irreversible items (Xcode Archives, Docker volumes)</li>
             </ul>
             <div class="trust-callout reveal" data-reveal>
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="flex-shrink: 0; color: var(--accent)">
@@ -346,63 +282,6 @@
                 <strong class="caption-strong" style="color: var(--text-primary); display: block; margin-bottom: 4px">Safe by design</strong>
                 Project artifacts use <span class="mono">NSWorkspace.recycle()</span> — the macOS Trash API. Irreversible items get an extra warning before deletion. Docker and Conda cleanups use their official CLI tools, not Trash.
               </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- 07 Feature 4 / Result -->
-      <section class="section-pad result-section" id="result">
-        <div class="wrap">
-          <div class="result-head reveal" data-reveal>
-            <h2 class="section-title">31.4 GB reclaimed.</h2>
-            <p class="section-title" style="margin-top: 8px; color: var(--text-secondary)">In under 5 minutes.</p>
-            <p class="body-lg result-sub">
-              That's what a developer with 3 years of project history typically recovers on their first scan. node_modules alone accounts for ~65% of it. The rest is Python venvs, Rust build artifacts, and system caches — DerivedData, Docker layers, and npm caches you forgot existed.
-            </p>
-          </div>
-          <div class="result-window reveal reveal-shot" data-reveal>
-            <div class="parallax-layer" data-parallax>
-            <div class="mac-window">
-              <div class="mac-titlebar">
-                <div class="traffic" aria-hidden="true">
-                  <span class="r"></span><span class="y"></span><span class="g"></span>
-                </div>
-                <div class="titlebar-title">Roomy — Summary</div>
-              </div>
-              <div class="mock-s08">
-                <div class="big">31.4 GB</div>
-                <p class="caption" style="color: var(--text-tertiary); margin-top: 8px">Moved to Trash · restorable</p>
-                <div class="mock-bars" style="margin-top: 24px; max-width: 360px; margin-left: auto; margin-right: auto">
-                  <div class="mock-bar-row">
-                    <span>Node</span>
-                    <div class="mock-bar-track"><div class="mock-bar-fill" style="width: 68%"></div></div>
-                    <span>20 GB</span>
-                  </div>
-                  <div class="mock-bar-row">
-                    <span>Other</span>
-                    <div class="mock-bar-track"><div class="mock-bar-fill" style="width: 32%"></div></div>
-                    <span>11 GB</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            </div>
-          </div>
-          <div class="stats-row reveal" data-reveal>
-            <div class="stat-cell">
-              <div class="stat-val">~40 GB</div>
-              <div class="stat-lbl">Average first-scan recovery</div>
-            </div>
-            <div class="stat-div" aria-hidden="true"></div>
-            <div class="stat-cell">
-              <div class="stat-val">&lt;60s</div>
-              <div class="stat-lbl">Time to full scan on M1</div>
-            </div>
-            <div class="stat-div" aria-hidden="true"></div>
-            <div class="stat-cell">
-              <div class="stat-val">Free</div>
-              <div class="stat-lbl">No subscription. No account.</div>
             </div>
           </div>
         </div>
@@ -437,7 +316,7 @@
 
       <!-- 10 Download / CTA -->
       <section class="section-pad pricing-section wrap" id="pricing">
-        <h2 class="section-title reveal" data-reveal>Get Roomy.</h2>
+        <h2 class="section-title reveal" data-reveal>Download</h2>
         <div class="pricing-card reveal" data-reveal id="download">
           <div class="pricing-icon" aria-hidden="true">
             <img src="logo.png" width="48" height="48" alt="" decoding="async" />
@@ -445,7 +324,6 @@
           <div class="price-big">Free</div>
           <div class="price-sub">macOS 13+ · Apple Silicon &amp; Intel</div>
           <div class="download-spec-row">
-            <span>9 ecosystems · 30+ artifact types</span>
             <span>Offline · No account · No telemetry</span>
           </div>
           <div class="pricing-actions">
@@ -457,23 +335,23 @@
         <div class="faq-grid-wrap" id="faq">
           <div class="faq-item reveal" data-reveal>
             <h4>Is there a Pro version?</h4>
-            <p>No. Everything is included.</p>
+            <p>No. The app is free with no paid tier.</p>
           </div>
           <div class="faq-item reveal reveal-delay-1" data-reveal>
             <h4>Does it work on Apple Silicon?</h4>
-            <p>Yes. Native support for M1, M2, M3, and M4 Macs.</p>
+            <p>Yes. Universal binary for Apple Silicon and Intel.</p>
           </div>
           <div class="faq-item reveal reveal-delay-2" data-reveal>
             <h4>Do I need an account?</h4>
-            <p>No. Download and run. Nothing to sign up for.</p>
+            <p>No. Download, install, and run locally.</p>
           </div>
           <div class="faq-item reveal reveal-delay-3" data-reveal>
             <h4>What are system caches?</h4>
-            <p>Fixed-path developer folders outside your projects — Xcode DerivedData, global npm/pip caches, Homebrew, Docker, and more. Roomy scans them in a separate pass and groups them at the top of your results.</p>
+            <p>Fixed-path folders outside your repos — DerivedData, global npm/pip caches, Homebrew, Docker, and similar. Roomy scans them in pass 2 and lists them under System caches.</p>
           </div>
           <div class="faq-item reveal reveal-delay-4" data-reveal>
             <h4>Is deleting DerivedData safe?</h4>
-            <p>Yes. Xcode rebuilds DerivedData on the next build. Roomy labels it Safe and explains what each cache does before you delete anything.</p>
+            <p>Xcode regenerates DerivedData on the next build. Roomy marks it Safe and describes each cache before deletion.</p>
           </div>
         </div>
       </section>
@@ -488,7 +366,7 @@
               </span>
               <span class="nav-text">Roomy</span>
             </a>
-            <p>Reclaim disk space from dormant projects and forgotten system caches.</p>
+            <p>Scans developer artifacts and system caches on macOS.</p>
             <p class="caption" style="margin-top: 16px">© 2026 Azbouki. All rights reserved. · v1.1.0</p>
           </div>
           <div class="footer-col-center">
@@ -519,7 +397,7 @@
             </div>
           </div>
           <div class="footer-right">
-            Made with care for macOS developers.
+            Made with care for developers.
             <div class="footer-badge">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path
