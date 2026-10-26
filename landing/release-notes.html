@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Roomy release notes — v1.1.0 adds system cache scanning for Xcode, Docker, Homebrew, and global package caches."
+      content="Roomy release notes — v1.2.0 adds AI coding tool scanning: local models, Cursor and Claude caches, and agent session history."
     />
     <title>Roomy — Release Notes</title>
     <link rel="icon" href="logo.png" type="image/png" />
@@ -210,6 +210,41 @@
         <span class="kicker">Release notes</span>
         <h1>Changelog</h1>
         <p class="sub">What's new in Roomy for macOS.</p>
+
+        <section class="release-block">
+          <h2 class="version">v1.2.0</h2>
+          <p class="release-meta">October 26, 2026 · macOS 13+ · Apple Silicon & Intel</p>
+
+          <section class="card">
+            <h3>AI coding tools</h3>
+            <ul>
+              <li>New system-cache category, <strong>AI coding tools</strong>, enabled by default and listed first in Settings and in the results.</li>
+              <li><strong>Local model stores</strong> — Ollama, LM Studio (current and legacy layouts), Hugging Face hub, xet and datasets caches, llama.cpp, PyTorch Hub, Whisper, vLLM. Marked Safe with the pull command as the restore hint.</li>
+              <li><strong>App and sandbox caches</strong> — Claude desktop VM bundles and Claude Code VM, Electron caches for Claude, Cursor, Windsurf, Kiro, Trae and Void, the npx cache used by MCP servers, Playwright and Puppeteer browsers, Continue's codebase index.</li>
+              <li><strong>Agent session history</strong> — Claude Code transcripts (one row per project with the date of the last session), Claude Code file history, Codex CLI, Gemini CLI checkpoints and shadow repos, OpenCode, Goose, Qwen Code, and Cline, Roo and Kilo checkpoints inside VS Code, Cursor and Windsurf. All marked Irreversible and excluded from bulk dormant selection.</li>
+              <li>GPT4All and Jan are marked Review because their folders mix models with chat data.</li>
+            </ul>
+          </section>
+
+          <section class="card">
+            <h3>Project-level AI artifacts</h3>
+            <ul>
+              <li>aider's <code>.aider.tags.cache.v3</code> is detected inside projects and marked Safe.</li>
+              <li>Crush's <code>.crush</code> folder is detected and marked Irreversible, since it holds session history.</li>
+              <li>Chroma (<code>.chroma</code>, <code>chroma_db</code>) and LanceDB (<code>.lancedb</code>) vector stores are detected and marked Review, because rebuilding them means re-embedding.</li>
+              <li>Filesystem rules can now carry a safety tier and restore hint. Existing rules are unchanged.</li>
+            </ul>
+          </section>
+
+          <section class="card">
+            <h3>Other changes</h3>
+            <ul>
+              <li>New <strong>AI tools</strong> ecosystem toggle alongside Node.js, Python and the others. Existing installs get it enabled automatically.</li>
+              <li>New website page for developers who code with AI tools, plus guides on Cursor disk usage, Claude Code storage, and where Ollama, LM Studio and Hugging Face keep models.</li>
+              <li>Unit tests added for the AI tools probe and the new filesystem rules.</li>
+            </ul>
+          </section>
+        </section>
 
         <section class="release-block">
           <h2 class="version">v1.1.0</h2>

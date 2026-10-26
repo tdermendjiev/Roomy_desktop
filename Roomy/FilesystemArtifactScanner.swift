@@ -143,6 +143,8 @@ struct FilesystemArtifactScanner {
         var folderName: String
         var label: String
         var ecosystem: String
+        var safetyTier: ArtifactSafetyTier = .safe
+        var restoreHint: String? = nil
     }
 
     /// Folder names (last path component) we treat as regenerable roots.
@@ -168,6 +170,17 @@ struct FilesystemArtifactScanner {
         Rule(folderName: "vendor", label: "vendor/", ecosystem: "go"),
         Rule(folderName: "Pods", label: "Pods", ecosystem: "swift"),
         Rule(folderName: ".build", label: ".build", ecosystem: "swift"),
+        // AI coding tools (project-level)
+        Rule(folderName: ".aider.tags.cache.v3", label: ".aider.tags.cache", ecosystem: "ai",
+             restoreHint: "Rebuilt by aider on next run"),
+        Rule(folderName: ".crush", label: ".crush", ecosystem: "ai", safetyTier: .warning,
+             restoreHint: "Past Crush sessions for this project cannot be resumed"),
+        Rule(folderName: ".chroma", label: ".chroma", ecosystem: "ai", safetyTier: .caution,
+             restoreHint: "Vector index; re-embedding the source documents rebuilds it"),
+        Rule(folderName: "chroma_db", label: "chroma_db", ecosystem: "ai", safetyTier: .caution,
+             restoreHint: "Vector index; re-embedding the source documents rebuilds it"),
+        Rule(folderName: ".lancedb", label: ".lancedb", ecosystem: "ai", safetyTier: .caution,
+             restoreHint: "Vector index; re-embedding the source documents rebuilds it"),
     ]
 
     private static let rulesByName: [String: Rule] = Dictionary(uniqueKeysWithValues: rules.map { ($0.folderName, $0) })
@@ -309,7 +322,9 @@ struct FilesystemArtifactScanner {
                 path: url.path,
                 label: rule.label,
                 sizeBytes: size,
-                ecosystemTag: eco
+                ecosystemTag: eco,
+                safetyTier: rule.safetyTier,
+                restoreHint: rule.restoreHint
             )
             findings.append(finding)
             artifactsByProjectRoot[projectRoot, default: []].append(finding)

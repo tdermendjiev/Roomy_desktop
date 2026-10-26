@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Cursor can quietly use 10–20 GB on a Mac. Here is where it stores caches, workspace state and chat history, which folders are safe to delete, and how to reclaim the space."
+    />
+    <title>Why Cursor uses so much disk space on macOS (and what is safe to delete)</title>
+    <link rel="canonical" href="https://getroomy.dev/cursor-disk-space" />
+    <link rel="icon" href="logo.png" type="image/png" />
+    <link rel="apple-touch-icon" href="logo.png" />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/geist-sans@5.2.5/latin.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/geist-mono@5.2.5/latin.css" />
+    <link rel="stylesheet" href="guide.css" />
+    <link rel="stylesheet" href="consent.css" />
+    <script src="site-config.js"></script>
+    <script src="consent.js"></script>
+  </head>
+  <body>
+    <header class="top">
+      <div class="wrap">
+        <a class="brand" href="index.html">
+          <img src="logo.png" alt="" decoding="async" />
+          <span>Roomy</span>
+        </a>
+        <nav class="nav-links" aria-label="Primary">
+          <a href="documentation.html">Documentation</a>
+          <a href="index.html#download" class="btn-download">Download Roomy</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <div class="wrap">
+        <span class="kicker">Guide</span>
+        <h1>Why Cursor uses so much disk space on macOS</h1>
+        <p class="sub">
+          Cursor is a VS Code fork with an Electron shell and an AI layer on top. All three keep their own caches, and none of them clean up after themselves. On a machine used daily for a year, the Cursor folder alone can pass 15 GB.
+        </p>
+        <p class="meta">Applies to Cursor on macOS 13 and later. Last reviewed October 2026.</p>
+
+        <section class="card">
+          <h2>Find out how much Cursor is using</h2>
+          <p>Open Terminal and run:</p>
+          <pre><code>du -sh ~/Library/Application\ Support/Cursor
+du -sh ~/Library/Application\ Support/Cursor/* | sort -rh | head
+du -sh ~/.cursor</code></pre>
+          <p>The second command lists the subfolders largest first. On most machines the top entries are <code>User</code>, <code>WebStorage</code> and <code>CachedData</code>.</p>
+        </section>
+
+        <section class="card">
+          <h2>Where Cursor stores its data</h2>
+          <table>
+            <thead>
+              <tr><th>Folder</th><th>What it holds</th><th>Delete?</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>~/Library/Application Support/Cursor/Cache</code><br /><code>…/Code Cache</code><br /><code>…/GPUCache</code><br /><code>…/DawnWebGPUCache</code></td>
+                <td>Chromium browser caches for the Electron shell. Rebuilt automatically.</td>
+                <td><span class="tier tier-safe">Safe</span></td>
+              </tr>
+              <tr>
+                <td><code>…/Cursor/CachedData</code></td>
+                <td>Compiled JavaScript bytecode for the editor and extensions, one copy per Cursor version you have run.</td>
+                <td><span class="tier tier-safe">Safe</span></td>
+              </tr>
+              <tr>
+                <td><code>…/Cursor/WebStorage</code></td>
+                <td>IndexedDB and local storage for the editor's web views. Can hold several GB after long use.</td>
+                <td><span class="tier tier-review">Review</span></td>
+              </tr>
+              <tr>
+                <td><code>…/Cursor/User/workspaceStorage</code></td>
+                <td>Per-workspace state: open editors, search history, extension data. One folder per project you have opened, including projects you deleted long ago.</td>
+                <td><span class="tier tier-review">Review</span></td>
+              </tr>
+              <tr>
+                <td><code>…/Cursor/User/History</code></td>
+                <td>Local file history, the "Timeline" view. Old snapshots of every file you have edited.</td>
+                <td><span class="tier tier-review">Review</span></td>
+              </tr>
+              <tr>
+                <td><code>…/Cursor/User/globalStorage</code></td>
+                <td>Extension state and the SQLite database that holds your Chat and Composer history.</td>
+                <td><span class="tier tier-warn">Keep</span></td>
+              </tr>
+              <tr>
+                <td><code>…/Cursor/logs</code></td>
+                <td>Session logs. Small individually, never pruned.</td>
+                <td><span class="tier tier-safe">Safe</span></td>
+              </tr>
+              <tr>
+                <td><code>~/.cursor/extensions</code></td>
+                <td>Installed extensions. Deleting them means reinstalling.</td>
+                <td><span class="tier tier-warn">Keep</span></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="note">
+            Codebase indexing in Cursor happens on Cursor's servers, so there is no large local embeddings index to delete. The local footprint is almost entirely caches and per-workspace state.
+          </div>
+        </section>
+
+        <section class="card">
+          <h2>Clean up by hand</h2>
+          <p>Quit Cursor completely first. Then remove the always-safe caches:</p>
+          <pre><code>cd ~/Library/Application\ Support/Cursor
+rm -rf Cache "Code Cache" GPUCache DawnWebGPUCache CachedData logs</code></pre>
+          <p>For <code>workspaceStorage</code>, each subfolder contains a <code>workspace.json</code> that points at the project it belongs to. Folders whose project no longer exists are safe to remove. Doing this by hand across dozens of folders is tedious, which is the part a tool should do for you.</p>
+          <h3>What not to do</h3>
+          <ul>
+            <li>Do not delete <code>User/globalStorage</code> or <code>User/settings.json</code>. That is your settings, keybindings and chat history.</li>
+            <li>Do not clear caches while Cursor is running. It may write partially and corrupt the next launch.</li>
+          </ul>
+        </section>
+
+        <section class="cta">
+          <h2>Or let Roomy do it</h2>
+          <p>Roomy scans Cursor, Claude, Windsurf and other AI editors alongside your project folders. It shows each cache with its size and a safety tier, keeps your settings and chat history out of the selection, and moves what you confirm to the Trash. It also finds the node_modules in every project you spun up and forgot.</p>
+          <a href="index.html#download" class="btn-download">Download Roomy for macOS, free</a>
+        </section>
+
+        <p class="foot">
+          Related: <a href="claude-code-disk-space.html">Where Claude Code stores its data</a> · <a href="ollama-models-location.html">Where Ollama stores models</a>
+        </p>
+        <p class="foot">
+          <a href="index.html">Home</a> · <a href="ai.html">Roomy for AI tools</a> · <a href="documentation.html">Documentation</a> · <a href="privacy.html">Privacy</a> ·
+          <a href="#" onclick="window.roomyOpenCookiePreferences(); return false;">Cookie preferences</a>
+        </p>
+      </div>
+    </main>
+  </body>
+</html>

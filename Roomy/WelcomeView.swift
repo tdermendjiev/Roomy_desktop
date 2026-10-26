@@ -43,6 +43,7 @@ private enum ScanPathChoice: String, CaseIterable, Identifiable {
 }
 
 private enum EcosystemKind: String, CaseIterable, Identifiable, Hashable {
+    case ai = "AI tools"
     case node = "Node.js"
     case python = "Python"
     case rust = "Rust"
@@ -66,6 +67,7 @@ private enum EcosystemKind: String, CaseIterable, Identifiable, Hashable {
         case .java: "java"
         case .swift: "swift"
         case .dotnet: "dotnet"
+        case .ai: "ai"
         case .general: "general"
         }
     }
@@ -80,6 +82,7 @@ private enum EcosystemKind: String, CaseIterable, Identifiable, Hashable {
         case .java: "cup.and.saucer"
         case .swift: "swift"
         case .dotnet: "chevron.left.forwardslash.chevron.right"
+        case .ai: "sparkles"
         case .general: "folder"
         }
     }

@@ -136,6 +136,7 @@ private func roomyEcosystemDisplayName(_ tag: String) -> String {
     case "rust": "Rust"
     case "swift": "Swift"
     case "dotnet": ".NET"
+    case "ai": "AI tools"
     default: tag.capitalized
     }
 }
@@ -146,6 +147,7 @@ private func roomyEcosystemIcon(_ tag: String) -> String {
     case "py": "doc.text"
     case "rust": "gearshape.2"
     case "swift": "swift"
+    case "ai": "sparkles"
     default: "folder"
     }
 }

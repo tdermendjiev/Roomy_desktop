@@ -351,6 +351,9 @@ enum RoomyArtifactIcons {
         if lower.contains("__pycache__") { return "bolt" }
         if lower.contains(".next") { return "chevron.right.2" }
         if lower.contains("deriveddata") { return "hammer" }
+        if lower.contains("model") || lower.contains("ollama") || lower.contains("hugging face") { return "cpu" }
+        if lower.contains("session") || lower.contains("transcript") || lower.contains("checkpoint") { return "text.bubble" }
+        if lower.contains("claude") || lower.contains("cursor") || lower.contains("codex") || lower.contains("windsurf") { return "sparkles" }
         if lower.contains("conda") || lower.contains("pyenv") { return "flask" }
         if lower.contains("docker") { return "shippingbox" }
         if lower.contains("homebrew") { return "mug" }

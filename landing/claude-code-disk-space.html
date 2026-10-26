@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Claude Code and the Claude desktop app store session transcripts, file history, sandbox VM images and caches on your Mac. Here is where each one lives, what it is for, and what is safe to delete."
+    />
+    <title>Where Claude Code stores its data on macOS (and how to reclaim the space)</title>
+    <link rel="canonical" href="https://getroomy.dev/claude-code-disk-space" />
+    <link rel="icon" href="logo.png" type="image/png" />
+    <link rel="apple-touch-icon" href="logo.png" />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/geist-sans@5.2.5/latin.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/geist-mono@5.2.5/latin.css" />
+    <link rel="stylesheet" href="guide.css" />
+    <link rel="stylesheet" href="consent.css" />
+    <script src="site-config.js"></script>
+    <script src="consent.js"></script>
+  </head>
+  <body>
+    <header class="top">
+      <div class="wrap">
+        <a class="brand" href="index.html">
+          <img src="logo.png" alt="" decoding="async" />
+          <span>Roomy</span>
+        </a>
+        <nav class="nav-links" aria-label="Primary">
+          <a href="documentation.html">Documentation</a>
+          <a href="index.html#download" class="btn-download">Download Roomy</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <div class="wrap">
+        <span class="kicker">Guide</span>
+        <h1>Where Claude Code stores its data on macOS</h1>
+        <p class="sub">
+          Claude Code keeps a transcript of every session so you can resume it later, plus snapshots of every file it edits so you can rewind. The desktop app adds sandbox VM images on top. None of it is cleaned up aggressively, and together it can reach 10 GB or more.
+        </p>
+        <p class="meta">Applies to Claude Code CLI and the Claude desktop app on macOS. Last reviewed October 2026.</p>
+
+        <section class="card">
+          <h2>Find out how much Claude is using</h2>
+          <pre><code>du -sh ~/.claude
+du -sh ~/.claude/* | sort -rh | head
+du -sh ~/Library/Application\ Support/Claude/* | sort -rh | head</code></pre>
+        </section>
+
+        <section class="card">
+          <h2>Claude Code CLI: <code>~/.claude</code></h2>
+          <table>
+            <thead>
+              <tr><th>Folder</th><th>What it holds</th><th>Delete?</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>~/.claude/projects/</code></td>
+                <td>One folder per project, named after the project path with slashes replaced by dashes. Inside are JSONL transcripts of every session. These power <code>claude --resume</code> and <code>--continue</code>. Usually the largest folder.</td>
+                <td><span class="tier tier-warn">Irreversible</span></td>
+              </tr>
+              <tr>
+                <td><code>~/.claude/file-history/</code></td>
+                <td>Snapshots of files before Claude edited them, used by <code>/rewind</code>.</td>
+                <td><span class="tier tier-warn">Irreversible</span></td>
+              </tr>
+              <tr>
+                <td><code>~/.claude/debug/</code></td>
+                <td>Debug logs, one per session. Never read unless you are filing a bug.</td>
+                <td><span class="tier tier-safe">Safe</span></td>
+              </tr>
+              <tr>
+                <td><code>~/.claude/paste-cache/</code><br /><code>~/.claude/shell-snapshots/</code></td>
+                <td>Pasted content and shell environment snapshots from past sessions.</td>
+                <td><span class="tier tier-safe">Safe</span></td>
+              </tr>
+              <tr>
+                <td><code>~/.claude/settings.json</code><br /><code>~/.claude/CLAUDE.md</code><br /><code>~/.claude/skills/</code>, <code>plugins/</code></td>
+                <td>Your configuration, global instructions, skills and plugins.</td>
+                <td><span class="tier tier-warn">Keep</span></td>
+              </tr>
+            </tbody>
+          </table>
+          <h3>Built-in retention</h3>
+          <p>Claude Code prunes old transcripts on its own after a retention period, controlled by <code>cleanupPeriodDays</code> in <code>~/.claude/settings.json</code>. Lowering it is the simplest ongoing fix:</p>
+          <pre><code>{
+  "cleanupPeriodDays": 14
+}</code></pre>
+          <p>That only covers transcripts. Transcripts for projects you have deleted still stay until the period expires, and the retention does not apply to the desktop app's data below.</p>
+        </section>
+
+        <section class="card">
+          <h2>Claude desktop app: <code>~/Library/Application Support/Claude</code></h2>
+          <table>
+            <thead>
+              <tr><th>Folder</th><th>What it holds</th><th>Delete?</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>…/Claude/vm_bundles/</code></td>
+                <td>Virtual machine images used to run Claude Code in a sandbox from the desktop app. Multiple versions accumulate. Often the single largest item, 5–15 GB.</td>
+                <td><span class="tier tier-safe">Safe</span></td>
+              </tr>
+              <tr>
+                <td><code>…/Claude/claude-code-vm/</code></td>
+                <td>The working VM state for sandboxed sessions.</td>
+                <td><span class="tier tier-safe">Safe</span></td>
+              </tr>
+              <tr>
+                <td><code>…/Claude/Cache</code><br /><code>…/Claude/Code Cache</code></td>
+                <td>Chromium caches for the Electron shell.</td>
+                <td><span class="tier tier-safe">Safe</span></td>
+              </tr>
+            </tbody>
+          </table>
+          <p>Quit the Claude app before deleting any of these. The VM bundles are re-downloaded the next time you start a sandboxed session, so expect a wait on first use afterwards.</p>
+        </section>
+
+        <section class="card">
+          <h2>The runaway temp file problem</h2>
+          <p>Claude Code writes the output of background tasks to files in its temp directory under <code>/tmp</code>. There is no size cap, and there are public reports of a single output file growing to hundreds of gigabytes when a background command never stopped printing. If your disk fills up suddenly during a session, check there first:</p>
+          <pre><code>du -sh /tmp/claude-*/ 2>/dev/null
+ls -laS /tmp/claude-*/ 2>/dev/null | head</code></pre>
+          <p>Stopping the session clears the task. The files themselves are safe to delete once no session is running.</p>
+        </section>
+
+        <section class="cta">
+          <h2>Or let Roomy do it</h2>
+          <p>Roomy lists Claude Code transcripts one row per project with the date of the last session, so you can drop the ones for projects you have not touched in a year and keep the rest. Session history is marked Irreversible and never bulk-selected. VM bundles and caches are marked Safe. Everything goes to the Trash only after you confirm.</p>
+          <a href="index.html#download" class="btn-download">Download Roomy for macOS, free</a>
+        </section>
+
+        <p class="foot">
+          Related: <a href="cursor-disk-space.html">Why Cursor uses so much disk space</a> · <a href="ollama-models-location.html">Where Ollama stores models</a>
+        </p>
+        <p class="foot">
+          <a href="index.html">Home</a> · <a href="ai.html">Roomy for AI tools</a> · <a href="documentation.html">Documentation</a> · <a href="privacy.html">Privacy</a> ·
+          <a href="#" onclick="window.roomyOpenCookiePreferences(); return false;">Cookie preferences</a>
+        </p>
+      </div>
+    </main>
+  </body>
+</html>

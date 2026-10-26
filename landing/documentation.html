@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Roomy documentation for v1.1.0: two-phase scan, project artifacts, system caches, safety tiers, exclusions, and deletion behavior."
+      content="Roomy documentation for v1.2.0: two-phase scan, project artifacts, system caches, safety tiers, exclusions, and deletion behavior."
     />
     <title>Roomy — Documentation</title>
     <link rel="icon" href="logo.png" type="image/png" />
@@ -237,7 +237,7 @@
 
     <main>
       <div class="wrap">
-        <span class="kicker">v1.1.0</span>
+        <span class="kicker">v1.2.0</span>
         <h1>Documentation</h1>
 
         <p class="meta">Last reviewed: May 29, 2026</p>
@@ -289,6 +289,7 @@
                 <li>Node/npm: <code>node_modules</code>, <code>.pnpm-store</code>, <code>.next</code>, <code>.nuxt</code>, <code>.svelte-kit</code>, <code>.turbo</code>, <code>.parcel-cache</code>, <code>dist</code></li>
                 <li>Python: <code>.venv</code>, <code>venv</code>, <code>__pycache__</code>, <code>.mypy_cache</code>, <code>.pytest_cache</code>, <code>.ruff_cache</code>, <code>.tox</code></li>
                 <li>Rust/Java/Swift/Go/Ruby rules include: <code>target</code>, <code>build</code>, <code>.gradle</code>, <code>vendor</code>, <code>Pods</code>, <code>.build</code></li>
+                <li>AI tools: <code>.aider.tags.cache.v3</code> (Safe), <code>.crush</code> (Irreversible, holds session history), and the vector stores <code>.chroma</code>, <code>chroma_db</code>, <code>.lancedb</code> (Review, rebuilding means re-embedding)</li>
               </ul>
               <p class="small">Some folder names are reclassified by project markers. Example: <code>target</code> is treated as Rust when <code>Cargo.toml</code> exists nearby, and as Java when Gradle/Maven files are present.</p>
             </section>
@@ -303,6 +304,7 @@
                 <li><strong>Python / Conda</strong> — Conda unused packages and tarballs (<code>conda clean --dry-run</code>), dormant conda environments, pyenv version directories, and pip packages in project venvs not listed in <code>requirements.txt</code>.</li>
                 <li><strong>Homebrew</strong> — download cache and log directories when Homebrew is installed.</li>
                 <li><strong>Docker</strong> — unused images, dangling volumes, and build cache (via <code>docker</code> CLI; skipped gracefully if Docker is not running).</li>
+                <li><strong>AI coding tools</strong> — local model stores (Ollama, LM Studio, Hugging Face, llama.cpp, PyTorch Hub, Whisper), Electron caches and sandbox VM bundles for Claude, Cursor, Windsurf, Kiro and Trae, the npx cache used by MCP servers, Playwright and Puppeteer browsers, and agent session history (Claude Code per project, Codex, Gemini CLI, OpenCode, Goose, Cline and Roo checkpoints). Session history is marked Irreversible and excluded from bulk dormant selection.</li>
               </ul>
               <p class="small">The conda <code>base</code> environment is never offered for deletion. Xcode Archives and Docker volumes with data mounts use the highest safety tier.</p>
             </section>
@@ -323,6 +325,7 @@
               <ul>
                 <li><strong>Node.js / npm</strong>: detects <code>node_modules</code>, plus framework/build caches for Next.js (<code>.next</code>), Nuxt (<code>.nuxt</code>), SvelteKit (<code>.svelte-kit</code>), Turborepo (<code>.turbo</code>), and Parcel (<code>.parcel-cache</code>).</li>
                 <li><strong>Python</strong>: detects virtual env and cache folders including <code>.venv</code>, <code>venv</code>, <code>__pycache__</code>, <code>.mypy_cache</code>, <code>.pytest_cache</code>, <code>.ruff_cache</code>, and <code>.tox</code>.</li>
+                <li><strong>AI tools</strong>: detects aider's tag cache, Crush's per-project data folder, and Chroma and LanceDB vector stores inside projects, in addition to the system-level AI coding tools category.</li>
                 <li><strong>Rust</strong>: detects <code>target</code> and classifies it as Rust when <code>Cargo.toml</code> is present in the project root.</li>
                 <li><strong>Java / Kotlin</strong>: detects <code>.gradle</code> and classifies <code>target</code>/<code>build</code> as Java when Maven/Gradle markers are present.</li>
                 <li><strong>Swift / Xcode</strong>: detects <code>Pods</code> and SwiftPM <code>.build</code>.</li>
@@ -387,6 +390,8 @@
                 <li>Improved download distribution flow (universal + architecture-specific guidance).</li>
                 <li>Public changelog cadence for each release.</li>
                 <li>Deeper pip orphan analysis (import-graph based detection).</li>
+                <li>Per-model dormancy for Ollama and Hugging Face stores, so individual unused models can be removed instead of the whole store.</li>
+                <li>Oversized-file safety net for Claude Code temp and task output files, which can grow without bound.</li>
               </ul>
               <div class="note">Roadmap items are directional and may change as implementation priorities evolve.</div>
             </section>

@@ -13,8 +13,9 @@ enum RoomySystemGroupRoot {
     static let homebrew = "__roomy:system:homebrew__"
     static let python = "__roomy:system:python__"
     static let docker = "__roomy:system:docker__"
+    static let aiTools = "__roomy:system:ai_tools__"
 
-    static let allKeys: Set<String> = [xcode, caches, globalModules, homebrew, python, docker]
+    static let allKeys: Set<String> = [xcode, caches, globalModules, homebrew, python, docker, aiTools]
 
     static func displayName(for rootKey: String) -> String {
         switch rootKey {
@@ -24,6 +25,7 @@ enum RoomySystemGroupRoot {
         case homebrew: "Homebrew"
         case python: "Python tooling"
         case docker: "Docker"
+        case aiTools: "AI coding tools"
         default: URL(fileURLWithPath: rootKey).lastPathComponent
         }
     }
@@ -35,6 +37,7 @@ enum RoomySystemGroupRoot {
 
 enum RoomySystemScanCategories {
     static let all: [(key: String, name: String, detail: String)] = [
+        ("aiTools", "AI coding tools", "Local models, Claude/Cursor/Codex caches, agent session history"),
         ("xcode", "Xcode & iOS tooling", "DerivedData, simulators, device support, archives"),
         ("globalCaches", "Global package caches", "npm, pip, yarn, pnpm, NuGet, Poetry, uv"),
         ("globalModules", "Global CLI packages", "npm and yarn globally installed tools"),

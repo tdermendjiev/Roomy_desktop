@@ -96,6 +96,9 @@ struct SystemArtifactScanner {
         if enabledCategories.contains("docker") {
             probes.append(DockerArtifactProbe())
         }
+        if enabledCategories.contains("aiTools") {
+            probes.append(AIToolsProbe())
+        }
         return probes
     }
 

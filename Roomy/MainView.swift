@@ -631,6 +631,7 @@ struct MainView: View {
         case "py": "Python"
         case "rust": "Rust"
         case "swift": "Swift"
+        case "ai": "AI tools"
         default: tag.capitalized
         }
     }

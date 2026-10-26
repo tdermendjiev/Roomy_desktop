@@ -104,6 +104,7 @@ struct RoomyAppSettings: Codable, Equatable {
 
 enum RoomySettingsEcosystems {
     static let all: [(key: String, name: String, icon: String)] = [
+        ("ai", "AI tools / local models", "sparkles"),
         ("npm", "Node.js / npm", "cube.box"),
         ("py", "Python", "doc.text"),
         ("rust", "Rust", "gearshape.2"),

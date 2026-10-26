@@ -75,6 +75,7 @@ enum RoomyDeterministicUUID {
 
 enum ProjectListFromScan {
     private static let systemRootOrder: [String] = [
+        RoomySystemGroupRoot.aiTools,
         RoomySystemGroupRoot.xcode,
         RoomySystemGroupRoot.caches,
         RoomySystemGroupRoot.globalModules,

@@ -278,7 +278,7 @@ struct ScanResultsSummary: Equatable, Codable {
     }
 
     private static func buildEcosystemCardsFromAggregate(_ aggregate: ScanAggregate, totalGB: Double) -> [EcosystemResultCard] {
-        let order = ["npm", "py", "rust", "swift", "go", "java", "ruby", "dotnet", "general"]
+        let order = ["ai", "npm", "py", "rust", "swift", "go", "java", "ruby", "dotnet", "general"]
         var cards: [EcosystemResultCard] = []
         for tag in order {
             guard let bytes = aggregate.bytesByEcosystem[tag], bytes > 0 else { continue }
@@ -307,6 +307,7 @@ struct ScanResultsSummary: Equatable, Codable {
         case "java": ("Java/Kotlin", "cup.and.saucer")
         case "dotnet": (".NET / NuGet", "chevron.left.forwardslash.chevron.right")
         case "ruby": ("Ruby", "diamond")
+        case "ai": ("AI tools", "sparkles")
         default: ("General", "folder")
         }
     }

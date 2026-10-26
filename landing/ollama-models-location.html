@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Ollama, LM Studio and Hugging Face each keep their own model store on your Mac, and a few 7B and 70B models add up to 50 GB fast. Here is where each one lives, how to list and remove models, and how to move the store to another drive."
+    />
+    <title>Where Ollama stores models on macOS (plus LM Studio and Hugging Face)</title>
+    <link rel="canonical" href="https://getroomy.dev/ollama-models-location" />
+    <link rel="icon" href="logo.png" type="image/png" />
+    <link rel="apple-touch-icon" href="logo.png" />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/geist-sans@5.2.5/latin.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/geist-mono@5.2.5/latin.css" />
+    <link rel="stylesheet" href="guide.css" />
+    <link rel="stylesheet" href="consent.css" />
+    <script src="site-config.js"></script>
+    <script src="consent.js"></script>
+  </head>
+  <body>
+    <header class="top">
+      <div class="wrap">
+        <a class="brand" href="index.html">
+          <img src="logo.png" alt="" decoding="async" />
+          <span>Roomy</span>
+        </a>
+        <nav class="nav-links" aria-label="Primary">
+          <a href="documentation.html">Documentation</a>
+          <a href="index.html#download" class="btn-download">Download Roomy</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <div class="wrap">
+        <span class="kicker">Guide</span>
+        <h1>Where Ollama stores models on macOS</h1>
+        <p class="sub">
+          A quantized 7B model is around 4 GB. A 70B model is around 40 GB. Try a handful of each over a few months and local models become the largest thing on your disk, spread across three different stores that do not know about each other.
+        </p>
+        <p class="meta">Applies to Ollama, LM Studio and the Hugging Face cache on macOS. Last reviewed October 2026.</p>
+
+        <section class="card">
+          <h2>Ollama: <code>~/.ollama/models</code></h2>
+          <p>Ollama keeps everything under one folder in your home directory:</p>
+          <pre><code>~/.ollama/models/
+├── blobs/       # the actual model weights, content-addressed by SHA-256
+└── manifests/   # one small file per model tag, pointing at its blobs</code></pre>
+          <p>Models that share layers share blobs, so the folder is usually smaller than the sum of the model sizes Ollama reports. That is also why you should not delete files in <code>blobs/</code> by hand: a blob can belong to several models, and removing it breaks every manifest that references it.</p>
+          <h3>List and remove models the right way</h3>
+          <pre><code>ollama list            # every model with its size
+ollama ps              # what is loaded right now
+ollama rm llama3:70b   # delete one model and any blobs only it used</code></pre>
+          <h3>Move the store to another drive</h3>
+          <p>Set <code>OLLAMA_MODELS</code> before the Ollama server starts. For the menu bar app, set it with <code>launchctl</code> so the GUI process sees it:</p>
+          <pre><code>launchctl setenv OLLAMA_MODELS /Volumes/External/ollama-models</code></pre>
+          <p>Then quit and relaunch Ollama. Existing models are not moved automatically; copy the <code>models</code> folder across first or pull them again.</p>
+        </section>
+
+        <section class="card">
+          <h2>LM Studio: <code>~/.lmstudio/models</code></h2>
+          <p>LM Studio downloads to <code>~/.lmstudio/models/&lt;publisher&gt;/&lt;model&gt;/</code>. Older installs used <code>~/.cache/lm-studio/models</code>, and if you upgraded you may have both. The models directory can be changed and models deleted from the My Models view inside the app, which is the safest route. Deleting a model folder from Finder while LM Studio is closed also works.</p>
+        </section>
+
+        <section class="card">
+          <h2>Hugging Face: <code>~/.cache/huggingface/hub</code></h2>
+          <p>Anything that uses the <code>transformers</code>, <code>diffusers</code>, <code>sentence-transformers</code> or <code>mlx-lm</code> libraries downloads into the Hugging Face hub cache. This is the one most people forget, because no app put it there. On a machine used for a few experiments it is routinely 10–20 GB.</p>
+          <pre><code>~/.cache/huggingface/
+├── hub/        # models--org--name folders with snapshots and blobs
+├── xet/        # chunk cache for the newer download protocol
+└── datasets/   # downloaded datasets</code></pre>
+          <p>The official CLI has an interactive cleaner that shows each cached repo with its size and lets you pick what to remove:</p>
+          <pre><code>pip install -U huggingface_hub
+huggingface-cli scan-cache
+huggingface-cli delete-cache</code></pre>
+          <p>To move the cache, set <code>HF_HOME</code> in your shell profile. Everything in it is re-downloaded on the next use, so deleting the whole folder is safe, just slow to recover from.</p>
+        </section>
+
+        <section class="card">
+          <h2>What is safe to delete</h2>
+          <table>
+            <thead>
+              <tr><th>Store</th><th>If you delete it</th><th>Tier</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>~/.ollama/models</code></td>
+                <td>Every model is gone. <code>ollama pull</code> restores any of them.</td>
+                <td><span class="tier tier-safe">Safe</span></td>
+              </tr>
+              <tr>
+                <td><code>~/.lmstudio/models</code></td>
+                <td>Every model is gone. Re-download in the app.</td>
+                <td><span class="tier tier-safe">Safe</span></td>
+              </tr>
+              <tr>
+                <td><code>~/.cache/huggingface/hub</code></td>
+                <td>Re-downloaded on next use by whichever library asked for it.</td>
+                <td><span class="tier tier-safe">Safe</span></td>
+              </tr>
+              <tr>
+                <td>Fine-tuned or merged checkpoints you made yourself, wherever you saved them</td>
+                <td>Gone for good unless you kept the training run.</td>
+                <td><span class="tier tier-warn">Irreversible</span></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="note">
+            "Safe" here means the model can be downloaded again, not that it is quick. A 40 GB model on a typical connection takes an hour or more to come back.
+          </div>
+        </section>
+
+        <section class="cta">
+          <h2>Or let Roomy do it</h2>
+          <p>Roomy finds the Ollama, LM Studio, Hugging Face, llama.cpp, PyTorch Hub and Whisper stores in one scan, shows their sizes next to your Cursor and Claude caches and your old node_modules, and labels each one with how to restore it. Nothing is deleted until you confirm.</p>
+          <a href="index.html#download" class="btn-download">Download Roomy for macOS, free</a>
+        </section>
+
+        <p class="foot">
+          Related: <a href="cursor-disk-space.html">Why Cursor uses so much disk space</a> · <a href="claude-code-disk-space.html">Where Claude Code stores its data</a>
+        </p>
+        <p class="foot">
+          <a href="index.html">Home</a> · <a href="ai.html">Roomy for AI tools</a> · <a href="documentation.html">Documentation</a> · <a href="privacy.html">Privacy</a> ·
+          <a href="#" onclick="window.roomyOpenCookiePreferences(); return false;">Cookie preferences</a>
+        </p>
+      </div>
+    </main>
+  </body>
+</html>
