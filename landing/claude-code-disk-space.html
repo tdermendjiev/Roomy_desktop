@@ -8,7 +8,123 @@
       content="Claude Code and the Claude desktop app store session transcripts, file history, sandbox VM images and caches on your Mac. Here is where each one lives, what it is for, and what is safe to delete."
     />
     <title>Where Claude Code stores its data on macOS (and how to reclaim the space)</title>
+    <!-- seo:meta -->
     <link rel="canonical" href="https://getroomy.dev/claude-code-disk-space" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="theme-color" content="#0f1014" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Roomy" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:url" content="https://getroomy.dev/claude-code-disk-space" />
+    <meta property="og:title" content="Where Claude Code stores its data on macOS (and how to reclaim the space)" />
+    <meta property="og:description" content="Claude Code and the Claude desktop app store session transcripts, file history, sandbox VM images and caches on your Mac. Here is where each one lives, what it is for, and what is safe to delete." />
+    <meta property="og:image" content="https://getroomy.dev/og-guides.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Roomy for macOS" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Where Claude Code stores its data on macOS (and how to reclaim the space)" />
+    <meta name="twitter:description" content="Claude Code and the Claude desktop app store session transcripts, file history, sandbox VM images and caches on your Mac. Here is where each one lives, what it is for, and what is safe to delete." />
+    <meta name="twitter:image" content="https://getroomy.dev/og-guides.png" />
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://getroomy.dev/#org",
+          "name": "Azbouki",
+          "url": "https://getroomy.dev",
+          "logo": "https://getroomy.dev/logo.png",
+          "email": "teodor@azbouki.com"
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://getroomy.dev/#website",
+          "url": "https://getroomy.dev",
+          "name": "Roomy",
+          "publisher": {
+            "@id": "https://getroomy.dev/#org"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Roomy",
+              "item": "https://getroomy.dev/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Guides",
+              "item": "https://getroomy.dev/ai"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Claude Code data",
+              "item": "https://getroomy.dev/claude-code-disk-space"
+            }
+          ]
+        },
+        {
+          "@type": "TechArticle",
+          "@id": "https://getroomy.dev/claude-code-disk-space#article",
+          "headline": "Where Claude Code stores its data on macOS (and how to reclaim the space)",
+          "description": "Claude Code transcripts, file history, desktop app VM bundles and caches: where each one lives, what it is for, and what is safe to delete.",
+          "url": "https://getroomy.dev/claude-code-disk-space",
+          "image": "https://getroomy.dev/og-guides.png",
+          "datePublished": "2026-10-26",
+          "dateModified": "2026-10-26",
+          "inLanguage": "en",
+          "author": {
+            "@id": "https://getroomy.dev/#org"
+          },
+          "publisher": {
+            "@id": "https://getroomy.dev/#org"
+          },
+          "about": {
+            "@id": "https://getroomy.dev/#app"
+          },
+          "isPartOf": {
+            "@id": "https://getroomy.dev/#website"
+          }
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Where does Claude Code store session transcripts?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "In ~/.claude/projects, one folder per project named after the project path with slashes replaced by dashes. Each session is a JSONL file used by claude --resume and --continue."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How do I make Claude Code delete old transcripts automatically?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Set cleanupPeriodDays in ~/.claude/settings.json. Transcripts older than that many days are pruned."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What are the vm_bundles in the Claude desktop app folder?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Virtual machine images used to run Claude Code in a sandbox from the desktop app. They are safe to delete and are re-downloaded when a sandboxed session next starts."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
     <link rel="icon" href="logo.png" type="image/png" />
     <link rel="apple-touch-icon" href="logo.png" />
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
@@ -41,6 +157,9 @@
           Claude Code keeps a transcript of every session so you can resume it later, plus snapshots of every file it edits so you can rewind. The desktop app adds sandbox VM images on top. None of it is cleaned up aggressively, and together it can reach 10 GB or more.
         </p>
         <p class="meta">Applies to Claude Code CLI and the Claude desktop app on macOS. Last reviewed October 2026.</p>
+        <div class="note">
+          <strong>Short answer.</strong> Claude Code keeps session transcripts in <code>~/.claude/projects</code>, one folder per project, and edit snapshots in <code>~/.claude/file-history</code>. Both are needed to resume or rewind past sessions, so treat them as irreversible. The desktop app's <code>vm_bundles</code> folder under <code>~/Library/Application Support/Claude</code> is usually the single largest item and is safe to delete. Set <code>cleanupPeriodDays</code> in your settings to prune transcripts automatically.
+        </div>
 
         <section class="card">
           <h2>Find out how much Claude is using</h2>
@@ -124,6 +243,16 @@ du -sh ~/Library/Application\ Support/Claude/* | sort -rh | head</code></pre>
           <pre><code>du -sh /tmp/claude-*/ 2>/dev/null
 ls -laS /tmp/claude-*/ 2>/dev/null | head</code></pre>
           <p>Stopping the session clears the task. The files themselves are safe to delete once no session is running.</p>
+        </section>
+
+        <section class="card">
+          <h2>Common questions</h2>
+          <h3>Where does Claude Code store session transcripts?</h3>
+          <p>In <code>~/.claude/projects</code>, one folder per project named after the project path with slashes replaced by dashes. Each session is a JSONL file used by <code>claude --resume</code> and <code>--continue</code>.</p>
+          <h3>How do I make Claude Code delete old transcripts automatically?</h3>
+          <p>Set <code>cleanupPeriodDays</code> in <code>~/.claude/settings.json</code>. Transcripts older than that many days are pruned.</p>
+          <h3>What are the vm_bundles in the Claude desktop app folder?</h3>
+          <p>Virtual machine images used to run Claude Code in a sandbox from the desktop app. They are safe to delete and are re-downloaded when a sandboxed session next starts.</p>
         </section>
 
         <section class="cta">

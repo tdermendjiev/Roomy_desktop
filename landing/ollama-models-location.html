@@ -8,7 +8,123 @@
       content="Ollama, LM Studio and Hugging Face each keep their own model store on your Mac, and a few 7B and 70B models add up to 50 GB fast. Here is where each one lives, how to list and remove models, and how to move the store to another drive."
     />
     <title>Where Ollama stores models on macOS (plus LM Studio and Hugging Face)</title>
+    <!-- seo:meta -->
     <link rel="canonical" href="https://getroomy.dev/ollama-models-location" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="theme-color" content="#0f1014" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Roomy" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:url" content="https://getroomy.dev/ollama-models-location" />
+    <meta property="og:title" content="Where Ollama stores models on macOS (plus LM Studio and Hugging Face)" />
+    <meta property="og:description" content="Ollama, LM Studio and Hugging Face each keep their own model store on your Mac, and a few 7B and 70B models add up to 50 GB fast. Here is where each one lives, how to list and remove models, and how to move the store to another drive." />
+    <meta property="og:image" content="https://getroomy.dev/og-guides.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Roomy for macOS" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Where Ollama stores models on macOS (plus LM Studio and Hugging Face)" />
+    <meta name="twitter:description" content="Ollama, LM Studio and Hugging Face each keep their own model store on your Mac, and a few 7B and 70B models add up to 50 GB fast. Here is where each one lives, how to list and remove models, and how to move the store to another drive." />
+    <meta name="twitter:image" content="https://getroomy.dev/og-guides.png" />
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://getroomy.dev/#org",
+          "name": "Azbouki",
+          "url": "https://getroomy.dev",
+          "logo": "https://getroomy.dev/logo.png",
+          "email": "teodor@azbouki.com"
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://getroomy.dev/#website",
+          "url": "https://getroomy.dev",
+          "name": "Roomy",
+          "publisher": {
+            "@id": "https://getroomy.dev/#org"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Roomy",
+              "item": "https://getroomy.dev/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Guides",
+              "item": "https://getroomy.dev/ai"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Ollama models",
+              "item": "https://getroomy.dev/ollama-models-location"
+            }
+          ]
+        },
+        {
+          "@type": "TechArticle",
+          "@id": "https://getroomy.dev/ollama-models-location#article",
+          "headline": "Where Ollama stores models on macOS (plus LM Studio and Hugging Face)",
+          "description": "Ollama, LM Studio and Hugging Face each keep their own model store on a Mac. Where each one lives, how to list and remove models, and how to move the store to another drive.",
+          "url": "https://getroomy.dev/ollama-models-location",
+          "image": "https://getroomy.dev/og-guides.png",
+          "datePublished": "2026-10-26",
+          "dateModified": "2026-10-26",
+          "inLanguage": "en",
+          "author": {
+            "@id": "https://getroomy.dev/#org"
+          },
+          "publisher": {
+            "@id": "https://getroomy.dev/#org"
+          },
+          "about": {
+            "@id": "https://getroomy.dev/#app"
+          },
+          "isPartOf": {
+            "@id": "https://getroomy.dev/#website"
+          }
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Where does Ollama store models on a Mac?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "In ~/.ollama/models, with weights in blobs/ and one small manifest per model tag in manifests/. Set OLLAMA_MODELS to move the store."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How do I delete an Ollama model?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Run ollama list to see models and ollama rm <name> to remove one. Do not delete files in blobs/ by hand: a blob can be shared by several models."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Where does Hugging Face cache models?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "In ~/.cache/huggingface/hub, with xet/ and datasets/ alongside. Set HF_HOME to move it, or run huggingface-cli delete-cache to remove individual repos."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
     <link rel="icon" href="logo.png" type="image/png" />
     <link rel="apple-touch-icon" href="logo.png" />
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
@@ -41,6 +157,9 @@
           A quantized 7B model is around 4 GB. A 70B model is around 40 GB. Try a handful of each over a few months and local models become the largest thing on your disk, spread across three different stores that do not know about each other.
         </p>
         <p class="meta">Applies to Ollama, LM Studio and the Hugging Face cache on macOS. Last reviewed October 2026.</p>
+        <div class="note">
+          <strong>Short answer.</strong> Ollama stores models in <code>~/.ollama/models</code>, LM Studio in <code>~/.lmstudio/models</code>, and every Hugging Face library in <code>~/.cache/huggingface/hub</code>. All three can be deleted and re-downloaded, but use <code>ollama rm</code> rather than deleting Ollama's blob files by hand. Set <code>OLLAMA_MODELS</code> or <code>HF_HOME</code> to move a store to another drive.
+        </div>
 
         <section class="card">
           <h2>Ollama: <code>~/.ollama/models</code></h2>
@@ -110,6 +229,16 @@ huggingface-cli delete-cache</code></pre>
           <div class="note">
             "Safe" here means the model can be downloaded again, not that it is quick. A 40 GB model on a typical connection takes an hour or more to come back.
           </div>
+        </section>
+
+        <section class="card">
+          <h2>Common questions</h2>
+          <h3>Where does Ollama store models on a Mac?</h3>
+          <p>In <code>~/.ollama/models</code>, with weights in <code>blobs/</code> and one small manifest per model tag in <code>manifests/</code>. Set <code>OLLAMA_MODELS</code> to move the store.</p>
+          <h3>How do I delete an Ollama model?</h3>
+          <p>Run <code>ollama list</code> to see models and <code>ollama rm &lt;name&gt;</code> to remove one. Do not delete files in <code>blobs/</code> by hand: a blob can be shared by several models.</p>
+          <h3>Where does Hugging Face cache models?</h3>
+          <p>In <code>~/.cache/huggingface/hub</code>, with <code>xet/</code> and <code>datasets/</code> alongside. Set <code>HF_HOME</code> to move it, or run <code>huggingface-cli delete-cache</code> to remove individual repos.</p>
         </section>
 
         <section class="cta">

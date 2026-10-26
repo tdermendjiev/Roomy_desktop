@@ -5,9 +5,147 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Roomy scans projects and developer system caches — node_modules, DerivedData, Docker, Homebrew — and helps you reclaim disk space safely. Native macOS. Free."
+      content="Free macOS app that finds regenerable developer artifacts — node_modules, Python venvs, Rust targets, Xcode DerivedData, Docker, Homebrew and AI coding tool caches — and lets you review everything before deleting. Native, offline, no account."
     />
-    <title>Roomy — Find regenerable developer artifacts on macOS</title>
+    <title>Roomy — Free Mac disk cleaner for developers: node_modules, DerivedData, Docker, AI tools</title>
+    <!-- seo:meta -->
+    <link rel="canonical" href="https://getroomy.dev/" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="theme-color" content="#0f1014" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Roomy" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:url" content="https://getroomy.dev/" />
+    <meta property="og:title" content="Roomy — Free Mac disk cleaner for developers: node_modules, DerivedData, Docker, AI tools" />
+    <meta property="og:description" content="Free macOS app that finds regenerable developer artifacts — node_modules, Python venvs, Rust targets, Xcode DerivedData, Docker, Homebrew and AI coding tool caches — and lets you review everything before deleting. Native, offline, no account." />
+    <meta property="og:image" content="https://getroomy.dev/og-default.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Roomy for macOS" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Roomy — Free Mac disk cleaner for developers: node_modules, DerivedData, Docker, AI tools" />
+    <meta name="twitter:description" content="Free macOS app that finds regenerable developer artifacts — node_modules, Python venvs, Rust targets, Xcode DerivedData, Docker, Homebrew and AI coding tool caches — and lets you review everything before deleting. Native, offline, no account." />
+    <meta name="twitter:image" content="https://getroomy.dev/og-default.png" />
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://getroomy.dev/#org",
+          "name": "Azbouki",
+          "url": "https://getroomy.dev",
+          "logo": "https://getroomy.dev/logo.png",
+          "email": "teodor@azbouki.com"
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://getroomy.dev/#website",
+          "url": "https://getroomy.dev",
+          "name": "Roomy",
+          "publisher": {
+            "@id": "https://getroomy.dev/#org"
+          }
+        },
+        {
+          "@type": "SoftwareApplication",
+          "@id": "https://getroomy.dev/#app",
+          "name": "Roomy",
+          "url": "https://getroomy.dev",
+          "applicationCategory": "UtilitiesApplication",
+          "operatingSystem": "macOS 13 or later",
+          "softwareVersion": "1.2.0",
+          "datePublished": "2026-05-20",
+          "dateModified": "2026-10-26",
+          "downloadUrl": "https://getroomy.dev/downloads/Roomy-latest.zip",
+          "fileFormat": "application/zip",
+          "releaseNotes": "https://getroomy.dev/release-notes",
+          "softwareHelp": {
+            "@type": "WebPage",
+            "url": "https://getroomy.dev/documentation"
+          },
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "publisher": {
+            "@id": "https://getroomy.dev/#org"
+          },
+          "image": "https://getroomy.dev/og-default.png",
+          "description": "Free native macOS app that finds regenerable developer artifacts (node_modules, Python venvs, Rust targets, Xcode DerivedData, Docker, Homebrew, AI coding tool caches and models) and lets you review everything before deleting. Offline, no account, no telemetry.",
+          "featureList": [
+            "Two-phase scan of project folders and system caches",
+            "Project activity classification from git history",
+            "Three safety tiers: Safe, Review, Irreversible",
+            "AI coding tools: Cursor, Claude Code, Codex, Gemini CLI, Ollama, LM Studio, Hugging Face",
+            "Deletes to the macOS Trash; Docker and Conda via their CLIs"
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Is there a Pro version of Roomy?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. Roomy is free with no paid tier."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does Roomy work on Apple Silicon?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. Roomy ships as a universal binary for Apple Silicon and Intel Macs, macOS 13 or later."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Do I need an account to use Roomy?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. Download, install and run locally. Roomy has no account, no telemetry and no network features."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What are system caches in Roomy?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Fixed-path folders outside your repositories: Xcode DerivedData, global npm and pip caches, Homebrew, Docker, Conda, and the storage used by AI coding tools. Roomy scans them in a second pass and lists them under System caches."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is deleting Xcode DerivedData safe?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. Xcode regenerates DerivedData on the next build. Roomy marks it Safe and describes each cache before deletion."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How is Roomy different from CleanMyMac or DaisyDisk?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "General cleaners show you big folders. Roomy knows what the folders are: it recognises node_modules, virtual environments, build output, Xcode and Docker caches and AI tool storage, tells you whether each one regenerates, and ranks projects by how long they have been idle. It is free, offline and only touches regenerable artifacts."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does Roomy clean up Cursor, Claude Code and Ollama?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. Since version 1.2.0 Roomy has an AI coding tools category covering local model stores (Ollama, LM Studio, Hugging Face), editor and app caches (Cursor, Claude desktop, Windsurf) and agent session history (Claude Code, Codex, Gemini CLI and others). Session history is marked Irreversible and never bulk-selected."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
     <link rel="icon" href="logo.png" type="image/png" />
     <link rel="apple-touch-icon" href="logo.png" />
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
@@ -354,6 +492,14 @@
           <div class="faq-item reveal reveal-delay-4" data-reveal>
             <h4>Is deleting DerivedData safe?</h4>
             <p>Xcode regenerates DerivedData on the next build. Roomy marks it Safe and describes each cache before deletion.</p>
+          </div>
+          <div class="faq-item reveal reveal-delay-1" data-reveal>
+            <h4>How is Roomy different from CleanMyMac or DaisyDisk?</h4>
+            <p>General cleaners show you big folders. Roomy knows what the folders are: node_modules, virtual environments, build output, Xcode and Docker caches, AI tool storage. It tells you whether each one regenerates and ranks projects by how long they have been idle. Free, offline, and it only touches regenerable artifacts.</p>
+          </div>
+          <div class="faq-item reveal reveal-delay-2" data-reveal>
+            <h4>Does it clean up Cursor, Claude Code and Ollama?</h4>
+            <p>Yes. Since 1.2.0 an AI coding tools category covers model stores (Ollama, LM Studio, Hugging Face), editor caches (Cursor, Claude desktop, Windsurf) and agent session history (Claude Code, Codex, Gemini CLI). Session history is marked Irreversible and never bulk-selected. <a href="ai.html">See the AI page.</a></p>
           </div>
         </div>
       </section>

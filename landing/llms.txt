@@ -1,0 +1,26 @@
+# Roomy
+
+> Roomy is a free, native macOS app that finds regenerable developer artifacts and shows what is safe to delete. It scans project folders for node_modules, Python virtual environments, Rust target directories and similar build output, then checks fixed-path system caches such as Xcode DerivedData, global npm and pip caches, Homebrew, Docker, and the storage used by AI coding tools (Cursor, Claude Code, Claude desktop, Codex, Gemini CLI, Ollama, LM Studio, Hugging Face). Nothing is deleted until the user reviews and confirms. Project artifacts go to the macOS Trash. The app runs fully offline, has no account and no telemetry.
+
+Publisher: Azbouki. Contact: teodor@azbouki.com. Current version: 1.2.0 (macOS 13+, Apple Silicon and Intel, universal binary). License: proprietary, free of charge.
+
+## Key facts
+
+- Two-phase scan: a filesystem walk for per-project artifacts, then fixed-path probes for system and AI tool caches.
+- Project activity classification (Active, Recent, Inactive, Dormant) from git commit dates and file modification times. Dormant projects are pre-selected for cleanup.
+- Three safety tiers on every item: Safe (regenerates on next use), Review (mixes caches with user data, or costly to rebuild), Irreversible (session transcripts, checkpoints, archives). Irreversible items are never bulk-selected.
+- AI coding tools category: local model stores (Ollama, LM Studio, Hugging Face hub, llama.cpp, PyTorch Hub, Whisper, vLLM), app and sandbox caches (Claude desktop VM bundles, Cursor, Windsurf, Kiro, Trae and Void Electron caches, npx cache used by MCP servers, Playwright and Puppeteer browsers, Continue index), and agent session history (Claude Code per project with last-session date, Codex CLI, Gemini CLI, OpenCode, Goose, Qwen Code, Cline, Roo and Kilo checkpoints).
+- Project-level AI artifacts: aider tag cache, Crush data folder, Chroma and LanceDB vector stores.
+- Docker and Conda cleanups use their official CLIs rather than the Trash.
+
+## Pages
+
+- [Home](https://getroomy.dev/): overview, features, download, FAQ.
+- [Roomy for AI coding](https://getroomy.dev/ai): the AI tools category explained, with the list of supported tools.
+- [Documentation](https://getroomy.dev/documentation): scan scope, detected folders, system cache categories, safety tiers, exclusions, deletion behavior, data persistence, roadmap.
+- [Release notes](https://getroomy.dev/release-notes): changelog for every version.
+- [Why Cursor uses so much disk space on macOS](https://getroomy.dev/cursor-disk-space): where Cursor stores caches, workspace state and chat history, and what is safe to delete.
+- [Where Claude Code stores its data on macOS](https://getroomy.dev/claude-code-disk-space): transcripts, file history, desktop app VM bundles, retention setting, runaway temp files.
+- [Where Ollama stores models on macOS](https://getroomy.dev/ollama-models-location): Ollama, LM Studio and Hugging Face model stores, how to list, remove and relocate models.
+- [Privacy policy](https://getroomy.dev/privacy)
+- [License](https://getroomy.dev/eula)

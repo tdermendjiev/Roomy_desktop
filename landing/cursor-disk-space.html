@@ -8,7 +8,123 @@
       content="Cursor can quietly use 10–20 GB on a Mac. Here is where it stores caches, workspace state and chat history, which folders are safe to delete, and how to reclaim the space."
     />
     <title>Why Cursor uses so much disk space on macOS (and what is safe to delete)</title>
+    <!-- seo:meta -->
     <link rel="canonical" href="https://getroomy.dev/cursor-disk-space" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="theme-color" content="#0f1014" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Roomy" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:url" content="https://getroomy.dev/cursor-disk-space" />
+    <meta property="og:title" content="Why Cursor uses so much disk space on macOS (and what is safe to delete)" />
+    <meta property="og:description" content="Cursor can quietly use 10–20 GB on a Mac. Here is where it stores caches, workspace state and chat history, which folders are safe to delete, and how to reclaim the space." />
+    <meta property="og:image" content="https://getroomy.dev/og-guides.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Roomy for macOS" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Why Cursor uses so much disk space on macOS (and what is safe to delete)" />
+    <meta name="twitter:description" content="Cursor can quietly use 10–20 GB on a Mac. Here is where it stores caches, workspace state and chat history, which folders are safe to delete, and how to reclaim the space." />
+    <meta name="twitter:image" content="https://getroomy.dev/og-guides.png" />
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://getroomy.dev/#org",
+          "name": "Azbouki",
+          "url": "https://getroomy.dev",
+          "logo": "https://getroomy.dev/logo.png",
+          "email": "teodor@azbouki.com"
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://getroomy.dev/#website",
+          "url": "https://getroomy.dev",
+          "name": "Roomy",
+          "publisher": {
+            "@id": "https://getroomy.dev/#org"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Roomy",
+              "item": "https://getroomy.dev/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Guides",
+              "item": "https://getroomy.dev/ai"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Cursor disk space",
+              "item": "https://getroomy.dev/cursor-disk-space"
+            }
+          ]
+        },
+        {
+          "@type": "TechArticle",
+          "@id": "https://getroomy.dev/cursor-disk-space#article",
+          "headline": "Why Cursor uses so much disk space on macOS (and what is safe to delete)",
+          "description": "Where Cursor stores caches, workspace state and chat history on a Mac, which folders are safe to delete, and how to reclaim the space.",
+          "url": "https://getroomy.dev/cursor-disk-space",
+          "image": "https://getroomy.dev/og-guides.png",
+          "datePublished": "2026-10-26",
+          "dateModified": "2026-10-26",
+          "inLanguage": "en",
+          "author": {
+            "@id": "https://getroomy.dev/#org"
+          },
+          "publisher": {
+            "@id": "https://getroomy.dev/#org"
+          },
+          "about": {
+            "@id": "https://getroomy.dev/#app"
+          },
+          "isPartOf": {
+            "@id": "https://getroomy.dev/#website"
+          }
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Where does Cursor store its data on macOS?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "In ~/Library/Application Support/Cursor (caches, CachedData, WebStorage, User/workspaceStorage, User/History, User/globalStorage, logs) and ~/.cursor/extensions."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Which Cursor folders are safe to delete?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Cache, Code Cache, GPUCache, DawnWebGPUCache, CachedData and logs are rebuilt automatically. Quit Cursor first. Do not delete User/globalStorage or settings.json: they hold your settings, keybindings and chat history."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does Cursor keep a local codebase index?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. Codebase indexing happens on Cursor's servers, so the local footprint is caches and per-workspace state rather than an embeddings index."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
     <link rel="icon" href="logo.png" type="image/png" />
     <link rel="apple-touch-icon" href="logo.png" />
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
@@ -41,6 +157,9 @@
           Cursor is a VS Code fork with an Electron shell and an AI layer on top. All three keep their own caches, and none of them clean up after themselves. On a machine used daily for a year, the Cursor folder alone can pass 15 GB.
         </p>
         <p class="meta">Applies to Cursor on macOS 13 and later. Last reviewed October 2026.</p>
+        <div class="note">
+          <strong>Short answer.</strong> Cursor's data lives in <code>~/Library/Application Support/Cursor</code>. The <code>Cache</code>, <code>Code Cache</code>, <code>GPUCache</code>, <code>CachedData</code> and <code>logs</code> folders are safe to delete once Cursor is closed. <code>User/workspaceStorage</code> and <code>User/History</code> hold per-project state and can be pruned for projects you no longer have. <code>User/globalStorage</code> holds your settings and chat history, so leave it alone.
+        </div>
 
         <section class="card">
           <h2>Find out how much Cursor is using</h2>
@@ -116,6 +235,16 @@ rm -rf Cache "Code Cache" GPUCache DawnWebGPUCache CachedData logs</code></pre>
             <li>Do not delete <code>User/globalStorage</code> or <code>User/settings.json</code>. That is your settings, keybindings and chat history.</li>
             <li>Do not clear caches while Cursor is running. It may write partially and corrupt the next launch.</li>
           </ul>
+        </section>
+
+        <section class="card">
+          <h2>Common questions</h2>
+          <h3>Where does Cursor store its data on macOS?</h3>
+          <p>In <code>~/Library/Application Support/Cursor</code> (caches, CachedData, WebStorage, User/workspaceStorage, User/History, User/globalStorage, logs) and <code>~/.cursor/extensions</code>.</p>
+          <h3>Which Cursor folders are safe to delete?</h3>
+          <p>Cache, Code Cache, GPUCache, DawnWebGPUCache, CachedData and logs are rebuilt automatically. Quit Cursor first. Do not delete User/globalStorage or settings.json: they hold your settings, keybindings and chat history.</p>
+          <h3>Does Cursor keep a local codebase index?</h3>
+          <p>No. Codebase indexing happens on Cursor's servers, so the local footprint is caches and per-workspace state rather than an embeddings index.</p>
         </section>
 
         <section class="cta">

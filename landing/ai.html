@@ -8,7 +8,145 @@
       content="Cursor, Claude Code, Codex and Ollama quietly leave tens of gigabytes on your Mac: models, editor caches, sandbox VMs, agent session history, and the node_modules of every project you abandoned. Roomy finds all of it and tells you what is safe to delete. Native macOS. Free."
     />
     <title>Roomy for AI coding — Reclaim the disk space Cursor, Claude Code and Ollama use</title>
+    <!-- seo:meta -->
     <link rel="canonical" href="https://getroomy.dev/ai" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="theme-color" content="#0f1014" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Roomy" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:url" content="https://getroomy.dev/ai" />
+    <meta property="og:title" content="Roomy for AI coding — Reclaim the disk space Cursor, Claude Code and Ollama use" />
+    <meta property="og:description" content="Cursor, Claude Code, Codex and Ollama quietly leave tens of gigabytes on your Mac: models, editor caches, sandbox VMs, agent session history, and the node_modules of every project you abandoned. Roomy finds all of it and tells you what is safe to delete. Native macOS. Free." />
+    <meta property="og:image" content="https://getroomy.dev/og-ai.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Roomy for macOS" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Roomy for AI coding — Reclaim the disk space Cursor, Claude Code and Ollama use" />
+    <meta name="twitter:description" content="Cursor, Claude Code, Codex and Ollama quietly leave tens of gigabytes on your Mac: models, editor caches, sandbox VMs, agent session history, and the node_modules of every project you abandoned. Roomy finds all of it and tells you what is safe to delete. Native macOS. Free." />
+    <meta name="twitter:image" content="https://getroomy.dev/og-ai.png" />
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://getroomy.dev/#org",
+          "name": "Azbouki",
+          "url": "https://getroomy.dev",
+          "logo": "https://getroomy.dev/logo.png",
+          "email": "teodor@azbouki.com"
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://getroomy.dev/#website",
+          "url": "https://getroomy.dev",
+          "name": "Roomy",
+          "publisher": {
+            "@id": "https://getroomy.dev/#org"
+          }
+        },
+        {
+          "@type": "SoftwareApplication",
+          "@id": "https://getroomy.dev/#app",
+          "name": "Roomy",
+          "url": "https://getroomy.dev",
+          "applicationCategory": "UtilitiesApplication",
+          "operatingSystem": "macOS 13 or later",
+          "softwareVersion": "1.2.0",
+          "datePublished": "2026-05-20",
+          "dateModified": "2026-10-26",
+          "downloadUrl": "https://getroomy.dev/downloads/Roomy-latest.zip",
+          "fileFormat": "application/zip",
+          "releaseNotes": "https://getroomy.dev/release-notes",
+          "softwareHelp": {
+            "@type": "WebPage",
+            "url": "https://getroomy.dev/documentation"
+          },
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "publisher": {
+            "@id": "https://getroomy.dev/#org"
+          },
+          "image": "https://getroomy.dev/og-default.png",
+          "description": "Free native macOS app that finds regenerable developer artifacts (node_modules, Python venvs, Rust targets, Xcode DerivedData, Docker, Homebrew, AI coding tool caches and models) and lets you review everything before deleting. Offline, no account, no telemetry.",
+          "featureList": [
+            "Two-phase scan of project folders and system caches",
+            "Project activity classification from git history",
+            "Three safety tiers: Safe, Review, Irreversible",
+            "AI coding tools: Cursor, Claude Code, Codex, Gemini CLI, Ollama, LM Studio, Hugging Face",
+            "Deletes to the macOS Trash; Docker and Conda via their CLIs"
+          ]
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Roomy",
+              "item": "https://getroomy.dev/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Roomy for AI coding",
+              "item": "https://getroomy.dev/ai"
+            }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Will Roomy delete my Cursor or Claude chat history?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Not unless you pick it on purpose. Chat databases and settings are never listed. Agent transcripts are listed but marked Irreversible, excluded from bulk selection, and shown with a last-session date so you can keep the recent ones."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is deleting Ollama or Hugging Face models safe?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, in the sense that any model can be downloaded again. Roomy marks them Safe and shows the pull command. Re-downloading a large model is slow, so you decide."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "I do not really know what node_modules is. Is Roomy for me?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. Every item has a plain-language description and a restore hint. If a folder regenerates when you next open the project, Roomy says so."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Why is Cursor using 18 GB on my Mac?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Caches, per-workspace state for every project you ever opened, and web storage under Library/Application Support/Cursor. Roomy lists each part with a safety tier; the Cursor guide on getroomy.dev explains what each folder holds."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does Roomy send anything to the cloud?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. It reads your disk locally and has no network features."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
     <link rel="icon" href="logo.png" type="image/png" />
     <link rel="apple-touch-icon" href="logo.png" />
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
