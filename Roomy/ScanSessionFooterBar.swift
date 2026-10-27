@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import RoomyCore
 
 struct ScanSessionFooterBar: View {
     var summary: ScanResultsSummary

@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Roomy Hub reference: the self-hosted central view of a Roomy fleet. Running the hub, how hosts report, centrally managed policies, host status, the dashboard, the JSON API, fleet-wide Prometheus metrics, tokens, data directory and editions."
+    />
+    <title>Roomy Hub reference — central inventory, dashboard, managed policies, API, metrics</title>
+    <!-- seo:meta -->
+    <link rel="canonical" href="https://getroomy.dev/docs-hub" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="theme-color" content="#0f1014" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Roomy" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:url" content="https://getroomy.dev/docs-hub" />
+    <meta property="og:title" content="Roomy Hub reference — central inventory, dashboard, managed policies, API, metrics" />
+    <meta property="og:description" content="Roomy Hub reference: the self-hosted central view of a Roomy fleet. Running the hub, how hosts report, centrally managed policies, host status, the dashboard, the JSON API, fleet-wide Prometheus metrics, tokens, data directory and editions." />
+    <meta property="og:image" content="https://getroomy.dev/og-fleet.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Roomy Hub dashboard" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Roomy Hub reference — central inventory, dashboard, managed policies, API, metrics" />
+    <meta name="twitter:description" content="Roomy Hub reference: the self-hosted central view of a Roomy fleet. Running the hub, how hosts report, centrally managed policies, host status, the dashboard, the JSON API, fleet-wide Prometheus metrics, tokens, data directory and editions." />
+    <meta name="twitter:image" content="https://getroomy.dev/og-fleet.png" />
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        { "@type": "Organization", "@id": "https://getroomy.dev/#org", "name": "Azbouki", "url": "https://getroomy.dev", "logo": "https://getroomy.dev/logo.png", "email": "teodor@azbouki.com" },
+        { "@type": "BreadcrumbList", "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Roomy", "item": "https://getroomy.dev/" },
+          { "@type": "ListItem", "position": 2, "name": "Documentation", "item": "https://getroomy.dev/documentation" },
+          { "@type": "ListItem", "position": 3, "name": "Hub", "item": "https://getroomy.dev/docs-hub" } ] },
+        { "@type": "TechArticle", "@id": "https://getroomy.dev/docs-hub#article",
+          "headline": "Roomy Hub reference",
+          "description": "Running the hub, host reports, managed policies, host status, dashboard, API, metrics, data directory, editions.",
+          "url": "https://getroomy.dev/docs-hub", "image": "https://getroomy.dev/og-fleet.png",
+          "datePublished": "2026-10-27", "dateModified": "2026-10-27", "inLanguage": "en",
+          "author": { "@id": "https://getroomy.dev/#org" }, "publisher": { "@id": "https://getroomy.dev/#org" },
+          "isPartOf": { "@id": "https://getroomy.dev/#website" } }
+      ]
+    }
+    </script>
+    <link rel="icon" href="logo.png" type="image/png" />
+    <link rel="apple-touch-icon" href="logo.png" />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/geist-sans@5.2.5/latin.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/geist-mono@5.2.5/latin.css" />
+    <link rel="stylesheet" href="docs.css" />
+    <link rel="stylesheet" href="consent.css" />
+    <script src="site-config.js"></script>
+    <script src="consent.js"></script>
+    <style>
+      .shot { display: block; width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--border-subtle); margin-top: 14px; }
+    </style>
+  </head>
+  <body>
+    <header class="top">
+      <div class="wrap">
+        <a class="brand" href="index.html"><img src="logo.png" alt="" /><span>Roomy <b>/ Documentation</b></span></a>
+        <nav class="top-links">
+          <a href="index.html">Home</a>
+          <a href="ai.html">AI tools</a>
+          <a href="fleet.html">Fleet &amp; Hub</a>
+          <a href="release-notes.html">Release notes</a>
+          <a class="btn-top" href="index.html#download">Download</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <div class="wrap">
+        <span class="kicker">v1.3.0 · self-hosted</span>
+        <h1>Roomy Hub reference</h1>
+        <p class="sub">The central view of a fleet. Every host running <code>roomy fleet</code> posts a short report after each run; the hub keeps an inventory, a history per host, fleet-wide totals and metrics, serves a dashboard, and hands out centrally managed policies. One binary, plain files, no database.</p>
+        <p class="meta">Last reviewed: October 27, 2026 · Product overview and screenshots: <a href="fleet.html">Roomy Fleet &amp; Hub</a></p>
+
+        <div class="grid">
+          <aside class="toc">
+            <h3>Documentation</h3>
+            <a href="documentation.html">Mac app</a>
+            <a href="docs-cli.html">CLI</a>
+            <a href="docs-fleet.html">Fleet</a>
+            <a href="docs-hub.html" class="current">Hub</a>
+            <h3>On this page</h3>
+            <a href="#overview">Overview</a>
+            <a href="#running">Running the hub</a>
+            <a href="#tokens">Tokens and security</a>
+            <a href="#reports">How a host reports</a>
+            <a href="#managed-policies">Managed policies</a>
+            <a href="#status">Host status</a>
+            <a href="#dashboard">Dashboard</a>
+            <a href="#api">API</a>
+            <a href="#metrics">Metrics</a>
+            <a href="#data">Data directory</a>
+            <a href="#editions">Editions</a>
+            <a href="#cli">CLI commands</a>
+          </aside>
+
+          <div class="content">
+            <section class="panel" id="overview">
+              <h2>Overview</h2>
+              <pre><code>roomy hub serve --listen 0.0.0.0:9478 --data-dir /var/lib/roomy-hub \
+                --agent-token-file /etc/roomy/hub.agent.token --admin-token-file /etc/roomy/hub.admin.token
+roomy hub status | hosts | host NAME | remove NAME | events      <span class="c"># talk to a hub (--url, --token)</span>
+roomy hub policy list | get NAME | push NAME FILE | remove NAME  <span class="c"># centrally managed policies</span>
+roomy hub demo --data-dir ~/.roomy/hub-demo --hosts 12            <span class="c"># synthetic fleet to try the dashboard</span>
+roomy hub token                                                   <span class="c"># random token for the two files above</span></code></pre>
+              <p>The hub is built like the monitoring you already run: hosts push a few kilobytes of plain JSON over HTTP on a timer, the hub writes them to disk, and the dashboard and metrics are computed from those files. There is no agent to install beyond <code>roomy</code> itself, no cloud component and no telemetry.</p>
+              <img src="img/hub-overview.png" width="2000" height="1889" alt="Roomy Hub overview: hosts by status, reclaimable by tier, freed in the last 24 hours, freed per day, reclaimable by category, hosts with the most to reclaim, largest findings" loading="lazy" decoding="async" class="shot" />
+              <p class="small">The screenshot is the built-in demo fleet (<code>roomy hub demo</code>), not a customer.</p>
+            </section>
+
+            <section class="panel" id="running">
+              <h2>Running the hub</h2>
+              <h3>On a laptop, to have a look</h3>
+              <pre><code>roomy hub demo &amp;&amp; roomy hub serve --data-dir ~/.roomy/hub-demo
+open http://127.0.0.1:9478/</code></pre>
+              <p><code>roomy hub serve</code> with no flags listens on <code>127.0.0.1:9478</code> with no tokens, which is fine on localhost.</p>
+              <h3>With systemd (from the packages)</h3>
+              <pre><code>roomy hub token | sudo tee /etc/roomy/hub.agent.token &gt;/dev/null
+roomy hub token | sudo tee /etc/roomy/hub.admin.token &gt;/dev/null
+sudo chmod 600 /etc/roomy/hub.*.token
+sudoedit /etc/roomy/hub.env            <span class="c"># ROOMY_HUB_LISTEN=0.0.0.0:9478, ROOMY_HUB_TITLE=…</span>
+sudo systemctl enable --now roomy-hub.service</code></pre>
+              <p><code>roomy-hub.service</code> runs as a <code>DynamicUser</code> with state in <code>/var/lib/roomy-hub</code>, settings in <code>/etc/roomy/hub.env</code>, and the two token files above.</p>
+              <h3>In a container</h3>
+              <pre><code>docker run -d --name roomy-hub -p 9478:9478 -v roomy-hub:/data ghcr.io/azbouki/roomy \
+  hub serve --listen 0.0.0.0:9478 --data-dir /data --agent-token … --admin-token …</code></pre>
+              <h3>Options</h3>
+              <table>
+                <thead><tr><th>Flag</th><th>Default</th><th>Meaning</th></tr></thead>
+                <tbody>
+                  <tr><td><code>--listen H:P</code></td><td><code>127.0.0.1:9478</code></td><td>Address to bind. Also <code>$ROOMY_HUB_LISTEN</code> in the service.</td></tr>
+                  <tr><td><code>--data-dir DIR</code></td><td><code>~/.roomy/hub</code></td><td>Where hosts, policies and events are kept. Also <code>$ROOMY_HUB_DATA</code>.</td></tr>
+                  <tr><td><code>--agent-token T</code> / <code>--agent-token-file F</code></td><td>none</td><td>Token hosts use to post reports and fetch policies.</td></tr>
+                  <tr><td><code>--admin-token T</code> / <code>--admin-token-file F</code></td><td>none</td><td>Token for the dashboard, the API and metrics.</td></tr>
+                  <tr><td><code>--stale-after 24h</code></td><td><code>24h</code></td><td>When a host with unknown interval counts as stale.</td></tr>
+                  <tr><td><code>--license TOKEN</code></td><td>see <a href="#editions">Editions</a></td><td>Fleet license; sets the host allowance and the organisation name.</td></tr>
+                  <tr><td><code>--title NAME</code></td><td><code>Roomy Hub</code></td><td>Shown in the dashboard header.</td></tr>
+                </tbody>
+              </table>
+            </section>
+
+            <section class="panel" id="tokens">
+              <h2>Tokens and security</h2>
+              <p>Two bearer tokens, compared in constant time.</p>
+              <ul>
+                <li>The <strong>agent token</strong> can only post reports and fetch managed policies. A compromised host cannot read the inventory or change a policy.</li>
+                <li>The <strong>admin token</strong> does everything else: the dashboard, the API, metrics, pushing policies, removing hosts.</li>
+              </ul>
+              <p>Pass a token as <code>Authorization: Bearer &lt;token&gt;</code> or as <code>?token=</code>. Without any token configured the API is open, which is fine on <code>127.0.0.1</code> and a warning anywhere else. The dashboard asks for the admin token once and keeps it in the browser's local storage.</p>
+              <div class="note warn">The hub speaks plain HTTP and has no TLS of its own. Put it on a private network or behind your reverse proxy with TLS, like node_exporter or Prometheus itself. Hosts and the <code>roomy hub</code> CLI handle an <code>https://</code> hub URL through the system <code>curl</code>, so TLS to a reverse proxy works without Roomy linking a TLS stack.</div>
+            </section>
+
+            <section class="panel" id="reports">
+              <h2>How a host reports</h2>
+              <p>In the host's policy:</p>
+              <pre><code>{ "hub": { "url": "http://hub.internal:9478", "tokenFile": "/etc/roomy/hub.token",
+           "tags": { "role": "agent", "team": "platform" }, "policy": "agent-host" } }</code></pre>
+              <p>or, when writing the policy:</p>
+              <pre><code>roomy fleet policy init --profile agent-host --hub http://hub.internal:9478 \
+  --hub-policy agent-host --tag role=agent --output /etc/roomy/policy.json</code></pre>
+              <p>After every <code>roomy fleet run</code> (and every cycle of <code>fleet serve</code>) the host posts a <code>HubHostReport</code>: host, platform, Roomy and catalog version, policy name, edition, tags, what the scan found by tier and category, what the policy selected, what was removed, cumulative totals from the audit log, quarantine size, disk space, the audit chain head (<code>seq</code> + hash), and the largest findings (<code>hub.topItems</code>, default 25, warning tier included so the dashboard can show what the policy is <em>not</em> allowed to remove). A few kilobytes. Never file contents.</p>
+              <p>The audit log records <code>hubReported</code>, or <code>error</code> with the reason if the hub was unreachable. <strong>A hub outage never stops a run</strong>, and never makes one more aggressive.</p>
+              <p class="small"><code>fleet serve</code> reports its interval so the hub can tell a quiet host from a dead one; timer-driven hosts set <code>hub.intervalSeconds</code> or inherit the hub's <code>--stale-after</code>.</p>
+            </section>
+
+            <section class="panel" id="managed-policies">
+              <h2>Centrally managed policies</h2>
+              <pre><code>roomy hub policy push ci-runner policy.json     <span class="c"># validate and store on the hub</span>
+roomy hub policy list
+roomy hub policy get ci-runner</code></pre>
+              <p>A host whose local policy sets <code>hub.policy: "ci-runner"</code> fetches it before every run and uses it instead of the local file, keeping only the local <code>hub</code>, <code>license</code>, <code>scan.home</code> and <code>lockFile</code> sections. If the hub cannot be reached the host runs its local policy and says so in the log. <code>--local-policy</code> on <code>fleet run</code> and <code>fleet serve</code> skips the pull.</p>
+              <p>So the local file on each host can be a two-line bootstrap, and a policy change is one push plus the next run. The Policies view shows each managed policy and which hosts run it.</p>
+              <img src="img/hub-policies.png" width="2000" height="1194" alt="Roomy Hub policies view: managed policies with their JSON and the hosts using each policy name" loading="lazy" decoding="async" class="shot" />
+            </section>
+
+            <section class="panel" id="status">
+              <h2>Host status</h2>
+              <table class="wrap-ok">
+                <thead><tr><th>Status</th><th>Meaning</th></tr></thead>
+                <tbody>
+                  <tr><td><span class="tier tier-safe">healthy</span></td><td>Reported within the window, last run had no failures, disk above 10% free.</td></tr>
+                  <tr><td><span class="tier tier-review">attention</span></td><td>Reported, but: disposal failures in the last run, under 10% free, over the license allowance, or an expired fleet license.</td></tr>
+                  <tr><td><span class="tier tier-warn">stale</span></td><td>No report for 2.5× the host's interval (minimum 15 minutes), or <code>--stale-after</code> when the interval is unknown.</td></tr>
+                </tbody>
+              </table>
+              <p>Hosts that are over the license allowance still appear with their reports; only <em>new</em> hosts beyond it are refused with HTTP 402 and an event. Removing a host (<code>roomy hub remove</code>, or the dashboard) drops it from the inventory; it comes back on its next report.</p>
+            </section>
+
+            <section class="panel" id="dashboard">
+              <h2>Dashboard</h2>
+              <p><code>GET /</code> is a single self-contained page with no external assets, so it works air-gapped. It refreshes every 30 seconds.</p>
+              <ul>
+                <li><strong>Overview</strong>: hosts by status, reclaimable by tier, freed in the last 24 h / 7 d / all-time, hosts under disk pressure, quarantine held; freed per day for 14 days; reclaimable by category; the hosts with the most to reclaim, by tier; the largest findings across the fleet; hosts that need attention; recent runs.</li>
+                <li><strong>Hosts</strong>: searchable, filterable, sortable inventory with tags, status reasons, tier bars, disk meter, a reclaimable sparkline and last-report age.</li>
+                <li><strong>Host</strong>: everything in the last report, reclaimable over time, freed per run, the largest findings with tier and idle time, why items were skipped, audit chain head, an operator note, and removal.</li>
+                <li><strong>Policies</strong>: hub-managed policies and which hosts use each policy name.</li>
+                <li><strong>Activity</strong>: the hub's own event log (reports, rejections, policy pushes, removals).</li>
+              </ul>
+              <img src="img/hub-host.png" width="2000" height="1944" alt="Roomy Hub host detail: last report, reclaimable over time, freed per run, largest findings with tier and idle time, skipped reasons, audit chain head" loading="lazy" decoding="async" class="shot" />
+            </section>
+
+            <section class="panel" id="api">
+              <h2>API</h2>
+              <p>All JSON. <em>Agent</em> routes accept the agent or admin token; everything else needs the admin token.</p>
+              <div class="table-wrap">
+              <table class="wrap-ok">
+                <thead><tr><th>Route</th><th>Who</th><th>What</th></tr></thead>
+                <tbody>
+                  <tr><td><code>POST /api/v1/report</code></td><td>agent</td><td>Ingest a <code>HubHostReport</code>; <code>402</code> when a new host exceeds the allowance</td></tr>
+                  <tr><td><code>GET /api/v1/policies</code>, <code>GET /api/v1/policies/{name}</code></td><td>agent</td><td>List / fetch a managed policy</td></tr>
+                  <tr><td><code>PUT /api/v1/policies/{name}</code> (body: policy JSON), <code>DELETE …</code></td><td>admin</td><td>Store (validated) / remove</td></tr>
+                  <tr><td><code>GET /api/v1/summary</code></td><td>admin</td><td>The <code>HubSummary</code> the overview is drawn from</td></tr>
+                  <tr><td><code>GET /api/v1/hosts</code></td><td>admin</td><td>Inventory rows with status (history trimmed, top items omitted)</td></tr>
+                  <tr><td><code>GET /api/v1/hosts/{name}</code>, <code>DELETE …</code>, <code>PUT …/note</code> (text body)</td><td>admin</td><td>One host in full / remove / note</td></tr>
+                  <tr><td><code>GET /api/v1/events?n=50</code></td><td>admin</td><td>Recent hub events</td></tr>
+                  <tr><td><code>GET /api/v1/license</code></td><td>admin</td><td>Edition, org, allowance, hosts over it</td></tr>
+                  <tr><td><code>GET /api/v1/info</code></td><td>public</td><td>Name, version, whether auth is required</td></tr>
+                  <tr><td><code>GET /metrics</code></td><td>admin</td><td>Fleet-wide Prometheus text</td></tr>
+                  <tr><td><code>GET /healthz</code></td><td>public</td><td><code>ok</code></td></tr>
+                </tbody>
+              </table>
+              </div>
+              <p class="small">Shapes (<code>HubHostReport</code>, <code>HubSummary</code>, <code>HubHostRecord</code>, <code>HubEvent</code>) are versioned by <code>schemaVersion</code> and additive-only, like <code>ScanReport</code>.</p>
+              <pre><code>curl -s -H "Authorization: Bearer $ADMIN" http://hub.internal:9478/api/v1/hosts | jq '.[] | {host, status, reclaimableBytes}'</code></pre>
+            </section>
+
+            <section class="panel" id="metrics">
+              <h2>Metrics</h2>
+              <p>Scrape <code>/metrics</code> with the admin token (<code>authorization: credentials</code> in the Prometheus job). One scrape covers the whole fleet.</p>
+              <h3>Fleet series</h3>
+              <p><code>roomy_hub_hosts{status}</code>, <code>roomy_hub_license_hosts_max</code>, <code>roomy_hub_reclaimable_bytes{tier}</code>, <code>roomy_hub_reclaimable_bytes_by_category{category}</code>, <code>roomy_hub_disposed_bytes_total</code>, <code>roomy_hub_disposed_bytes_last_24h</code>, <code>roomy_hub_dispose_failures_total</code>, <code>roomy_hub_quarantine_bytes</code>, <code>roomy_hub_volume_available_bytes</code>, <code>roomy_hub_volume_total_bytes</code>, <code>roomy_hub_hosts_low_disk</code>.</p>
+              <h3>Per-host series</h3>
+              <p>Each carries <code>host</code>: <code>roomy_hub_host_info{platform,version,policy,edition,status}</code>, <code>roomy_hub_host_reclaimable_bytes{tier}</code>, <code>roomy_hub_host_disposed_bytes_total</code>, <code>roomy_hub_host_last_run_disposed_bytes</code>, <code>roomy_hub_host_last_run_failures</code>, <code>roomy_hub_host_last_run_success</code>, <code>roomy_hub_host_dry_run</code>, <code>roomy_hub_host_last_report_timestamp_seconds</code>, <code>roomy_hub_host_quarantine_bytes</code>, <code>roomy_hub_host_volume_available_bytes</code>, <code>roomy_hub_host_volume_total_bytes</code>, <code>roomy_hub_host_audit_seq</code>.</p>
+              <h3>Alerts worth having</h3>
+              <pre><code>roomy_hub_hosts{status="stale"} &gt; 0                                              <span class="c"># a host stopped reporting</span>
+roomy_hub_host_volume_available_bytes / roomy_hub_host_volume_total_bytes &lt; 0.1   <span class="c"># disk pressure despite cleanup</span>
+increase(roomy_hub_dispose_failures_total[1d]) &gt; 0                               <span class="c"># something could not be removed</span>
+delta(roomy_hub_host_audit_seq[1h]) &lt; 0                                           <span class="c"># a host's audit log was reset</span></code></pre>
+            </section>
+
+            <section class="panel" id="data">
+              <h2>Data directory</h2>
+              <pre><code>/var/lib/roomy-hub/
+  hosts/&lt;host&gt;.json      latest report + up to 1000 history points + note
+  policies/&lt;name&gt;.json   managed policies, exactly as pushed
+  events.jsonl           hub event log</code></pre>
+              <p>Plain files: back up with rsync, inspect with <code>jq</code>, delete a host file to forget it. The hub reloads everything on start. Request bodies are capped at 8 MB.</p>
+            </section>
+
+            <section class="panel" id="editions">
+              <h2>Editions</h2>
+              <p>Without a license the hub tracks up to <strong>5 hosts</strong>, enough to try it with real machines. A fleet license sets the allowance to its <code>maxHosts</code> and shows the organisation in the header. The hub reads its license from <code>--license</code>, <code>$ROOMY_LICENSE</code>, <code>/etc/roomy/license.key</code> or <code>~/.roomy/license.key</code>, and verifies it offline.</p>
+              <p>When the allowance is reached, a report from a host the hub has not seen is refused with HTTP 402 and logged as an event; known hosts keep reporting. An expired license therefore degrades to an "attention" marker, not an outage. Licensing details are in the <a href="docs-fleet.html#licensing">Fleet reference</a>; pricing is on the <a href="fleet.html#pricing">Fleet page</a>.</p>
+            </section>
+
+            <section class="panel" id="cli">
+              <h2>CLI commands</h2>
+              <p>All operator commands take <code>--url</code> and <code>--token</code>, or read <code>$ROOMY_HUB_URL</code>, <code>$ROOMY_HUB_TOKEN</code> and <code>~/.roomy/hub-admin.token</code>. Add <code>--json</code> for machine output.</p>
+              <pre><code>roomy hub status                       <span class="c"># fleet totals, hosts by status, license</span>
+roomy hub hosts [--status attention]   <span class="c"># inventory table</span>
+roomy hub host agent-eu-03 [--note "Decommission next week"]
+roomy hub remove agent-eu-03
+roomy hub events -n 50
+roomy hub policy list | get NAME | push NAME FILE | remove NAME
+roomy hub demo [--hosts 24] [--seed 7] [--org "Example"] [--reset]   <span class="c"># synthetic fleet in ~/.roomy/hub-demo</span>
+roomy hub token                        <span class="c"># print a random token</span></code></pre>
+            </section>
+
+            <p class="foot"><a href="index.html">Home</a> · <a href="documentation.html">Mac app</a> · <a href="docs-cli.html">CLI</a> · <a href="docs-fleet.html">Fleet</a> · <a href="fleet.html">Fleet &amp; Hub overview</a> · <a href="privacy.html">Privacy</a> · <a href="eula.html">EULA</a></p>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

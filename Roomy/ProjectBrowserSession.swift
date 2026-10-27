@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RoomyCore
 import SwiftUI
 
 final class ProjectBrowserSession: ObservableObject {

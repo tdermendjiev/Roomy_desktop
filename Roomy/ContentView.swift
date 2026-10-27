@@ -6,6 +6,7 @@
 //
 
 import AppKit
+import RoomyCore
 import SwiftUI
 
 private enum RootPhase: Equatable {

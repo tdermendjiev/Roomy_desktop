@@ -6,6 +6,7 @@
 //
 
 import AppKit
+import RoomyCore
 import SwiftUI
 
 extension Color {
@@ -151,23 +152,7 @@ private extension NSColor {
     )
 }
 
-enum ProjectActivity: String, CaseIterable, Identifiable {
-    case active
-    case recent
-    case inactive
-    case dormant
-
-    var id: String { rawValue }
-
-    var displayTitle: String {
-        switch self {
-        case .active: "Active"
-        case .recent: "Recent"
-        case .inactive: "Inactive"
-        case .dormant: "Dormant"
-        }
-    }
-
+extension ProjectActivity {
     var dotColor: Color {
         switch self {
         case .active: .roomyStatusActive
@@ -183,6 +168,16 @@ enum ProjectActivity: String, CaseIterable, Identifiable {
         case .recent: .roomyStatusRecentText
         case .inactive: .roomyStatusInactiveText
         case .dormant: .roomyStatusDormantText
+        }
+    }
+}
+
+extension ArtifactSafetyTier {
+    var badgeColor: Color {
+        switch self {
+        case .safe: Color.roomyAccent
+        case .caution: Color.roomyStatusInactiveText
+        case .warning: Color.roomyStatusDormantText
         }
     }
 }

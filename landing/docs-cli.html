@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Reference for the roomy command-line tool on macOS and Linux: install, scan, plan files, clean, quarantine and restore, rule catalog, JSON schemas, exit codes, environment variables, and how AI agents should call it."
+    />
+    <title>roomy CLI reference — scan, clean, plan files, quarantine, JSON output</title>
+    <!-- seo:meta -->
+    <link rel="canonical" href="https://getroomy.dev/docs-cli" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="theme-color" content="#0f1014" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Roomy" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:url" content="https://getroomy.dev/docs-cli" />
+    <meta property="og:title" content="roomy CLI reference — scan, clean, plan files, quarantine, JSON output" />
+    <meta property="og:description" content="Reference for the roomy command-line tool on macOS and Linux: install, scan, plan files, clean, quarantine and restore, rule catalog, JSON schemas, exit codes, environment variables, and how AI agents should call it." />
+    <meta property="og:image" content="https://getroomy.dev/og-default.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Roomy" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="roomy CLI reference — scan, clean, plan files, quarantine, JSON output" />
+    <meta name="twitter:description" content="Reference for the roomy command-line tool on macOS and Linux: install, scan, plan files, clean, quarantine and restore, rule catalog, JSON schemas, exit codes, environment variables, and how AI agents should call it." />
+    <meta name="twitter:image" content="https://getroomy.dev/og-default.png" />
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        { "@type": "Organization", "@id": "https://getroomy.dev/#org", "name": "Azbouki", "url": "https://getroomy.dev", "logo": "https://getroomy.dev/logo.png", "email": "teodor@azbouki.com" },
+        { "@type": "BreadcrumbList", "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Roomy", "item": "https://getroomy.dev/" },
+          { "@type": "ListItem", "position": 2, "name": "Documentation", "item": "https://getroomy.dev/documentation" },
+          { "@type": "ListItem", "position": 3, "name": "CLI", "item": "https://getroomy.dev/docs-cli" } ] },
+        { "@type": "TechArticle", "@id": "https://getroomy.dev/docs-cli#article",
+          "headline": "roomy CLI reference",
+          "description": "Install, commands, JSON report and plan schemas, exit codes, quarantine, and use from AI agents.",
+          "url": "https://getroomy.dev/docs-cli", "image": "https://getroomy.dev/og-default.png",
+          "datePublished": "2026-10-27", "dateModified": "2026-10-27", "inLanguage": "en",
+          "author": { "@id": "https://getroomy.dev/#org" }, "publisher": { "@id": "https://getroomy.dev/#org" },
+          "about": { "@id": "https://getroomy.dev/#app" }, "isPartOf": { "@id": "https://getroomy.dev/#website" } }
+      ]
+    }
+    </script>
+    <link rel="icon" href="logo.png" type="image/png" />
+    <link rel="apple-touch-icon" href="logo.png" />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/geist-sans@5.2.5/latin.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/geist-mono@5.2.5/latin.css" />
+    <link rel="stylesheet" href="docs.css" />
+    <link rel="stylesheet" href="consent.css" />
+    <script src="site-config.js"></script>
+    <script src="consent.js"></script>
+  </head>
+  <body>
+    <header class="top">
+      <div class="wrap">
+        <a class="brand" href="index.html"><img src="logo.png" alt="" /><span>Roomy <b>/ Documentation</b></span></a>
+        <nav class="top-links">
+          <a href="index.html">Home</a>
+          <a href="ai.html">AI tools</a>
+          <a href="fleet.html">Fleet &amp; Hub</a>
+          <a href="release-notes.html">Release notes</a>
+          <a class="btn-top" href="index.html#download">Download</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <div class="wrap">
+        <span class="kicker">v1.3.0 · macOS &amp; Linux</span>
+        <h1><code style="font-size: 0.8em; padding: 2px 10px">roomy</code> CLI reference</h1>
+        <p class="sub">The same engine as the Mac app, for terminals, scripts and AI agents. One universal binary on macOS, one static binary on Linux. It never deletes anything without a plan file, prints versioned JSON, and refuses irreversible items unless told otherwise.</p>
+        <p class="meta">Last reviewed: October 27, 2026 · <code>roomy --help</code> and <code>roomy &lt;command&gt; --help</code> are authoritative.</p>
+
+        <div class="grid">
+          <aside class="toc">
+            <h3>Documentation</h3>
+            <a href="documentation.html">Mac app</a>
+            <a href="docs-cli.html" class="current">CLI</a>
+            <a href="docs-fleet.html">Fleet</a>
+            <a href="docs-hub.html">Hub</a>
+            <h3>On this page</h3>
+            <a href="#install">Install</a>
+            <a href="#commands">Commands</a>
+            <a href="#exit-codes">Exit codes</a>
+            <a href="#scan">roomy scan</a>
+            <a href="#report">ScanReport JSON</a>
+            <a href="#clean">roomy clean</a>
+            <a href="#plan">CleanupPlan JSON</a>
+            <a href="#quarantine">purge and restore</a>
+            <a href="#rules">rules and doctor</a>
+            <a href="#linux">Linux notes</a>
+            <a href="#agents">For AI agents</a>
+            <a href="#env">Environment variables</a>
+          </aside>
+
+          <div class="content">
+            <section class="panel" id="install">
+              <h2>Install</h2>
+              <p><strong>macOS</strong> (universal, Apple Silicon and Intel):</p>
+              <pre><code>brew install azbouki/roomy/roomy</code></pre>
+              <p><strong>Linux</strong> (x86_64 and arm64, one static binary, no runtime to install):</p>
+              <pre><code>sudo dpkg -i roomy_1.3.0_amd64.deb                 <span class="c"># Debian, Ubuntu: installs /usr/bin/roomy, systemd units, /etc/roomy/policy.json</span>
+sudo rpm -i roomy-1.3.0-1.x86_64.rpm               <span class="c"># RHEL, Fedora</span>
+apk add --allow-untrusted roomy_1.3.0_x86_64.apk   <span class="c"># Alpine</span>
+tar xzf roomy-1.3.0-linux-amd64.tar.gz &amp;&amp; sudo install -m 755 roomy /usr/bin/
+docker run --rm ghcr.io/azbouki/roomy version      <span class="c"># container image</span></code></pre>
+              <p>Then check the environment:</p>
+              <pre><code>roomy doctor</code></pre>
+              <p><code>doctor</code> reports whether <code>du</code>, <code>git</code>, <code>docker</code> and <code>conda</code> are available, whether the Trash and quarantine directory are usable, the volume capacity and the license in effect. Nothing is modified except creating the quarantine directory.</p>
+              <div class="note">Package upgrades never overwrite <code>/etc/roomy/policy.json</code>. On Linux the packages also install the <a href="docs-fleet.html#systemd">fleet systemd units</a> and the <a href="docs-hub.html#running">hub service</a>; both are inactive until enabled.</div>
+            </section>
+
+            <section class="panel" id="commands">
+              <h2>Commands</h2>
+              <pre><code>roomy scan [paths…] [--json] [--plan FILE] …    find reclaimable artifacts (never deletes)
+roomy clean --plan FILE [--dry-run] [--yes] …    remove exactly what the plan lists
+roomy purge [--older-than DAYS] [--trash]        empty expired quarantine (and Linux Trash)
+roomy restore [PATH]                             list or restore quarantined items
+roomy rules [--json] [--platform P]              show the rule catalog
+roomy doctor                                     environment check
+roomy fleet …                                    policy-driven, unattended runs   → <a href="docs-fleet.html">Fleet</a>
+roomy hub …                                      central inventory and dashboard  → <a href="docs-hub.html">Hub</a>
+roomy version [--json]</code></pre>
+              <p>The typical flow is three commands. The first produces data, the second writes a file, the third does exactly what the file says.</p>
+              <pre><code>roomy scan --json                 <span class="c"># what could be reclaimed, as data</span>
+roomy scan --plan plan.json       <span class="c"># write a plan (safe tier by default)</span>
+roomy clean --plan plan.json      <span class="c"># remove exactly what the plan lists</span></code></pre>
+            </section>
+
+            <section class="panel" id="exit-codes">
+              <h2>Exit codes</h2>
+              <table>
+                <thead><tr><th>Code</th><th>Meaning</th></tr></thead>
+                <tbody>
+                  <tr><td><code>0</code></td><td>OK, including "nothing to do"</td></tr>
+                  <tr><td><code>1</code></td><td>Error, or <code>clean</code> refused to proceed without confirmation</td></tr>
+                  <tr><td><code>3</code></td><td>Finished, but some items failed to dispose</td></tr>
+                  <tr><td><code>4</code></td><td>Another <code>fleet run</code> holds the lock</td></tr>
+                  <tr><td><code>5</code></td><td><code>clean</code> refused the plan because it contains items above the allowed safety tier</td></tr>
+                  <tr><td><code>64</code></td><td>Usage error (bad flag or value)</td></tr>
+                </tbody>
+              </table>
+            </section>
+
+            <section class="panel" id="scan">
+              <h2>roomy scan</h2>
+              <p>Finds artifacts under one or more roots (default: the home directory) and probes the fixed-path tool caches for the current platform. It never deletes.</p>
+              <pre><code>roomy scan [&lt;roots&gt;…]
+  --home DIR                 home to probe for tool caches (default: current user)
+  --categories a b …         system categories: aiTools agentHost xcode globalCaches globalModules python homebrew docker
+  --ecosystems a b …         ai npm py rust ruby go java swift dotnet general
+  --exclude P …              paths or globs to skip
+  --rules FILE …             extra rule catalogs merged over the built-in one
+  --disable-rule ID …        switch rules off
+  --no-system | --no-projects
+  --json                     full ScanReport on stdout
+  --plan FILE                write a CleanupPlan
+  --plan-tier safe|caution|warning     highest tier admitted to the plan (default safe)
+  --min-idle-days N          only plan items idle ≥ N days
+  --require-known-idle       exclude items whose idle time is unknown
+  --method trash|quarantine|delete     disposal recorded in the plan
+  --top N                    table rows (default 40)
+  -q, --quiet                no progress on stderr</code></pre>
+              <p>The walk never enters tool-owned trees such as <code>~/.nvm</code>, <code>~/.cargo</code>, <code>~/.vscode-server</code> or <code>~/Library</code>, because a <code>node_modules</code> inside them is part of a tool's install, not a project artifact. The system probes cover the ones worth reclaiming. A skipped directory is still scanned when it is given explicitly as the root.</p>
+            </section>
+
+            <section class="panel" id="report">
+              <h2>ScanReport JSON</h2>
+              <p><code>--json</code> prints a <code>ScanReport</code> with <code>schemaVersion: 1</code>. The shape is additive-only: fields are added, never renamed or removed.</p>
+              <pre><code>{
+  "schemaVersion": 1, "roomyVersion": "1.3.0", "catalogVersion": "2026.10.27",
+  "generatedAt": "2026-10-27T00:00:00Z", "host": "agent-07", "platform": "linux",
+  "scanRoot": "/home/agent", "home": "/home/agent", "durationSeconds": 1.2, "partial": false,
+  "totalBytes": 1610612736,
+  "bytesByTier": { "safe": 1500000000, "caution": 0, "warning": 1048576 },
+  "bytesByCategory": { "project": 900000000, "aiTools": 600000000, "globalCaches": 110000000 },
+  "bytesByEcosystem": { "py": 900000000, "ai": 600000000, "npm": 110000000 },
+  "projectCount": 3,
+  "volume": { "totalBytes": 1374000000000, "availableBytes": 1288000000000 },
+  "items": [
+    {
+      "id": "9f1c…",                 <span class="c">// stable per path</span>
+      "path": "/home/agent/.cache/uv", "displayPath": "~/.cache/uv",
+      "label": "uv cache", "bytes": 492000000,
+      "tier": "safe", "ecosystem": "py", "category": "globalCaches",
+      "group": "Global package caches", "source": "systemProbe", "ruleID": "uv-cache",
+      "restoreHint": "uv cache clean",
+      "lastActivity": "2026-10-20T10:00:00Z", "idleDays": 7, "activity": "recent"
+    }
+  ]
+}</code></pre>
+              <p><code>category</code> is <code>project</code> for project-walk findings or the system category key. <code>source</code> is one of <code>projectWalk</code>, <code>systemProbe</code>, <code>dockerCLI</code>, <code>condaCLI</code>, <code>pipCLI</code>; the last three have synthetic paths such as <code>docker:prune:dangling</code>, <code>conda:env:foo</code> or <code>pip:orphan:/path/.venv</code>.</p>
+            </section>
+
+            <section class="panel" id="clean">
+              <h2>roomy clean</h2>
+              <p>Executes a plan file and nothing else.</p>
+              <pre><code>roomy clean --plan FILE
+  --method M                 override the plan's method
+  --allow-caution            admit review-tier items
+  --allow-irreversible       admit irreversible items (session history, archives, volumes)
+  --dry-run                  report, touch nothing
+  -y, --yes                  skip confirmation (required when stdin is not a TTY)
+  --json                     summary on stdout
+  --audit FILE               audit log (default ~/.roomy/audit.jsonl)
+  --quarantine-dir DIR       (quarantine) default ~/.roomy/quarantine or $ROOMY_QUARANTINE_DIR
+  --retention-days N         recorded for purge (default 7)
+  --actor NAME               recorded in the audit log, e.g. "claude-code"</code></pre>
+              <h3>Rules of engagement</h3>
+              <ol>
+                <li>Only paths in the plan are touched. Items that no longer exist are skipped and reported.</li>
+                <li>Tier is enforced at clean time, not plan time: a plan containing a <code>warning</code> item is refused with exit 5 unless <code>--allow-irreversible</code> is passed, even if the plan was written with <code>--plan-tier warning</code>.</li>
+                <li>Without a TTY, <code>--yes</code> is mandatory. Agents should pass <code>--yes</code> only after inspecting the plan.</li>
+                <li>Every receipt and failure is appended to the audit log, with the <code>--actor</code> name.</li>
+              </ol>
+              <h3>Disposal methods</h3>
+              <table>
+                <thead><tr><th>Method</th><th>What happens</th><th>Undo</th></tr></thead>
+                <tbody>
+                  <tr><td><code>trash</code></td><td>Finder Trash on macOS, the freedesktop Trash on desktop Linux. Default on macOS.</td><td>Put back from the Trash</td></tr>
+                  <tr><td><code>quarantine</code></td><td>Rename into <code>~/.roomy/quarantine</code> on the same volume with a manifest. Instant. Default on Linux.</td><td><code>roomy restore</code> until purged</td></tr>
+                  <tr><td><code>delete</code></td><td>Permanent removal.</td><td>None</td></tr>
+                </tbody>
+              </table>
+              <p class="small">Docker, Conda and pip findings are always cleaned through their own tool (<code>docker rmi</code>, <code>conda clean</code>, <code>pip uninstall</code>), whatever the method.</p>
+            </section>
+
+            <section class="panel" id="plan">
+              <h2>CleanupPlan JSON</h2>
+              <p>A plan is a small JSON file, <code>schemaVersion: 1</code>. <code>roomy scan --plan</code> writes one; any tool may write one by filtering a report's <code>items</code> and keeping the fields below.</p>
+              <pre><code>{
+  "schemaVersion": 1, "createdAt": "…", "host": "…", "method": "quarantine", "reason": "roomy scan --plan",
+  "items": [
+    { "id": "…", "path": "…", "label": "…", "bytes": 1, "tier": "safe",
+      "category": "project", "source": "projectWalk", "ruleID": "node_modules" }
+  ]
+}</code></pre>
+              <p><code>roomy clean</code> validates existence and tier of every item at run time, so a stale or over-eager plan fails closed.</p>
+            </section>
+
+            <section class="panel" id="quarantine">
+              <h2>roomy purge and roomy restore</h2>
+              <p>Quarantine keeps a <code>&lt;timestamp&gt;-&lt;name&gt;.roomy.json</code> manifest next to each item with the original path, size and time.</p>
+              <pre><code>roomy restore                       <span class="c"># list what is in quarantine</span>
+roomy restore legacy-app/node_modules   <span class="c"># move one item back (path suffix)</span>
+roomy purge --older-than 7          <span class="c"># permanently remove expired items; this is when space is freed</span>
+roomy purge --trash                 <span class="c"># also empty the freedesktop Trash on Linux</span></code></pre>
+              <p>Items on another volume are quarantined in <code>&lt;mount&gt;/.roomy-quarantine</code> so the move stays a rename.</p>
+            </section>
+
+            <section class="panel" id="rules">
+              <h2>roomy rules and roomy doctor</h2>
+              <p>The rule catalog is data, embedded into every binary. <code>roomy rules</code> prints project rules and system rules for a platform; <code>--json</code> prints the whole catalog in the same schema accepted by <code>--rules FILE</code> and a policy's <code>scan.extraRules</code>.</p>
+              <pre><code>roomy rules --platform linux
+roomy rules --json &gt; catalog.json
+roomy scan --rules /etc/roomy/rules.d/our-agent.json      <span class="c"># merge a custom catalog</span>
+roomy scan --disable-rule cursor-state-backup             <span class="c"># switch one rule off</span></code></pre>
+              <p>A custom catalog uses the same schema. Only <code>id</code> is required; a rule with an existing id replaces the built-in one, new ids are appended. That is how a fleet adds a new agent's cache directory without waiting for a release.</p>
+              <pre><code>{
+  "schemaVersion": 1,
+  "systemRules": [
+    {
+      "id": "our-agent-cache",
+      "category": "agentHost",           <span class="c">// aiTools agentHost xcode globalCaches globalModules python homebrew docker</span>
+      "label": "Our agent's scratch cache",
+      "ecosystem": "ai",
+      "tier": "safe",                    <span class="c">// safe | caution | warning</span>
+      "restoreHint": "Recreated on the next run",
+      "activity": "newestChild",         <span class="c">// none | self | newestChild</span>
+      "paths": { "linux": ["$XDG_CACHE_HOME/our-agent"], "macos": ["Library/Caches/our-agent"] }
+    }
+  ]
+}</code></pre>
+              <p class="small">Path specs are home-relative by default; <code>~/…</code> or absolute paths, <code>$VAR</code> with XDG defaults, and globs in any component are allowed. Findings under 1 MB are dropped.</p>
+              <h3>Safety tiers in the CLI</h3>
+              <table>
+                <thead><tr><th>Tier</th><th>Meaning</th><th><code>scan --plan</code></th><th><code>clean</code></th></tr></thead>
+                <tbody>
+                  <tr><td><span class="tier tier-safe">safe</span></td><td>Fully regenerable</td><td>Default</td><td>Default</td></tr>
+                  <tr><td><span class="tier tier-review">caution</span></td><td>Regenerable at a cost, or mixed with user data</td><td><code>--plan-tier caution</code></td><td><code>--allow-caution</code></td></tr>
+                  <tr><td><span class="tier tier-warn">warning</span></td><td>Not regenerable: session history, archives, volumes</td><td><code>--plan-tier warning</code></td><td><code>--allow-irreversible</code></td></tr>
+                </tbody>
+              </table>
+            </section>
+
+            <section class="panel" id="linux">
+              <h2>Linux notes</h2>
+              <h3>Trash vs quarantine</h3>
+              <p>Desktop Linux has the freedesktop Trash and Roomy supports it (<code>--method trash</code>). On a headless host nothing ever empties the Trash, so space is never reclaimed while the user believes it was. Roomy's default on Linux is therefore <strong>quarantine</strong>: items are renamed into <code>~/.roomy/quarantine</code> with a manifest, and <code>roomy purge</code> or a fleet run with <code>purgeOnRun</code> frees them after the retention period. The <code>agentHost</code> category also reports an un-emptied Trash as a finding, because on agent hosts that is often gigabytes.</p>
+              <h3>Which user</h3>
+              <p>Artifacts belong to the user who created them. Run Roomy as that user. To scan a different home as root, pass <code>--home</code> on the CLI or set <code>scan.home</code> in a policy. Roomy respects <code>XDG_CACHE_HOME</code>, <code>XDG_DATA_HOME</code>, <code>HF_HOME</code>, <code>UV_CACHE_DIR</code>, <code>GOCACHE</code>, <code>TMPDIR</code> and <code>OPENCLAW_STATE_DIR</code> when resolving catalog paths.</p>
+              <h3>Containers</h3>
+              <p>The image runs <code>roomy</code> as its entrypoint. Mount the home to clean and the policy:</p>
+              <pre><code>docker run --rm -v /home/agent:/home/agent -v /etc/roomy:/etc/roomy:ro \
+  ghcr.io/azbouki/roomy scan --home /home/agent --json
+
+docker run -d --name roomy -p 9477:9477 -v /home/agent:/home/agent -v /etc/roomy:/etc/roomy:ro \
+  ghcr.io/azbouki/roomy fleet serve --listen 0.0.0.0:9477</code></pre>
+              <p class="small">Set <code>scan.home</code> to the mounted path. Mount <code>/var/run/docker.sock</code> to enable the Docker category inside the container.</p>
+              <h3>What differs from macOS</h3>
+              <table>
+                <thead><tr><th>Capability</th><th>macOS</th><th>Linux</th></tr></thead>
+                <tbody>
+                  <tr><td>Project walk, all project rules</td><td>✓</td><td>✓</td></tr>
+                  <tr><td>AI tools, agent host, package caches, Docker, Conda, pyenv, global modules</td><td>✓</td><td>✓</td></tr>
+                  <tr><td>Xcode, simulators, Homebrew</td><td>✓</td><td>— (nothing to find)</td></tr>
+                  <tr><td>Trash</td><td>Finder</td><td>freedesktop</td></tr>
+                  <tr><td>Quarantine</td><td>✓</td><td>✓ (default)</td></tr>
+                  <tr><td>Fleet and Hub</td><td>✓</td><td>✓</td></tr>
+                </tbody>
+              </table>
+            </section>
+
+            <section class="panel" id="agents">
+              <h2>For AI agents</h2>
+              <p>An agent that hits <code>ENOSPC</code> mid-task, or is asked to free space, needs a tool that is structured, dry-run first, and incapable of deleting anything outside an explicit plan. That is the contract:</p>
+              <ol>
+                <li><strong>Scan produces data.</strong> <code>roomy scan --json</code> never deletes. Every item has a stable <code>id</code>, a <code>tier</code>, a <code>category</code>, <code>bytes</code>, <code>idleDays</code> and a <code>restoreHint</code>.</li>
+                <li><strong>Plan is a file.</strong> Either <code>roomy scan --plan plan.json</code> (safe tier by default) or a plan the agent writes by filtering the report's <code>items</code>.</li>
+                <li><strong>Clean executes the plan and nothing else.</strong> Review-tier items need <code>--allow-caution</code>; irreversible items need <code>--allow-irreversible</code>. An agent should not pass the latter without a human in the loop.</li>
+                <li><strong>Disposal is recoverable.</strong> Trash on macOS, quarantine on Linux. <code>roomy restore</code> undoes.</li>
+                <li><strong>Everything is audited.</strong> Every removal is appended to <code>~/.roomy/audit.jsonl</code> with the <code>--actor</code> name. Pass your tool name.</li>
+              </ol>
+              <h3>Recommended sequence</h3>
+              <pre><code>roomy doctor --json                                   <span class="c"># optional: is roomy usable here?</span>
+roomy scan --json --quiet &gt; /tmp/roomy-report.json    <span class="c"># inspect bytesByTier, items</span>
+roomy scan --plan /tmp/roomy-plan.json --min-idle-days 7 --quiet
+roomy clean --plan /tmp/roomy-plan.json --dry-run --json       <span class="c"># show the human (or your log) what will happen</span>
+roomy clean --plan /tmp/roomy-plan.json --yes --json --actor "claude-code"</code></pre>
+              <p>Read <code>bytesByTier.safe</code> first: if it is already enough, stop there. Only escalate to <code>caution</code> with explicit user approval, and never automate <code>warning</code>.</p>
+              <h3>What the categories mean</h3>
+              <ul>
+                <li><code>project</code> — artifacts inside repositories (<code>node_modules</code>, <code>.venv</code>, <code>target/</code>). Safe. Regenerate with the install command in <code>restoreHint</code>.</li>
+                <li><code>aiTools</code> — the agents' own storage. Models and caches are safe; <strong>session history is irreversible</strong> (Claude Code projects, Codex sessions, Cline tasks, Cursor's <code>state.vscdb</code>).</li>
+                <li><code>agentHost</code> — leftovers on servers: OpenClaw build captures, crash dumps, Claude Code scratch dirs, stale Cursor agent builds, un-emptied Trash.</li>
+                <li><code>globalCaches</code>, <code>python</code>, <code>docker</code>, <code>globalModules</code>, <code>xcode</code>, <code>homebrew</code> — tool caches outside repositories.</li>
+              </ul>
+              <p class="small">A Claude Code skill and an <code>AGENTS.md</code> snippet with the sequence above ship in the repository. There is no MCP server yet; the CLI with <code>--json</code> is the integration surface.</p>
+            </section>
+
+            <section class="panel" id="env">
+              <h2>Environment variables</h2>
+              <table>
+                <thead><tr><th>Variable</th><th>Effect</th></tr></thead>
+                <tbody>
+                  <tr><td><code>ROOMY_POLICY</code></td><td>Default policy path for <code>roomy fleet</code></td></tr>
+                  <tr><td><code>ROOMY_HUB_URL</code>, <code>ROOMY_HUB_TOKEN</code></td><td>Defaults for <code>roomy hub status/hosts/…</code>, and the agent token for a host when the policy has none</td></tr>
+                  <tr><td><code>ROOMY_HUB_DATA</code>, <code>ROOMY_HUB_AGENT_TOKEN</code>, <code>ROOMY_HUB_ADMIN_TOKEN</code></td><td>Defaults for <code>roomy hub serve</code></td></tr>
+                  <tr><td><code>ROOMY_LICENSE</code></td><td>License token (alternative to a key file)</td></tr>
+                  <tr><td><code>ROOMY_QUARANTINE_DIR</code></td><td>Default quarantine directory</td></tr>
+                  <tr><td><code>ROOMY_HOSTNAME</code></td><td>Host label in reports, audit and metrics</td></tr>
+                  <tr><td><code>XDG_DATA_HOME</code></td><td>Where the freedesktop Trash lives on Linux</td></tr>
+                </tbody>
+              </table>
+            </section>
+
+            <p class="foot"><a href="index.html">Home</a> · <a href="documentation.html">Mac app</a> · <a href="docs-fleet.html">Fleet</a> · <a href="docs-hub.html">Hub</a> · <a href="release-notes.html">Release notes</a> · <a href="privacy.html">Privacy</a> · <a href="eula.html">EULA</a></p>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

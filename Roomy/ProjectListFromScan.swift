@@ -6,54 +6,18 @@
 //
 
 import CryptoKit
+import RoomyCore
 import Foundation
 
-/// Shared folder-mtime → activity rules for S03 and S04 (matches S09 thresholds).
-enum ScanActivityClassification {
-    static func modificationMonthsAgo(projectPath: String) -> Int {
-        if RoomySystemGroupRoot.isSystemRoot(projectPath) {
-            return 12
-        }
-        let url = URL(fileURLWithPath: projectPath)
-        guard let vals = try? url.resourceValues(forKeys: [.contentModificationDateKey]),
-              let date = vals.contentModificationDate else {
-            return 36
-        }
-        return monthsBetween(date, and: Date())
-    }
-
-    static func modificationMonthsAgo(date: Date?) -> Int {
-        guard let date else { return 12 }
-        return monthsBetween(date, and: Date())
-    }
-
-    static func activity(
-        monthsAgo: Int,
-        dormantMonths: Int,
-        inactiveMonths: Int
-    ) -> ProjectActivity {
-        if monthsAgo >= dormantMonths { return .dormant }
-        if monthsAgo >= inactiveMonths { return .inactive }
-        if monthsAgo >= 1 { return .recent }
-        return .active
-    }
-
-    static func ageTier(
-        monthsAgo: Int,
-        dormantMonths: Int,
-        inactiveMonths: Int
-    ) -> AgeBreakdownTier {
+/// Bridges the core activity classification to the S03 age bar tiers.
+extension ScanActivityClassification {
+    static func ageTier(monthsAgo: Int, dormantMonths: Int, inactiveMonths: Int) -> AgeBreakdownTier {
         switch activity(monthsAgo: monthsAgo, dormantMonths: dormantMonths, inactiveMonths: inactiveMonths) {
         case .dormant: return .dormant
         case .inactive: return .inactive
         case .recent: return .recent
         case .active: return .active
         }
-    }
-
-    private static func monthsBetween(_ from: Date, and to: Date) -> Int {
-        let comps = Calendar.current.dateComponents([.month], from: from, to: to)
-        return max(0, comps.month ?? 0)
     }
 }
 
@@ -76,6 +40,7 @@ enum RoomyDeterministicUUID {
 enum ProjectListFromScan {
     private static let systemRootOrder: [String] = [
         RoomySystemGroupRoot.aiTools,
+        RoomySystemGroupRoot.agentHost,
         RoomySystemGroupRoot.xcode,
         RoomySystemGroupRoot.caches,
         RoomySystemGroupRoot.globalModules,

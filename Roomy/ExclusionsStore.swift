@@ -6,35 +6,8 @@
 //
 
 import Foundation
+import RoomyCore
 import SwiftUI
-
-enum ExclusionRowKind: String, Codable, CaseIterable, Equatable {
-    case project
-    case path
-    case pattern
-
-    var title: String {
-        switch self {
-        case .project: "Project"
-        case .path: "Path"
-        case .pattern: "Pattern"
-        }
-    }
-}
-
-struct ExclusionEntry: Identifiable, Codable, Equatable {
-    var id: UUID
-    var pathDisplay: String
-    var kind: ExclusionRowKind
-    var addedAt: Date
-
-    init(id: UUID = UUID(), pathDisplay: String, kind: ExclusionRowKind, addedAt: Date = Date()) {
-        self.id = id
-        self.pathDisplay = pathDisplay
-        self.kind = kind
-        self.addedAt = addedAt
-    }
-}
 
 /// Parent screen when leaving Exclusions (S10).
 enum ExclusionsDismissParent: Equatable {

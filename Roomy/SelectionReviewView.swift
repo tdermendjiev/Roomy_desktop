@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import RoomyCore
 
 enum SelectionReviewScope: Equatable {
     case allSelected

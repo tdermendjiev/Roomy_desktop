@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import RoomyCore
 
 struct ResultsOverviewView: View {
     var model: ScanResultsSummary

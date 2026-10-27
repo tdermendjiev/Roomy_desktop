@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import RoomyCore
 
 private enum ActivityFilterChip: String, CaseIterable {
     case all = "All"

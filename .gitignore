@@ -11,3 +11,14 @@ node_modules/
 
 # Xcode
 xcuserdata/
+
+# Swift package build output
+RoomyCore/.build/
+RoomyCore/.swiftpm/
+
+# Release artifacts
+dist/
+
+# Never commit license signing keys
+*.signing.key
+license-signing.key

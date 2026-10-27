@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import RoomyCore
 
 @main
 struct RoomyApp: App {

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RoomyCore
 
 struct DeletionEcosystemChunk: Identifiable, Equatable {
     var id: String { name }

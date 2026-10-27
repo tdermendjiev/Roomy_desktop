@@ -1,8 +1,8 @@
 # Roomy
 
-> Roomy is a free, native macOS app that finds regenerable developer artifacts and shows what is safe to delete. It scans project folders for node_modules, Python virtual environments, Rust target directories and similar build output, then checks fixed-path system caches such as Xcode DerivedData, global npm and pip caches, Homebrew, Docker, and the storage used by AI coding tools (Cursor, Claude Code, Claude desktop, Codex, Gemini CLI, Ollama, LM Studio, Hugging Face). Nothing is deleted until the user reviews and confirms. Project artifacts go to the macOS Trash. The app runs fully offline, has no account and no telemetry.
+> Roomy frees disk space on developer machines: a free native macOS app plus a `roomy` CLI for macOS and Linux that finds the caches, builds and models that come back on their own and shows what is safe to delete. Typical result on a developer Mac: 10 to 100 GB. It scans project folders for node_modules, Python virtual environments, Rust target directories and similar build output, then checks fixed-path system caches such as Xcode DerivedData, global npm and pip caches, Homebrew, Docker, and the storage used by AI coding tools (Cursor, Claude Code, Claude desktop, Codex, Gemini CLI, Ollama, LM Studio, Hugging Face). Nothing is deleted until the user reviews and confirms. Project artifacts go to the macOS Trash. The app runs fully offline, has no account and no telemetry.
 
-Publisher: Azbouki. Contact: teodor@azbouki.com. Current version: 1.2.0 (macOS 13+, Apple Silicon and Intel, universal binary). License: proprietary, free of charge.
+Publisher: Azbouki. Contact: teodor@azbouki.com. Current version: 1.3.0 (macOS 13+ app, universal binary; roomy CLI for macOS and Linux x86_64/arm64). License: proprietary, free of charge.
 
 ## Key facts
 
@@ -12,12 +12,20 @@ Publisher: Azbouki. Contact: teodor@azbouki.com. Current version: 1.2.0 (macOS 1
 - AI coding tools category: local model stores (Ollama, LM Studio, Hugging Face hub, llama.cpp, PyTorch Hub, Whisper, vLLM), app and sandbox caches (Claude desktop VM bundles, Cursor, Windsurf, Kiro, Trae and Void Electron caches, npx cache used by MCP servers, Playwright and Puppeteer browsers, Continue index), and agent session history (Claude Code per project with last-session date, Codex CLI, Gemini CLI, OpenCode, Goose, Qwen Code, Cline, Roo and Kilo checkpoints).
 - Project-level AI artifacts: aider tag cache, Crush data folder, Chroma and LanceDB vector stores.
 - Docker and Conda cleanups use their official CLIs rather than the Trash.
+- CLI: `roomy scan --json` (never deletes), `roomy scan --plan plan.json` then `roomy clean --plan plan.json`. Safe tier by default; Review needs --allow-caution; Irreversible needs --allow-irreversible. Trash on macOS, quarantine with retention on Linux, `roomy restore` undoes. Exit code 5 = refused by tier.
+- Roomy Fleet: `roomy fleet run` applies a JSON policy unattended with a hash-chained audit log and Prometheus metrics; systemd units; offline license tokens; works in community mode without a license.
+- Roomy Hub (`roomy hub serve`): a self-hosted central service every host reports to after each run. Inventory with host status (healthy, attention, stale), fleet totals, freed per day, disk pressure, largest findings across the fleet, per-host history, centrally managed policies hosts pull before each run, JSON API, fleet-wide Prometheus metrics, single-file dashboard that works air-gapped. Two tokens (agent, admin). Up to 5 hosts without a license; a fleet license sets the host allowance. Nothing leaves the customer's network.
+- Agent host leftovers category: OpenClaw build captures, crash dumps, Claude Code scratch directories, stale Cursor agent builds, un-emptied Trash on servers.
 
 ## Pages
 
 - [Home](https://getroomy.dev/): overview, features, download, FAQ.
 - [Roomy for AI coding](https://getroomy.dev/ai): the AI tools category explained, with the list of supported tools.
+- [Roomy Fleet & Hub](https://getroomy.dev/fleet): policy-driven cleanup on fleets of Linux and macOS machines and the self-hosted hub dashboard; install steps, pricing (Community free, Fleet license per host), FAQ.
 - [Documentation](https://getroomy.dev/documentation): scan scope, detected folders, system cache categories, safety tiers, exclusions, deletion behavior, data persistence, roadmap.
+- [CLI reference](https://getroomy.dev/docs-cli): install, roomy scan / clean / purge / restore / rules / doctor, ScanReport and CleanupPlan JSON schemas, exit codes, quarantine on Linux, environment variables, the contract for AI agents.
+- [Fleet reference](https://getroomy.dev/docs-fleet): policy file reference with every field and default, a run step by step, profiles and examples, systemd units, Prometheus metrics and alerts, hash-chained audit log, licensing and editions, rollout advice.
+- [Hub reference](https://getroomy.dev/docs-hub): running the hub (laptop, systemd, container), agent and admin tokens, how a host reports, centrally managed policies, host status rules, dashboard views, JSON API routes, fleet-wide metrics, data directory, editions.
 - [Release notes](https://getroomy.dev/release-notes): changelog for every version.
 - [Why Cursor uses so much disk space on macOS](https://getroomy.dev/cursor-disk-space): where Cursor stores caches, workspace state and chat history, and what is safe to delete.
 - [Where Claude Code stores its data on macOS](https://getroomy.dev/claude-code-disk-space): transcripts, file history, desktop app VM bundles, retention setting, runaway temp files.

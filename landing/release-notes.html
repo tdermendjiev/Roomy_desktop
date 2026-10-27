@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Roomy release notes — v1.2.0 adds AI coding tool scanning: local models, Cursor and Claude caches, and agent session history."
+      content="Roomy release notes — v1.3.0 adds the roomy CLI for macOS and Linux, Roomy Fleet for unattended cleanup across agent hosts, Roomy Hub with a fleet dashboard, and new rules for agent leftovers."
     />
     <title>Roomy Changelog — release notes for every version</title>
     <!-- seo:meta -->
@@ -17,14 +17,14 @@
     <meta property="og:locale" content="en_US" />
     <meta property="og:url" content="https://getroomy.dev/release-notes" />
     <meta property="og:title" content="Roomy Changelog — release notes for every version" />
-    <meta property="og:description" content="Roomy release notes — v1.2.0 adds AI coding tool scanning: local models, Cursor and Claude caches, and agent session history." />
+    <meta property="og:description" content="Roomy release notes — v1.3.0 adds the roomy CLI for macOS and Linux, Roomy Fleet for unattended cleanup across agent hosts, Roomy Hub with a fleet dashboard, and new rules for agent leftovers." />
     <meta property="og:image" content="https://getroomy.dev/og-default.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Roomy for macOS" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Roomy Changelog — release notes for every version" />
-    <meta name="twitter:description" content="Roomy release notes — v1.2.0 adds AI coding tool scanning: local models, Cursor and Claude caches, and agent session history." />
+    <meta name="twitter:description" content="Roomy release notes — v1.3.0 adds the roomy CLI for macOS and Linux, Roomy Fleet for unattended cleanup across agent hosts, Roomy Hub with a fleet dashboard, and new rules for agent leftovers." />
     <meta name="twitter:image" content="https://getroomy.dev/og-default.png" />
     <script type="application/ld+json">
     {
@@ -268,7 +268,52 @@
       <div class="wrap">
         <span class="kicker">Release notes</span>
         <h1>Changelog</h1>
-        <p class="sub">What's new in Roomy for macOS.</p>
+        <p class="sub">What's new in Roomy: the Mac app, the CLI and Fleet.</p>
+
+        <section class="release-block">
+          <h2 class="version">v1.3.0</h2>
+          <p class="release-meta">October 27, 2026 · macOS 13+ app · roomy CLI for macOS and Linux</p>
+
+          <section class="card">
+            <h3>roomy CLI</h3>
+            <ul>
+              <li>The same engine as the app, as a single binary for macOS (universal) and Linux (static). Install with Homebrew, .deb, .rpm, .apk, a tarball or the container image.</li>
+              <li><code>roomy scan</code> never deletes. <code>--json</code> prints a versioned report for agents and scripts; <code>--plan</code> writes a cleanup plan containing Safe items by default.</li>
+              <li><code>roomy clean --plan</code> removes exactly what the plan lists. Review items need <code>--allow-caution</code>, Irreversible items need <code>--allow-irreversible</code>; a plan above the allowed tier is refused with exit code 5.</li>
+              <li>Quarantine with retention as the default disposal on Linux, where a Trash is never emptied on a headless host. <code>roomy purge</code> frees it, <code>roomy restore</code> undoes.</li>
+              <li><code>roomy rules</code> prints the rule catalog; <code>roomy doctor</code> checks the environment.</li>
+            </ul>
+          </section>
+
+          <section class="card">
+            <h3>Roomy Fleet</h3>
+            <ul>
+              <li><code>roomy fleet run</code>: policy-driven unattended cleanup. JSON policies default to the Safe tier only, with idle-time, byte-budget and protected-path controls.</li>
+              <li>Tamper-evident audit log (JSON Lines, hash-chained), Prometheus metrics via node_exporter's textfile collector or the built-in server (<code>roomy fleet serve</code>), systemd timer and service units.</li>
+              <li>Offline license tokens. Everything works in community mode; a fleet license records the organisation and host allowance and comes with support.</li>
+              <li><strong>Roomy Hub</strong> (<code>roomy hub serve</code>): a self-hosted central service hosts report to after every run. Inventory with host status and reasons, fleet totals, freed per day, disk pressure, largest findings across the fleet, per-host history and top findings, operator notes, an event log, a single-file dashboard that works air-gapped, a JSON API, fleet-wide Prometheus metrics, and centrally managed policies hosts pull before each run. Up to 5 hosts without a license. <code>roomy hub demo</code> generates a synthetic fleet to try it. <a href="fleet.html">See the Fleet page.</a></li>
+            </ul>
+          </section>
+
+          <section class="card">
+            <h3>New rules and categories</h3>
+            <ul>
+              <li>New <strong>Agent host leftovers</strong> category: OpenClaw plugin build captures and logs, crash dumps of Electron apps, Claude Code scratch directories, Codex desktop leftover signing clones, and an un-emptied Trash on Linux hosts.</li>
+              <li>Cursor: stale agent CLI builds (every build except the one in use), the state database backup (Review), the live chat database (Irreversible, shown with its size), local file history (Review).</li>
+              <li>Codex: feedback log databases (Review), crash dumps (Safe). Claude Code: CLI cache, worktrees inside repositories (Irreversible).</li>
+              <li>Package caches: Go build and module caches, Cargo registry, Gradle, Maven, bun, Deno, ccache. Project folders: <code>.angular</code>, <code>.nx</code>, <code>.terraform</code>, .NET <code>obj</code> (only next to a project file).</li>
+              <li>The project walk no longer enters tool-owned trees such as <code>~/.cursor-server</code>, <code>~/.nvm</code> or <code>~/Library</code>, where a <code>node_modules</code> is part of an install.</li>
+            </ul>
+          </section>
+
+          <section class="card">
+            <h3>Under the hood</h3>
+            <ul>
+              <li>Scanning, probes and deletion moved into the open <code>RoomyCore</code> Swift package; the app is a front-end over it. Linux support lives in that package.</li>
+              <li>The rule catalog is data (JSON embedded at build time). Extra catalogs can be merged at runtime and rules disabled by id.</li>
+            </ul>
+          </section>
+        </section>
 
         <section class="release-block">
           <h2 class="version">v1.2.0</h2>
@@ -381,7 +426,7 @@
 
         <p class="foot">Roomy is currently free. New releases are published on this page.</p>
         <p class="foot" style="margin-top: 20px">
-          <a href="documentation.html">Documentation</a> ·
+          <a href="documentation.html">Documentation</a> · <a href="docs-fleet.html">Fleet docs</a> ·
           <a href="privacy.html">Privacy</a> · <a href="cookies.html">Cookies</a> ·
           <a href="#" onclick="window.roomyOpenCookiePreferences(); return false;">Cookie preferences</a>
         </p>

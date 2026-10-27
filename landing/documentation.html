@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Roomy documentation for v1.2.0: two-phase scan, project artifacts, system caches, safety tiers, exclusions, and deletion behavior."
+      content="Roomy documentation: the Mac app (scan scope, system caches, safety tiers, deletion behavior), the roomy CLI for macOS and Linux, Roomy Fleet for unattended cleanup, and Roomy Hub for a fleet-wide dashboard."
     />
-    <title>Roomy Documentation — scan scope, system caches, safety tiers, deletion behavior</title>
+    <title>Roomy Documentation — Mac app, CLI, Fleet and Hub</title>
     <!-- seo:meta -->
     <link rel="canonical" href="https://getroomy.dev/documentation" />
     <meta name="robots" content="index, follow, max-image-preview:large" />
@@ -16,340 +16,109 @@
     <meta property="og:site_name" content="Roomy" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:url" content="https://getroomy.dev/documentation" />
-    <meta property="og:title" content="Roomy Documentation — scan scope, system caches, safety tiers, deletion behavior" />
-    <meta property="og:description" content="Roomy documentation for v1.2.0: two-phase scan, project artifacts, system caches, safety tiers, exclusions, and deletion behavior." />
+    <meta property="og:title" content="Roomy Documentation — Mac app, CLI, Fleet and Hub" />
+    <meta property="og:description" content="Roomy documentation: the Mac app (scan scope, system caches, safety tiers, deletion behavior), the roomy CLI for macOS and Linux, Roomy Fleet for unattended cleanup, and Roomy Hub for a fleet-wide dashboard." />
     <meta property="og:image" content="https://getroomy.dev/og-default.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Roomy for macOS" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Roomy Documentation — scan scope, system caches, safety tiers, deletion behavior" />
-    <meta name="twitter:description" content="Roomy documentation for v1.2.0: two-phase scan, project artifacts, system caches, safety tiers, exclusions, and deletion behavior." />
+    <meta name="twitter:title" content="Roomy Documentation — Mac app, CLI, Fleet and Hub" />
+    <meta name="twitter:description" content="Roomy documentation: the Mac app (scan scope, system caches, safety tiers, deletion behavior), the roomy CLI for macOS and Linux, Roomy Fleet for unattended cleanup, and Roomy Hub for a fleet-wide dashboard." />
     <meta name="twitter:image" content="https://getroomy.dev/og-default.png" />
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@graph": [
-        {
-          "@type": "Organization",
-          "@id": "https://getroomy.dev/#org",
-          "name": "Azbouki",
-          "url": "https://getroomy.dev",
-          "logo": "https://getroomy.dev/logo.png",
-          "email": "teodor@azbouki.com"
-        },
-        {
-          "@type": "WebSite",
-          "@id": "https://getroomy.dev/#website",
-          "url": "https://getroomy.dev",
-          "name": "Roomy",
-          "publisher": {
-            "@id": "https://getroomy.dev/#org"
-          }
-        },
-        {
-          "@type": "BreadcrumbList",
-          "itemListElement": [
-            {
-              "@type": "ListItem",
-              "position": 1,
-              "name": "Roomy",
-              "item": "https://getroomy.dev/"
-            },
-            {
-              "@type": "ListItem",
-              "position": 2,
-              "name": "Documentation",
-              "item": "https://getroomy.dev/documentation"
-            }
-          ]
-        },
-        {
-          "@type": "TechArticle",
-          "@id": "https://getroomy.dev/documentation#article",
-          "headline": "Roomy documentation",
-          "description": "How Roomy scans, what it detects, how safety tiers and deletion work.",
-          "url": "https://getroomy.dev/documentation",
-          "image": "https://getroomy.dev/og-default.png",
-          "datePublished": "2026-10-26",
-          "dateModified": "2026-10-26",
-          "inLanguage": "en",
-          "author": {
-            "@id": "https://getroomy.dev/#org"
-          },
-          "publisher": {
-            "@id": "https://getroomy.dev/#org"
-          },
-          "about": {
-            "@id": "https://getroomy.dev/#app"
-          },
-          "isPartOf": {
-            "@id": "https://getroomy.dev/#website"
-          }
-        }
+        { "@type": "Organization", "@id": "https://getroomy.dev/#org", "name": "Azbouki", "url": "https://getroomy.dev", "logo": "https://getroomy.dev/logo.png", "email": "teodor@azbouki.com" },
+        { "@type": "WebSite", "@id": "https://getroomy.dev/#website", "url": "https://getroomy.dev", "name": "Roomy", "publisher": { "@id": "https://getroomy.dev/#org" } },
+        { "@type": "BreadcrumbList", "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Roomy", "item": "https://getroomy.dev/" },
+          { "@type": "ListItem", "position": 2, "name": "Documentation", "item": "https://getroomy.dev/documentation" } ] },
+        { "@type": "TechArticle", "@id": "https://getroomy.dev/documentation#article",
+          "headline": "Roomy documentation: the Mac app",
+          "description": "How the Roomy Mac app scans, what it detects, how safety tiers and deletion work, with links to the CLI, Fleet and Hub references.",
+          "url": "https://getroomy.dev/documentation", "image": "https://getroomy.dev/og-default.png",
+          "datePublished": "2026-05-29", "dateModified": "2026-10-27", "inLanguage": "en",
+          "author": { "@id": "https://getroomy.dev/#org" }, "publisher": { "@id": "https://getroomy.dev/#org" },
+          "about": { "@id": "https://getroomy.dev/#app" }, "isPartOf": { "@id": "https://getroomy.dev/#website" } }
       ]
     }
     </script>
     <link rel="icon" href="logo.png" type="image/png" />
     <link rel="apple-touch-icon" href="logo.png" />
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@fontsource/geist-sans@5.2.5/latin.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@fontsource/geist-mono@5.2.5/latin.css"
-    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/geist-sans@5.2.5/latin.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/geist-mono@5.2.5/latin.css" />
+    <link rel="stylesheet" href="docs.css" />
     <link rel="stylesheet" href="consent.css" />
     <script src="site-config.js"></script>
     <script src="consent.js"></script>
-    <style>
-      :root {
-        --bg-base: #0f1014;
-        --bg-elevated: #1a1b22;
-        --bg-inset: #0c0d11;
-        --accent: #4f8ff7;
-        --text-primary: #ececf1;
-        --text-secondary: #9b9ba8;
-        --text-tertiary: #65656b;
-        --border-subtle: rgba(255, 255, 255, 0.08);
-      }
-
-      * { box-sizing: border-box; }
-
-      body {
-        margin: 0;
-        background: var(--bg-base);
-        color: var(--text-primary);
-        font-family: "Geist Sans", system-ui, -apple-system, sans-serif;
-        -webkit-font-smoothing: antialiased;
-        line-height: 1.55;
-      }
-
-      a { color: inherit; text-decoration: none; }
-
-      .top {
-        position: sticky;
-        top: 0;
-        z-index: 20;
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        background: rgba(15, 16, 20, 0.9);
-        border-bottom: 1px solid var(--border-subtle);
-      }
-
-      .wrap {
-        width: min(980px, calc(100vw - 32px));
-        margin: 0 auto;
-      }
-
-      .top .wrap {
-        min-height: 60px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 16px;
-      }
-
-      .brand {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        font-size: 14px;
-        font-weight: 500;
-      }
-
-      .brand img { width: 24px; height: 24px; border-radius: 6px; }
-
-      .top-links {
-        display: inline-flex;
-        align-items: center;
-        gap: 14px;
-        color: var(--text-secondary);
-        font-size: 14px;
-      }
-
-      .top-links a:hover { color: var(--text-primary); }
-
-      main { padding: 56px 0 90px; }
-
-      .kicker {
-        display: inline-block;
-        padding: 4px 10px;
-        border-radius: 999px;
-        background: rgba(79, 143, 247, 0.14);
-        border: 1px solid rgba(79, 143, 247, 0.4);
-        color: var(--accent);
-        font-size: 12px;
-        font-weight: 600;
-      }
-
-      h1 {
-        margin: 14px 0 10px;
-        font-size: clamp(34px, 5.2vw, 52px);
-        line-height: 1.08;
-        letter-spacing: -0.02em;
-      }
-
-      .sub {
-        margin: 0;
-        max-width: 760px;
-        color: var(--text-secondary);
-        font-size: 17px;
-      }
-
-      .meta {
-        margin-top: 12px;
-        font-size: 13px;
-        color: var(--text-tertiary);
-      }
-
-      .grid {
-        margin-top: 26px;
-        display: grid;
-        grid-template-columns: 280px 1fr;
-        gap: 18px;
-      }
-
-      .toc, .panel {
-        background: var(--bg-elevated);
-        border: 1px solid var(--border-subtle);
-        border-radius: 14px;
-      }
-
-      .toc {
-        position: sticky;
-        top: 86px;
-        align-self: start;
-        padding: 16px;
-      }
-
-      .toc h3 {
-        margin: 0 0 10px;
-        font-size: 13px;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        color: var(--text-tertiary);
-      }
-
-      .toc a {
-        display: block;
-        padding: 6px 0;
-        color: var(--text-secondary);
-        font-size: 14px;
-      }
-
-      .toc a:hover { color: var(--text-primary); }
-
-      .content { display: grid; gap: 14px; }
-
-      .panel { padding: 24px; }
-
-      .panel h2 {
-        margin: 0 0 10px;
-        font-size: 24px;
-        letter-spacing: -0.01em;
-      }
-
-      .panel p {
-        margin: 0;
-        color: var(--text-secondary);
-      }
-
-      .panel p + p { margin-top: 10px; }
-
-      ul {
-        margin: 12px 0 0;
-        padding-left: 20px;
-      }
-
-      li {
-        margin-bottom: 8px;
-        color: var(--text-secondary);
-      }
-
-      code {
-        font-family: "Geist Mono", ui-monospace, monospace;
-        font-size: 12px;
-        color: var(--text-primary);
-        background: rgba(255,255,255,0.04);
-        border: 1px solid var(--border-subtle);
-        border-radius: 6px;
-        padding: 2px 6px;
-      }
-
-      .note {
-        margin-top: 12px;
-        padding: 10px 12px;
-        border-left: 3px solid var(--accent);
-        background: rgba(79, 143, 247, 0.08);
-        color: var(--text-secondary);
-        border-radius: 8px;
-        font-size: 14px;
-      }
-
-      .small {
-        font-size: 13px;
-        color: var(--text-tertiary);
-      }
-
-      @media (max-width: 900px) {
-        .grid { grid-template-columns: 1fr; }
-        .toc { position: static; }
-      }
-    </style>
   </head>
   <body>
     <header class="top">
       <div class="wrap">
-        <a class="brand" href="index.html">
-          <img src="logo.png" alt="" />
-          <span>Roomy Documentation</span>
-        </a>
+        <a class="brand" href="index.html"><img src="logo.png" alt="" /><span>Roomy <b>/ Documentation</b></span></a>
         <nav class="top-links">
-          <a href="index.html">Landing</a>
+          <a href="index.html">Home</a>
+          <a href="ai.html">AI tools</a>
+          <a href="fleet.html">Fleet &amp; Hub</a>
           <a href="release-notes.html">Release notes</a>
-          <a href="eula.html">EULA</a>
-          <a href="privacy.html">Privacy</a>
-          <a href="cookies.html">Cookies</a>
+          <a class="btn-top" href="index.html#download">Download</a>
         </nav>
       </div>
     </header>
 
     <main>
       <div class="wrap">
-        <span class="kicker">v1.2.0</span>
+        <span class="kicker">v1.3.0</span>
         <h1>Documentation</h1>
-
-        <p class="meta">Last reviewed: May 29, 2026</p>
+        <p class="sub">Roomy is one engine with three ways to use it: a Mac app, a command-line tool for macOS and Linux, and a fleet mode with a central hub. This page covers the Mac app. The CLI, Fleet and Hub have their own references.</p>
+        <p class="meta">Last reviewed: October 27, 2026</p>
 
         <div class="grid">
           <aside class="toc">
+            <h3>Documentation</h3>
+            <a href="documentation.html" class="current">Mac app</a>
+            <a href="docs-cli.html">CLI</a>
+            <a href="docs-fleet.html">Fleet</a>
+            <a href="docs-hub.html">Hub</a>
             <h3>On this page</h3>
             <a href="#overview">Overview</a>
             <a href="#scan-scope">Scan scope</a>
-            <a href="#artifacts">Detected artifact folders</a>
+            <a href="#artifacts">Detected folders</a>
             <a href="#system-caches">System caches</a>
             <a href="#safety-tiers">Safety tiers</a>
-            <a href="#support-matrix">Supported ecosystems and frameworks</a>
+            <a href="#support-matrix">Supported ecosystems</a>
             <a href="#activity">Activity classification</a>
-            <a href="#exclusions">Exclusions and patterns</a>
+            <a href="#exclusions">Exclusions</a>
             <a href="#deletion">Deletion behavior</a>
             <a href="#persistence">Data persistence</a>
-            <a href="#roadmap">Roadmap (planned)</a>
+            <a href="#cli">CLI, Fleet and Hub</a>
+            <a href="#roadmap">Roadmap</a>
           </aside>
 
           <div class="content">
+            <section class="panel" id="start">
+              <h2>Pick a reference</h2>
+              <div class="cards">
+                <a class="card" href="#overview"><strong>Mac app</strong><span>Scan scope, what is detected, safety tiers, how deletion works. This page.</span></a>
+                <a class="card" href="docs-cli.html"><strong>CLI</strong><span><code>roomy scan</code>, <code>clean</code>, plan files, JSON output, exit codes, quarantine on Linux, use from AI agents.</span></a>
+                <a class="card" href="docs-fleet.html"><strong>Fleet</strong><span>Policy file reference, unattended runs, systemd units, Prometheus metrics, the audit log, licensing.</span></a>
+                <a class="card" href="docs-hub.html"><strong>Hub</strong><span>Central inventory and dashboard, host reports, managed policies, API, fleet-wide metrics, tokens.</span></a>
+              </div>
+            </section>
+
             <section class="panel" id="overview">
               <h2>Overview</h2>
-              <p>Roomy runs a two-phase scan: it walks your chosen filesystem root for project artifacts, then checks fixed-path developer system caches (Xcode DerivedData, global npm/pip caches, Homebrew, Docker, and more). Findings are grouped by project root or by system cache category.</p>
+              <p>Roomy runs a two-phase scan: it walks your chosen filesystem root for project artifacts, then checks fixed-path developer system caches (Xcode DerivedData, global npm/pip caches, Homebrew, Docker, AI coding tools, and more). Findings are grouped by project root or by system cache category.</p>
               <ul>
                 <li>Phase 1 reports progress during project traversal with folders scanned, artifacts found, and recoverable bytes.</li>
                 <li>Phase 2 runs when any system-cache category is enabled in Settings, regardless of scan root.</li>
                 <li>Results include per-ecosystem byte totals, system cache totals, and project-level artifact lists.</li>
                 <li>Project rows are sorted by staleness (months since modification), then by name. System cache groups are pinned at the top of the list.</li>
               </ul>
+              <p class="small">The app and the <a href="docs-cli.html">CLI</a> share the same scanner and the same rule catalog, so what the app finds on a Mac is what <code>roomy scan</code> finds on the same Mac.</p>
             </section>
 
             <section class="panel" id="scan-scope">
@@ -366,7 +135,7 @@
 
             <section class="panel" id="artifacts">
               <h2>Detected artifact folders</h2>
-              <p>The scanner matches directories by last path component using built-in rules.</p>
+              <p>The scanner matches directories by last path component using the built-in rule catalog. The walk never descends into a matched folder.</p>
               <ul>
                 <li>Node/npm: <code>node_modules</code>, <code>.pnpm-store</code>, <code>.next</code>, <code>.nuxt</code>, <code>.svelte-kit</code>, <code>.turbo</code>, <code>.parcel-cache</code>, <code>dist</code></li>
                 <li>Python: <code>.venv</code>, <code>venv</code>, <code>__pycache__</code>, <code>.mypy_cache</code>, <code>.pytest_cache</code>, <code>.ruff_cache</code>, <code>.tox</code></li>
@@ -387,18 +156,25 @@
                 <li><strong>Homebrew</strong> — download cache and log directories when Homebrew is installed.</li>
                 <li><strong>Docker</strong> — unused images, dangling volumes, and build cache (via <code>docker</code> CLI; skipped gracefully if Docker is not running).</li>
                 <li><strong>AI coding tools</strong> — local model stores (Ollama, LM Studio, Hugging Face, llama.cpp, PyTorch Hub, Whisper), Electron caches and sandbox VM bundles for Claude, Cursor, Windsurf, Kiro and Trae, the npx cache used by MCP servers, Playwright and Puppeteer browsers, and agent session history (Claude Code per project, Codex, Gemini CLI, OpenCode, Goose, Cline and Roo checkpoints). Session history is marked Irreversible and excluded from bulk dormant selection.</li>
+                <li><strong>Agent host leftovers</strong> — OpenClaw build captures, crash dumps, Claude Code scratch directories, stale Cursor agent builds and an un-emptied Trash. Mostly relevant on servers; see the <a href="docs-cli.html#agents">CLI reference</a>.</li>
               </ul>
               <p class="small">The conda <code>base</code> environment is never offered for deletion. Xcode Archives and Docker volumes with data mounts use the highest safety tier.</p>
             </section>
 
             <section class="panel" id="safety-tiers">
               <h2>Safety tiers</h2>
-              <p>System and project artifacts are labeled to guide bulk selection and deletion review:</p>
-              <ul>
-                <li><strong>Safe</strong> — Regenerable caches (DerivedData, package download caches, Homebrew cache). Eligible for bulk dormant selection when tier is safe.</li>
-                <li><strong>Review</strong> — May affect tooling until reinstalled (global CLI packages, dormant conda envs, Device Support, simulators).</li>
-                <li><strong>Irreversible</strong> — Cannot be recreated automatically (Xcode Archives, Docker volumes with user data). Never included in bulk dormant selection; extra confirmation in review.</li>
-              </ul>
+              <p>Every finding carries a tier. The same three words are used in the app, in the CLI and in fleet policies.</p>
+              <div class="table-wrap">
+              <table>
+                <thead><tr><th>Tier</th><th>Meaning</th><th>In the app</th><th>In the CLI</th><th>In a fleet policy</th></tr></thead>
+                <tbody>
+                  <tr><td><span class="tier tier-safe">Safe</span></td><td>Fully regenerable: DerivedData, package download caches, node_modules, models that can be pulled again</td><td>Eligible for bulk dormant selection</td><td>Default for <code>scan --plan</code></td><td>Default <code>autoClean.tiers</code></td></tr>
+                  <tr><td><span class="tier tier-review">Review</span></td><td>Regenerable at a cost, or mixed with user data: global CLI packages, dormant conda envs, Device Support, simulators</td><td>Shown with a badge, never pre-selected</td><td><code>--allow-caution</code></td><td>Opt in per policy</td></tr>
+                  <tr><td><span class="tier tier-warn">Irreversible</span></td><td>Cannot be recreated: Xcode Archives, Docker volumes with user data, agent session history</td><td>Extra confirmation, never bulk-selected</td><td><code>--allow-irreversible</code></td><td>Always in <code>never.tiers</code> by default</td></tr>
+                </tbody>
+              </table>
+              </div>
+              <p class="small">When in doubt the catalog classifies up. A wrong Safe loses someone's data; a wrong Irreversible costs a click.</p>
             </section>
 
             <section class="panel" id="support-matrix">
@@ -415,19 +191,19 @@
                 <li><strong>.NET / NuGet</strong>: global NuGet package store and HTTP caches under system cache scanning.</li>
                 <li><strong>General</strong>: fallback category for supported artifact names that do not match ecosystem-specific markers.</li>
               </ul>
-              <p class="small">If a language or framework is not listed above, it is not explicitly recognized by name in the current release.</p>
+              <p class="small">If a language or framework is not listed above, it is not explicitly recognized by name in the current release. The catalog is JSON, so the CLI can load extra rules with <code>--rules FILE</code>; see <a href="docs-cli.html#rules">the CLI reference</a>.</p>
             </section>
 
             <section class="panel" id="activity">
               <h2>Activity classification</h2>
-              <p>Project activity uses filesystem modification time, with configurable thresholds.</p>
+              <p>Project activity uses the last git commit and filesystem modification time, with configurable thresholds.</p>
               <ul>
                 <li><code>Active</code>: modified within the current month</li>
                 <li><code>Recent</code>: 1 month or more, but below inactive threshold</li>
                 <li><code>Inactive</code>: at or above inactive threshold</li>
                 <li><code>Dormant</code>: at or above dormant threshold</li>
               </ul>
-              <p class="small">Default thresholds in settings are: inactive after 6 months, dormant after 2 years.</p>
+              <p class="small">Default thresholds in settings are: inactive after 6 months, dormant after 2 years. Dormant projects are pre-selected for bulk cleanup when their artifacts are in the Safe tier.</p>
             </section>
 
             <section class="panel" id="exclusions">
@@ -455,13 +231,23 @@
 
             <section class="panel" id="persistence">
               <h2>Data persistence</h2>
-              <p>Roomy persists settings, exclusions, and the last scan locally.</p>
+              <p>Roomy persists settings, exclusions, and the last scan locally. Nothing leaves the Mac.</p>
               <ul>
                 <li>Settings are stored in <code>UserDefaults</code> under a versioned key.</li>
                 <li>Exclusions are stored as encoded entries in <code>UserDefaults</code>.</li>
                 <li>Last scan summary is persisted in <code>UserDefaults</code> (v2 schema), with large aggregates written to Application Support under <code>com.azbouki.Roomy</code>. Legacy v1 snapshots decode with defaults.</li>
               </ul>
+            </section>
 
+            <section class="panel" id="cli">
+              <h2>CLI, Fleet and Hub</h2>
+              <p>Since 1.3.0 the engine also ships as <code>roomy</code>, a single binary for macOS and Linux, built to be called by agents as much as by people. On top of it, Roomy Fleet runs cleanups unattended by policy, and Roomy Hub gives many hosts one dashboard.</p>
+              <div class="cards">
+                <a class="card" href="docs-cli.html"><strong>CLI reference</strong><span>Install, commands, JSON report and plan schemas, exit codes, quarantine, use from AI agents.</span></a>
+                <a class="card" href="docs-fleet.html"><strong>Fleet reference</strong><span>Policy file, a run step by step, systemd, Prometheus, audit log, licensing, rollout advice.</span></a>
+                <a class="card" href="docs-hub.html"><strong>Hub reference</strong><span>Running the hub, host reports, managed policies, host status, dashboard, API, metrics.</span></a>
+                <a class="card" href="fleet.html"><strong>Fleet &amp; Hub overview</strong><span>The product page, with screenshots of the dashboard and pricing.</span></a>
+              </div>
             </section>
 
             <section class="panel" id="roadmap">
@@ -469,15 +255,16 @@
               <p>These are planned improvements not yet shipped.</p>
               <ul>
                 <li>Better exclusion glob support (including true recursive <code>**</code> semantics).</li>
-                <li>Improved download distribution flow (universal + architecture-specific guidance).</li>
-                <li>Public changelog cadence for each release.</li>
-                <li>Deeper pip orphan analysis (import-graph based detection).</li>
                 <li>Per-model dormancy for Ollama and Hugging Face stores, so individual unused models can be removed instead of the whole store.</li>
                 <li>Oversized-file safety net for Claude Code temp and task output files, which can grow without bound.</li>
+                <li>Deeper pip orphan analysis (import-graph based detection).</li>
+                <li>A hosted option for Roomy Hub, and self-serve licensing for Roomy Fleet.</li>
+                <li>An MCP server wrapping the CLI for agents that prefer tools over shell.</li>
               </ul>
               <div class="note">Roadmap items are directional and may change as implementation priorities evolve.</div>
             </section>
 
+            <p class="foot"><a href="index.html">Home</a> · <a href="docs-cli.html">CLI</a> · <a href="docs-fleet.html">Fleet</a> · <a href="docs-hub.html">Hub</a> · <a href="release-notes.html">Release notes</a> · <a href="privacy.html">Privacy</a> · <a href="eula.html">EULA</a></p>
           </div>
         </div>
       </div>

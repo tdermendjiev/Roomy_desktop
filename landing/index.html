@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Free macOS app that finds regenerable developer artifacts — node_modules, Python venvs, Rust targets, Xcode DerivedData, Docker, Homebrew and AI coding tool caches — and lets you review everything before deleting. Native, offline, no account."
+      content="Roomy gets tens of gigabytes back on a developer Mac: node_modules, build caches, Xcode DerivedData, Docker images, downloaded AI models and whatever Cursor, Claude Code and Ollama left behind. See exactly what you get back, confirm, done. Free, offline, no account. CLI for macOS and Linux."
     />
-    <title>Roomy — Free Mac disk cleaner for developers: node_modules, DerivedData, Docker, AI tools</title>
+    <title>Roomy — Free up disk space on your Mac: node_modules, Xcode, Docker, AI models</title>
     <!-- seo:meta -->
     <link rel="canonical" href="https://getroomy.dev/" />
     <meta name="robots" content="index, follow, max-image-preview:large" />
@@ -16,15 +16,15 @@
     <meta property="og:site_name" content="Roomy" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:url" content="https://getroomy.dev/" />
-    <meta property="og:title" content="Roomy — Free Mac disk cleaner for developers: node_modules, DerivedData, Docker, AI tools" />
-    <meta property="og:description" content="Free macOS app that finds regenerable developer artifacts — node_modules, Python venvs, Rust targets, Xcode DerivedData, Docker, Homebrew and AI coding tool caches — and lets you review everything before deleting. Native, offline, no account." />
+    <meta property="og:title" content="Roomy — Free up disk space on your Mac: node_modules, Xcode, Docker, AI models" />
+    <meta property="og:description" content="Roomy gets tens of gigabytes back on a developer Mac: node_modules, build caches, Xcode DerivedData, Docker images, downloaded AI models and whatever Cursor, Claude Code and Ollama left behind. See exactly what you get back, confirm, done. Free, offline, no account. CLI for macOS and Linux." />
     <meta property="og:image" content="https://getroomy.dev/og-default.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Roomy for macOS" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Roomy — Free Mac disk cleaner for developers: node_modules, DerivedData, Docker, AI tools" />
-    <meta name="twitter:description" content="Free macOS app that finds regenerable developer artifacts — node_modules, Python venvs, Rust targets, Xcode DerivedData, Docker, Homebrew and AI coding tool caches — and lets you review everything before deleting. Native, offline, no account." />
+    <meta name="twitter:title" content="Roomy — Free up disk space on your Mac: node_modules, Xcode, Docker, AI models" />
+    <meta name="twitter:description" content="Roomy gets tens of gigabytes back on a developer Mac: node_modules, build caches, Xcode DerivedData, Docker images, downloaded AI models and whatever Cursor, Claude Code and Ollama left behind. See exactly what you get back, confirm, done. Free, offline, no account. CLI for macOS and Linux." />
     <meta name="twitter:image" content="https://getroomy.dev/og-default.png" />
     <script type="application/ld+json">
     {
@@ -54,7 +54,7 @@
           "url": "https://getroomy.dev",
           "applicationCategory": "UtilitiesApplication",
           "operatingSystem": "macOS 13 or later",
-          "softwareVersion": "1.2.0",
+          "softwareVersion": "1.3.0",
           "datePublished": "2026-05-20",
           "dateModified": "2026-10-26",
           "downloadUrl": "https://getroomy.dev/downloads/Roomy-latest.zip",
@@ -73,7 +73,7 @@
             "@id": "https://getroomy.dev/#org"
           },
           "image": "https://getroomy.dev/og-default.png",
-          "description": "Free native macOS app that finds regenerable developer artifacts (node_modules, Python venvs, Rust targets, Xcode DerivedData, Docker, Homebrew, AI coding tool caches and models) and lets you review everything before deleting. Offline, no account, no telemetry.",
+          "description": "Free native macOS app that frees disk space on developer Macs. It finds the folders that come back on their own (node_modules, Python venvs, Rust targets, Xcode DerivedData, Docker, Homebrew, AI coding tool caches and models), shows how much space each one returns, and deletes nothing until you review and confirm. Offline, no account, no telemetry.",
           "featureList": [
             "Two-phase scan of project folders and system caches",
             "Project activity classification from git history",
@@ -87,10 +87,18 @@
           "mainEntity": [
             {
               "@type": "Question",
+              "name": "How much disk space will Roomy free up?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "On most developer Macs between 10 and 100 GB. node_modules across old projects and Xcode DerivedData alone are often tens of gigabytes, and a few local AI models add 20 GB more. Roomy shows the exact number before you delete anything."
+              }
+            },
+            {
+              "@type": "Question",
               "name": "Is there a Pro version of Roomy?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "No. Roomy is free with no paid tier."
+                "text": "No. The Mac app and the roomy CLI are free. Teams that run Roomy unattended on many servers can license Roomy Fleet, which adds a central dashboard and support."
               }
             },
             {
@@ -130,7 +138,7 @@
               "name": "How is Roomy different from CleanMyMac or DaisyDisk?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "General cleaners show you big folders. Roomy knows what the folders are: it recognises node_modules, virtual environments, build output, Xcode and Docker caches and AI tool storage, tells you whether each one regenerates, and ranks projects by how long they have been idle. It is free, offline and only touches regenerable artifacts."
+                "text": "General cleaners show you big folders and leave the decision to you. Roomy knows what the folders are: it recognises node_modules, virtual environments, build output, Xcode and Docker caches and AI tool storage, tells you whether each one comes back on its own, and ranks projects by how long they have been idle. It is free, offline and only touches things that regenerate."
               }
             },
             {
@@ -175,6 +183,7 @@
         <nav class="nav-center" aria-label="Primary">
           <a href="#features">Features</a>
           <a href="ai.html">AI tools</a>
+          <a href="#cli">CLI &amp; Fleet</a>
           <a href="#pricing">Download</a>
           <a href="#faq">FAQ</a>
         </nav>
@@ -188,16 +197,16 @@
       <!-- 02 Hero -->
       <section class="hero" aria-labelledby="hero-title">
         <div class="hero-inner">
-          <p class="eyebrow">Native macOS · Free · No account required</p>
-          <h1 class="hero-title" id="hero-title">Find regenerable developer artifacts</h1>
+          <p class="eyebrow">Free Mac app · CLI for macOS and Linux · No account</p>
+          <h1 class="hero-title" id="hero-title">Get your disk space back.</h1>
           <p class="body-lg hero-sub">
-            Roomy scans project folders for node_modules, Python venvs, Rust target directories, and fixed-path system caches — Xcode DerivedData, npm and pip caches, Homebrew, Docker, and more. Nothing is deleted until you review and confirm.
+            A developer Mac fills up with things that grow back: node_modules, build caches, Xcode DerivedData, Docker images, downloaded AI models, the leftovers of every coding agent you tried. Roomy finds them, tells you which ones are safe, and frees tens of gigabytes in one click. To the Trash, after you confirm.
           </p>
           <div class="hero-ctas">
             <a href="#features" class="btn btn-hero-secondary cta-text">How it works</a>
-            <a href="#download" class="btn btn-hero-primary cta-text">Download</a>
+            <a href="#download" class="btn btn-hero-primary cta-text">Download free</a>
           </div>
-          <p class="hero-meta">macOS 13+ · Apple Silicon &amp; Intel · Free · v1.2.0</p>
+          <p class="hero-meta">macOS 13+ · Apple Silicon &amp; Intel · Free · v1.3.0</p>
         </div>
 
         <div class="hero-window-wrap">
@@ -212,7 +221,7 @@
               <div class="mock-s03">
                 <div>
                   <div class="mock-hero-stat">47.3 GB</div>
-                  <div class="mock-hero-label">Regenerable artifacts found</div>
+                  <div class="mock-hero-label">Safe to free up right now</div>
                   <div class="mock-bars">
                     <div class="mock-bar-row">
                       <span>Node</span>
@@ -288,15 +297,16 @@
             </div>
           </div>
           <div class="copy-col">
-            <h2 class="section-title reveal" data-reveal>Two-phase scan</h2>
+            <h2 class="section-title reveal" data-reveal>Finds space where you would not look</h2>
             <p class="body-lg reveal reveal-delay-1" data-reveal style="margin-top: 16px; max-width: 480px">
-              Pass 1 walks your chosen root and finds per-project artifacts. Pass 2 probes known developer cache paths outside your repos. Results stream in as they are found.
+              Roomy checks every project on your Mac, then the hidden caches your tools keep in <span class="mono">~/Library</span> and <span class="mono">~/.cache</span>. Sizes stream in as they are found, usually within a minute.
             </p>
             <ul class="feature-bullets reveal reveal-delay-2" data-reveal>
-              <li>Project artifacts: Node, Python, Rust, Ruby, Go, Java, Swift, .NET</li>
-              <li>System caches: Xcode DerivedData, global package caches, Homebrew, Docker, Conda, pyenv</li>
-              <li>AI coding tools: Ollama and Hugging Face models, Claude, Cursor and Codex caches, agent session history — <a href="ai.html">see the AI page</a></li>
-              <li>Safety tiers: Safe, Review, Irreversible</li>
+              <li>Projects: node_modules, .venv, target/, build output, Pods — Node, Python, Rust, Ruby, Go, Java, Swift, .NET</li>
+              <li>Tool caches: Xcode DerivedData and simulators, npm, pip and Homebrew caches, Docker images, Conda, pyenv</li>
+              <li>AI tools: Ollama and Hugging Face models, Claude, Cursor and Codex caches, agent session history — <a href="ai.html">see the AI page</a></li>
+              <li>Agent leftovers on servers: OpenClaw build captures, crash dumps, Claude Code scratch dirs, a Trash nobody emptied</li>
+              <li>Every item says whether it comes back on its own: Safe, Review or Irreversible</li>
             </ul>
           </div>
         </div>
@@ -312,14 +322,14 @@
               <span><span class="status-dot" style="background: var(--status-inactive)"></span> Inactive</span>
               <span><span class="status-dot" style="background: var(--status-dormant)"></span> Dormant</span>
             </div>
-            <h2 class="section-title reveal" data-reveal style="margin-top: 8px">Project activity levels</h2>
+            <h2 class="section-title reveal" data-reveal style="margin-top: 8px">Start with the projects you forgot about</h2>
             <p class="body-lg reveal reveal-delay-1" data-reveal style="margin-top: 16px; max-width: 480px">
-              Each project is classified from git commit dates and file modification time into Active, Recent, Inactive, or Dormant.
+              Roomy sorts projects by last commit and last edit. The 6 GB node_modules of a prototype from 2019 sits at the top; the project you shipped this week stays out of the way.
             </p>
             <ul class="feature-bullets reveal reveal-delay-2" data-reveal>
               <li>Four levels: Active · Recent · Inactive · Dormant</li>
-              <li>Based on last git commit and file modification time</li>
-              <li>Dormant projects are pre-selected for bulk cleanup</li>
+              <li>Based on git history and file modification time</li>
+              <li>Dormant projects are pre-selected, so one click frees the most</li>
             </ul>
           </div>
           <div class="mock-col reveal reveal-shot reveal-delay-shot" data-reveal>
@@ -400,14 +410,14 @@
             </div>
           </div>
           <div class="copy-col">
-            <h2 class="section-title reveal" data-reveal>Review before deleting</h2>
+            <h2 class="section-title reveal" data-reveal>Nothing is deleted until you say so</h2>
             <p class="body-lg reveal reveal-delay-1" data-reveal style="margin-top: 16px; max-width: 480px">
-              Browse projects and system caches, deselect items, and see disk impact before confirming. Project artifacts go to Trash; Docker and Conda use their native CLIs.
+              Untick anything you want to keep and see exactly how much space you get back before confirming. Project folders go to the Trash; Docker and Conda are cleaned with their own tools.
             </p>
             <ul class="feature-bullets reveal reveal-delay-2" data-reveal>
-              <li>Plain-language labels and safety badges on every artifact</li>
-              <li>Project artifacts move to Trash — restoreable before you empty it</li>
-              <li>Extra warnings for irreversible items (Xcode Archives, Docker volumes)</li>
+              <li>A plain-language label and a safety badge on every item</li>
+              <li>Trash, not <span class="mono">rm</span>: everything is restorable until you empty it</li>
+              <li>Irreversible items (Xcode Archives, Docker volumes, chat history) ask again</li>
             </ul>
             <div class="trust-callout reveal" data-reveal>
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="flex-shrink: 0; color: var(--accent)">
@@ -428,6 +438,31 @@
       </section>
 
       <!-- 08 Philosophy -->
+      <!-- CLI & Fleet -->
+      <section class="section-pad wrap" id="cli" aria-labelledby="cli-title">
+        <h2 class="section-title reveal" data-reveal id="cli-title">The same for your servers and your agents</h2>
+        <p class="body-lg reveal reveal-delay-1" data-reveal style="margin-top: 16px; max-width: 640px">
+          Disks fill up on CI runners and agent hosts too. Since 1.3.0 the same engine ships as <code>roomy</code> for macOS and Linux, so a machine can free its own space on a schedule, and an agent that hits "no space left on device" can fix it. Agents call it with <code>--json</code>, write a plan, and clean exactly what the plan lists. Nothing above the Safe tier is removed without a flag; irreversible items never are. Every removal lands in a tamper-evident audit log. Many machines? <a href="fleet.html">Roomy Fleet &amp; Hub</a> puts every host on one dashboard.
+        </p>
+        <pre class="reveal reveal-delay-2" data-reveal style="margin-top: 20px; padding: 16px 20px; border-radius: 12px; background: rgba(0,0,0,0.06); overflow-x: auto; font-size: 13px; line-height: 1.6"><code>brew install azbouki/roomy/roomy        # or the .deb / .rpm on Linux
+roomy scan --json                       # what could be reclaimed, as data
+roomy scan --plan plan.json             # safe tier only, by default
+roomy clean --plan plan.json            # Trash on macOS, quarantine on Linux
+
+# Unattended, across hosts
+roomy fleet policy init --profile agent-host --hub http://hub.internal:9478 --output /etc/roomy/policy.json
+systemctl enable --now roomy-fleet@agent.timer
+roomy hub serve                         # one dashboard for every host, see /fleet
+curl -s localhost:9477/metrics          # Prometheus</code></pre>
+        <ul class="feature-bullets reveal reveal-delay-2" data-reveal style="margin-top: 20px">
+          <li>Plan-file deletion: a caller never passes raw paths. Items that vanished are skipped; tiers are enforced at clean time.</li>
+          <li>Quarantine with retention instead of a Trash nobody empties on a headless host. <code>roomy restore</code> undoes.</li>
+          <li>Roomy Fleet: JSON policies, hash-chained audit log, Prometheus metrics, systemd units, offline license tokens. Free in community mode on any number of hosts; licensed with support for commercial fleets.</li>
+          <li>One rule catalog as data. Add your agent's cache directory in a JSON file, no release needed.</li>
+        </ul>
+        <p class="body-lg reveal" data-reveal style="margin-top: 16px"><a href="docs-cli.html">CLI documentation</a> · <a href="docs-fleet.html">Fleet documentation</a> · <a href="docs-hub.html">Hub documentation</a></p>
+      </section>
+
       <section class="philo" aria-label="Product philosophy">
         <div class="philo-inner">
           <!-- <blockquote class="philo-quote reveal" data-reveal>
@@ -472,10 +507,16 @@
           </div>
         </div>
 
-        <div class="faq-grid-wrap" id="faq">
+        <div class="faq-block" id="faq">
+          <h2 class="section-title reveal" data-reveal>Questions</h2>
+          <div class="faq-grid-wrap">
+          <div class="faq-item reveal" data-reveal>
+            <h4>How much space will I get back?</h4>
+            <p>On most developer Macs between 10 and 100 GB. node_modules across old projects and Xcode DerivedData alone are often tens of gigabytes, and a few local AI models add 20 GB more. Roomy shows the exact number before you delete anything.</p>
+          </div>
           <div class="faq-item reveal" data-reveal>
             <h4>Is there a Pro version?</h4>
-            <p>No. The app is free with no paid tier.</p>
+            <p>No. The Mac app and the <code>roomy</code> CLI are free. Teams that run Roomy unattended on many servers can license <a href="fleet.html">Roomy Fleet</a>, which adds a central dashboard and support.</p>
           </div>
           <div class="faq-item reveal reveal-delay-1" data-reveal>
             <h4>Does it work on Apple Silicon?</h4>
@@ -495,11 +536,16 @@
           </div>
           <div class="faq-item reveal reveal-delay-1" data-reveal>
             <h4>How is Roomy different from CleanMyMac or DaisyDisk?</h4>
-            <p>General cleaners show you big folders. Roomy knows what the folders are: node_modules, virtual environments, build output, Xcode and Docker caches, AI tool storage. It tells you whether each one regenerates and ranks projects by how long they have been idle. Free, offline, and it only touches regenerable artifacts.</p>
+            <p>General cleaners show you big folders and leave the decision to you. Roomy knows what the folders are: node_modules, virtual environments, build output, Xcode and Docker caches, AI tool storage. It tells you whether each one comes back on its own and ranks projects by how long they have been idle. Free, offline, and it only touches things that regenerate.</p>
           </div>
           <div class="faq-item reveal reveal-delay-2" data-reveal>
             <h4>Does it clean up Cursor, Claude Code and Ollama?</h4>
             <p>Yes. Since 1.2.0 an AI coding tools category covers model stores (Ollama, LM Studio, Hugging Face), editor caches (Cursor, Claude desktop, Windsurf) and agent session history (Claude Code, Codex, Gemini CLI). Session history is marked Irreversible and never bulk-selected. <a href="ai.html">See the AI page.</a></p>
+          </div>
+          <div class="faq-item reveal" data-reveal>
+            <h4>Is there a CLI, and does it run on Linux?</h4>
+            <p>Yes. <code>roomy</code> is the same engine as the app, for macOS and Linux (a single static binary, .deb/.rpm/.apk, Homebrew, container image). It is built for agents: <code>roomy scan --json</code> never deletes, <code>roomy clean --plan</code> removes only what a plan file lists, and irreversible items are refused without an explicit flag. <code>roomy fleet</code> adds policy-driven unattended runs with an audit log and Prometheus metrics for many hosts.</p>
+          </div>
           </div>
         </div>
       </section>
@@ -514,8 +560,8 @@
               </span>
               <span class="nav-text">Roomy</span>
             </a>
-            <p>Scans developer artifacts and system caches on macOS.</p>
-            <p class="caption" style="margin-top: 16px">© 2026 Azbouki. All rights reserved. · v1.2.0</p>
+            <p>Frees the disk space developer tools and AI agents leave behind.</p>
+            <p class="caption" style="margin-top: 16px">© 2026 Azbouki. All rights reserved. · v1.3.0</p>
           </div>
           <div class="footer-col-center">
             <div class="footer-links">
@@ -529,6 +575,7 @@
               <h5>AI tools</h5>
               <ul>
                 <li><a href="ai.html">Roomy for AI coding</a></li>
+                <li><a href="fleet.html">Roomy Fleet &amp; Hub</a></li>
                 <li><a href="cursor-disk-space.html">Cursor disk space</a></li>
                 <li><a href="claude-code-disk-space.html">Claude Code data</a></li>
                 <li><a href="ollama-models-location.html">Ollama models</a></li>
@@ -538,6 +585,9 @@
               <h5>Support</h5>
               <ul>
                 <li><a href="documentation.html">Documentation</a></li>
+                <li><a href="docs-cli.html">CLI reference</a></li>
+                <li><a href="docs-fleet.html">Fleet reference</a></li>
+                <li><a href="docs-hub.html">Hub reference</a></li>
                 <li><a href="mailto:teodor@azbouki.com">Contact</a></li>
               </ul>
             </div>

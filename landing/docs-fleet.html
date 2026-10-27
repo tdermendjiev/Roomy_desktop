@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Roomy Fleet reference: unattended, policy-driven disk cleanup for agent hosts, CI runners and shared dev boxes. Policy file reference, a run step by step, systemd units, Prometheus metrics, the hash-chained audit log, licensing and rollout advice."
+    />
+    <title>Roomy Fleet reference — policy file, unattended runs, systemd, Prometheus, audit log</title>
+    <!-- seo:meta -->
+    <link rel="canonical" href="https://getroomy.dev/docs-fleet" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="theme-color" content="#0f1014" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Roomy" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:url" content="https://getroomy.dev/docs-fleet" />
+    <meta property="og:title" content="Roomy Fleet reference — policy file, unattended runs, systemd, Prometheus, audit log" />
+    <meta property="og:description" content="Roomy Fleet reference: unattended, policy-driven disk cleanup for agent hosts, CI runners and shared dev boxes. Policy file reference, a run step by step, systemd units, Prometheus metrics, the hash-chained audit log, licensing and rollout advice." />
+    <meta property="og:image" content="https://getroomy.dev/og-fleet.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Roomy Fleet and Hub" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Roomy Fleet reference — policy file, unattended runs, systemd, Prometheus, audit log" />
+    <meta name="twitter:description" content="Roomy Fleet reference: unattended, policy-driven disk cleanup for agent hosts, CI runners and shared dev boxes. Policy file reference, a run step by step, systemd units, Prometheus metrics, the hash-chained audit log, licensing and rollout advice." />
+    <meta name="twitter:image" content="https://getroomy.dev/og-fleet.png" />
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        { "@type": "Organization", "@id": "https://getroomy.dev/#org", "name": "Azbouki", "url": "https://getroomy.dev", "logo": "https://getroomy.dev/logo.png", "email": "teodor@azbouki.com" },
+        { "@type": "BreadcrumbList", "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Roomy", "item": "https://getroomy.dev/" },
+          { "@type": "ListItem", "position": 2, "name": "Documentation", "item": "https://getroomy.dev/documentation" },
+          { "@type": "ListItem", "position": 3, "name": "Fleet", "item": "https://getroomy.dev/docs-fleet" } ] },
+        { "@type": "TechArticle", "@id": "https://getroomy.dev/docs-fleet#article",
+          "headline": "Roomy Fleet reference",
+          "description": "Policy file reference, a run step by step, systemd, Prometheus metrics, audit log, licensing, rollout advice.",
+          "url": "https://getroomy.dev/docs-fleet", "image": "https://getroomy.dev/og-fleet.png",
+          "datePublished": "2026-10-27", "dateModified": "2026-10-27", "inLanguage": "en",
+          "author": { "@id": "https://getroomy.dev/#org" }, "publisher": { "@id": "https://getroomy.dev/#org" },
+          "isPartOf": { "@id": "https://getroomy.dev/#website" } }
+      ]
+    }
+    </script>
+    <link rel="icon" href="logo.png" type="image/png" />
+    <link rel="apple-touch-icon" href="logo.png" />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/geist-sans@5.2.5/latin.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/geist-mono@5.2.5/latin.css" />
+    <link rel="stylesheet" href="docs.css" />
+    <link rel="stylesheet" href="consent.css" />
+    <script src="site-config.js"></script>
+    <script src="consent.js"></script>
+  </head>
+  <body>
+    <header class="top">
+      <div class="wrap">
+        <a class="brand" href="index.html"><img src="logo.png" alt="" /><span>Roomy <b>/ Documentation</b></span></a>
+        <nav class="top-links">
+          <a href="index.html">Home</a>
+          <a href="ai.html">AI tools</a>
+          <a href="fleet.html">Fleet &amp; Hub</a>
+          <a href="release-notes.html">Release notes</a>
+          <a class="btn-top" href="index.html#download">Download</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <div class="wrap">
+        <span class="kicker">v1.3.0 · Linux &amp; macOS</span>
+        <h1>Roomy Fleet reference</h1>
+        <p class="sub">Unattended, policy-driven cleanup for machines nobody is watching: agent hosts, CI runners, shared dev boxes. The policy says what may be removed without a human; everything else is reported, never touched. Every run leaves a hash-chained audit trail and Prometheus metrics.</p>
+        <p class="meta">Last reviewed: October 27, 2026 · Product overview and screenshots: <a href="fleet.html">Roomy Fleet &amp; Hub</a></p>
+
+        <div class="grid">
+          <aside class="toc">
+            <h3>Documentation</h3>
+            <a href="documentation.html">Mac app</a>
+            <a href="docs-cli.html">CLI</a>
+            <a href="docs-fleet.html" class="current">Fleet</a>
+            <a href="docs-hub.html">Hub</a>
+            <h3>On this page</h3>
+            <a href="#overview">Overview</a>
+            <a href="#run">A run, step by step</a>
+            <a href="#policy">Policy file reference</a>
+            <a href="#profiles">Profiles and examples</a>
+            <a href="#systemd">systemd</a>
+            <a href="#metrics">Prometheus metrics</a>
+            <a href="#audit">Audit log</a>
+            <a href="#licensing">Licensing</a>
+            <a href="#rollout">Rollout advice</a>
+          </aside>
+
+          <div class="content">
+            <section class="panel" id="overview">
+              <h2>Overview</h2>
+              <p>Fleet is a set of <code>roomy</code> subcommands. There is no agent framework and no daemon you cannot read: a run is one process that takes a lock, scans, applies a JSON policy, disposes, writes an audit line per step and a metrics file, and exits.</p>
+              <pre><code>roomy fleet policy init --profile agent-host --output /etc/roomy/policy.json
+roomy fleet policy check            <span class="c"># scan, show what the policy would remove; disposes of nothing</span>
+roomy fleet policy show             <span class="c"># print the effective policy</span>
+roomy fleet run                     <span class="c"># one run: lock → scan → evaluate → dispose → purge → audit → metrics → hub</span>
+roomy fleet serve --interval 6h     <span class="c"># run on a schedule and serve /metrics, /healthz, /report</span>
+roomy fleet audit verify|tail       <span class="c"># tamper-evident log</span>
+roomy fleet license show|install    <span class="c"># edition in effect</span>
+roomy fleet metrics                 <span class="c"># print the Prometheus text a run would produce</span>
+roomy hub …                         <span class="c"># central inventory and dashboard → <a href="docs-hub.html">Hub</a></span></code></pre>
+              <p>Policy resolution order: <code>--policy FILE</code>, <code>$ROOMY_POLICY</code>, <code>/etc/roomy/policy.json</code>, <code>~/.roomy/policy.json</code>. When the policy names a hub-managed policy (<code>hub.policy</code>), that one is pulled before the run; <code>--local-policy</code> skips the pull.</p>
+            </section>
+
+            <section class="panel" id="run">
+              <h2>A run, step by step</h2>
+              <ol>
+                <li><strong>Lock</strong> <code>~/.roomy/fleet.lock</code> (pid; stale locks are reclaimed). A concurrent run exits 4.</li>
+                <li><strong>Scan</strong> the policy's roots and categories with the effective catalog (built-in + <code>extraRules</code> − <code>disabledRules</code>).</li>
+                <li><strong>Evaluate</strong>: each finding is either selected or skipped with a reason: <code>tierNeverRemoved</code>, <code>tierNotAutoCleaned</code>, <code>ruleNeverRemoved</code>, <code>pathProtected</code>, <code>categoryNotAllowed</code>, <code>ecosystemNotAllowed</code>, <code>tooRecent</code>, <code>idleUnknown</code>, <code>tooSmall</code>, <code>overBudget</code>. Largest first, so a byte budget buys the most space.</li>
+                <li><strong>Dispose</strong> selected items with the policy's method. Default is <strong>quarantine</strong>: a rename into <code>~/.roomy/quarantine</code> on the same volume with a manifest, so the run is instant and reversible.</li>
+                <li><strong>Purge</strong> quarantine items older than <code>retentionDays</code> (and, on Linux with <code>method: trash</code>, the freedesktop Trash). This is when space is actually freed.</li>
+                <li><strong>Audit</strong>: every step above is one JSON line with the hash of the previous line.</li>
+                <li><strong>Metrics</strong>: written atomically to the node_exporter textfile path, and served by <code>fleet serve</code>.</li>
+                <li><strong>Report to the hub</strong>, when the policy sets <code>hub.url</code>: a few-KB summary of steps 2–7 plus the audit chain head. Failure is logged and audited, never fatal.</li>
+              </ol>
+              <p><code>--dry-run</code> (or <code>"dryRun": true</code> in the policy) does steps 1–3 and 6–8, and logs what step 4 would have done.</p>
+            </section>
+
+            <section class="panel" id="policy">
+              <h2>Policy file reference</h2>
+              <p>JSON. Every field is optional; defaults are shown. Validate with <code>roomy fleet policy check</code>, print the effective policy with <code>roomy fleet policy show</code>.</p>
+              <pre><code>{
+  "schemaVersion": 1,
+  "name": "default",                      <span class="c">// appears in audit records and metrics labels</span>
+
+  "scan": {
+    "roots": ["~"],                       <span class="c">// directories to walk for project artifacts; [] = no walk</span>
+    "home": null,                         <span class="c">// home to probe for tool caches; null = current user</span>
+    "categories": null,                   <span class="c">// null = all available on this platform; else a list of category keys</span>
+    "ecosystems": null,                   <span class="c">// null = all</span>
+    "exclude": [],                        <span class="c">// paths or globs never scanned</span>
+    "extraRules": [],                     <span class="c">// extra catalog files, merged by rule id</span>
+    "disabledRules": []                   <span class="c">// rule ids switched off</span>
+  },
+
+  "autoClean": {
+    "tiers": ["safe"],                    <span class="c">// tiers removable without a human</span>
+    "categories": null,                   <span class="c">// restrict to categories (null = any); "project" is the project walk</span>
+    "ecosystems": null,
+    "minIdleDays": 7,                     <span class="c">// 0 = no age requirement</span>
+    "requireKnownIdle": false,            <span class="c">// true = skip items whose idle time is unknown</span>
+    "minBytes": 1048576,
+    "maxBytesPerRun": null,               <span class="c">// stop selecting past this many bytes (largest first)</span>
+    "maxItemsPerRun": null
+  },
+
+  "never": {
+    "tiers": ["warning"],                 <span class="c">// never removed by policy, regardless of autoClean</span>
+    "ruleIDs": [],                        <span class="c">// e.g. ["cursor-state-backup"]</span>
+    "paths": []                           <span class="c">// prefixes or globs, e.g. ["~/.claude/projects", "*/important/*"]</span>
+  },
+
+  "disposal": {
+    "method": "quarantine",               <span class="c">// trash | quarantine | delete</span>
+    "quarantineDir": null,                <span class="c">// default ~/.roomy/quarantine (or $ROOMY_QUARANTINE_DIR)</span>
+    "retentionDays": 7,
+    "purgeOnRun": true                    <span class="c">// purge expired quarantine (and Linux trash) at the end of a run</span>
+  },
+
+  "audit":   { "path": null },            <span class="c">// default ~/.roomy/audit.jsonl</span>
+  "metrics": { "textfile": null,          <span class="c">// e.g. /var/lib/node_exporter/textfile_collector/roomy.prom</span>
+               "listen": null },          <span class="c">// host:port for `fleet serve`; default 127.0.0.1:9477</span>
+  "license": { "key": null, "keyFile": null },   <span class="c">// also $ROOMY_LICENSE, /etc/roomy/license.key, ~/.roomy/license.key</span>
+
+  "lockFile": null,                       <span class="c">// default ~/.roomy/fleet.lock</span>
+  "hub": {
+    "url": null,                          <span class="c">// "http://hub.internal:9478" → report to a Roomy Hub after every run</span>
+    "token": null, "tokenFile": null,     <span class="c">// agent token; also /etc/roomy/hub.token, ~/.roomy/hub.token, $ROOMY_HUB_TOKEN</span>
+    "policy": null,                       <span class="c">// name of a hub-managed policy to pull before each run</span>
+    "tags": {},                           <span class="c">// labels for the dashboard: role, team, region…</span>
+    "topItems": 25,                       <span class="c">// largest findings included in the report (0–200)</span>
+    "intervalSeconds": null               <span class="c">// expected run cadence for staleness; set by `fleet serve`</span>
+  },
+
+  "dryRun": false,
+  "dormantMonths": 24, "inactiveMonths": 6   <span class="c">// activity labels in reports</span>
+}</code></pre>
+              <p>Validation rejects: a tier in both <code>autoClean.tiers</code> and <code>never.tiers</code>; unknown categories or ecosystems; negative retention or idle days; a <code>hub.url</code> that is not http(s); a schema version newer than the binary supports.</p>
+              <div class="note">When <code>hub.policy</code> is set, the policy actually run is the hub-managed one; the local file contributes only <code>hub</code>, <code>license</code>, <code>scan.home</code> and <code>lockFile</code>. See <a href="docs-hub.html#managed-policies">managed policies</a>.</div>
+            </section>
+
+            <section class="panel" id="profiles">
+              <h2>Profiles and examples</h2>
+              <p><code>roomy fleet policy init</code> writes a policy from a profile. Add <code>--hub URL [--hub-policy NAME] [--tag key=value …]</code> to either profile to fill in the <code>hub</code> section.</p>
+              <table class="wrap-ok">
+                <thead><tr><th>Profile</th><th>What it does</th></tr></thead>
+                <tbody>
+                  <tr><td><code>agent-host</code></td><td>No project walk beyond <code>~</code>, tool caches and leftovers only, safe tier idle ≥ 3 days, quarantine for 7 days, metrics to node_exporter, Claude and Codex session directories protected.</td></tr>
+                  <tr><td><code>developer</code></td><td>Walk <code>~</code>, safe tier idle ≥ 30 days with known idle only, Trash, no automatic purge.</td></tr>
+                </tbody>
+              </table>
+              <h3>Aggressive, for disposable CI runners</h3>
+              <pre><code>{ "name": "ci-runner", "scan": { "roots": ["/home/runner/work", "~"] },
+  "autoClean": { "tiers": ["safe", "caution"], "minIdleDays": 0 },
+  "disposal": { "method": "delete" } }</code></pre>
+              <h3>Conservative, models only</h3>
+              <pre><code>{ "name": "models-only", "scan": { "roots": [], "categories": ["aiTools"] },
+  "autoClean": { "tiers": ["safe"], "ecosystems": ["ai"], "minIdleDays": 14, "maxBytesPerRun": 50000000000 } }</code></pre>
+              <h3>Bootstrap that pulls everything from the hub</h3>
+              <pre><code>{ "hub": { "url": "http://hub.internal:9478", "tokenFile": "/etc/roomy/hub.token",
+           "policy": "agent-host", "tags": { "role": "agent", "team": "platform" } } }</code></pre>
+            </section>
+
+            <section class="panel" id="systemd">
+              <h2>systemd</h2>
+              <p>The .deb, .rpm and .apk packages install three units. The instance name is the Unix user whose home is cleaned, because artifacts belong to the user who created them.</p>
+              <pre><code>sudo systemctl enable --now roomy-fleet@agent.timer         <span class="c"># oneshot every 6h, randomized ±15min</span>
+sudo systemctl enable --now roomy-fleet-serve@agent.service <span class="c"># long-running, serves metrics on 127.0.0.1:9477</span>
+journalctl -u roomy-fleet@agent.service</code></pre>
+              <table class="wrap-ok">
+                <thead><tr><th>Unit</th><th>Role</th></tr></thead>
+                <tbody>
+                  <tr><td><code>roomy-fleet@.service</code> + <code>roomy-fleet@.timer</code></td><td>One <code>fleet run</code> every 6 hours. <code>SuccessExitStatus=4</code>, so a held lock is not a failure.</td></tr>
+                  <tr><td><code>roomy-fleet-serve@.service</code></td><td>Long-running <code>fleet serve</code> with the built-in metrics server. Use this <em>or</em> the timer, not both.</td></tr>
+                  <tr><td><code>roomy-hub.service</code></td><td>The central hub, see the <a href="docs-hub.html#running">Hub reference</a>.</td></tr>
+                </tbody>
+              </table>
+              <p class="small">Running as root to clean many homes works (<code>scan.home</code> per policy, one unit instance per user) but is rarely needed. <code>/etc/roomy/policy.json</code> is marked as configuration, so package upgrades never overwrite a tuned policy.</p>
+            </section>
+
+            <section class="panel" id="metrics">
+              <h2>Prometheus metrics</h2>
+              <p><strong>Textfile collector</strong> (default): the policy's <code>metrics.textfile</code> points into node_exporter's <code>--collector.textfile.directory</code>. No extra port, no extra process.</p>
+              <p><strong>Built-in server</strong> (<code>roomy fleet serve</code>, or <code>metrics.listen</code>): <code>GET /metrics</code> (text exposition), <code>GET /healthz</code> (200 when the last run had no failures), <code>GET /report</code> (last ScanReport as JSON).</p>
+              <div class="table-wrap">
+              <table class="wrap-ok">
+                <thead><tr><th>Metric</th><th>Type</th><th>Labels</th></tr></thead>
+                <tbody>
+                  <tr><td><code>roomy_build_info</code></td><td>gauge (1)</td><td>version, catalog, edition, org</td></tr>
+                  <tr><td><code>roomy_reclaimable_bytes</code></td><td>gauge</td><td>tier</td></tr>
+                  <tr><td><code>roomy_reclaimable_bytes_by_category</code></td><td>gauge</td><td>category</td></tr>
+                  <tr><td><code>roomy_reclaimable_items</code>, <code>roomy_planned_bytes</code>, <code>roomy_planned_items</code></td><td>gauge</td><td></td></tr>
+                  <tr><td><code>roomy_last_run_disposed_bytes</code>, <code>roomy_last_run_failures</code></td><td>gauge</td><td></td></tr>
+                  <tr><td><code>roomy_disposed_bytes_total</code>, <code>roomy_disposed_items_total</code>, <code>roomy_dispose_failures_total</code>, <code>roomy_purged_bytes_total</code>, <code>roomy_runs_total</code></td><td>counter (from the audit log, monotonic across restarts)</td><td></td></tr>
+                  <tr><td><code>roomy_last_run_timestamp_seconds</code>, <code>roomy_last_run_duration_seconds</code>, <code>roomy_last_run_success</code>, <code>roomy_dry_run</code></td><td>gauge</td><td></td></tr>
+                  <tr><td><code>roomy_quarantine_bytes</code>, <code>roomy_quarantine_items</code></td><td>gauge</td><td></td></tr>
+                  <tr><td><code>roomy_volume_total_bytes</code>, <code>roomy_volume_available_bytes</code></td><td>gauge</td><td></td></tr>
+                  <tr><td><code>roomy_license_expiry_timestamp_seconds</code></td><td>gauge</td><td></td></tr>
+                </tbody>
+              </table>
+              </div>
+              <p>Every series carries <code>host</code> and <code>policy</code>. Alerts worth having:</p>
+              <pre><code>roomy_volume_available_bytes / roomy_volume_total_bytes &lt; 0.1      <span class="c"># disk pressure despite cleanup</span>
+time() - roomy_last_run_timestamp_seconds &gt; 2 * 21600             <span class="c"># runs stopped</span>
+increase(roomy_dispose_failures_total[1d]) &gt; 0                    <span class="c"># something could not be removed</span>
+roomy_reclaimable_bytes{tier="safe"} &gt; 50e9                         <span class="c"># policy is too conservative</span></code></pre>
+              <p class="small">For fleet-wide series without per-host scraping, the hub exposes <code>roomy_hub_*</code> metrics; see the <a href="docs-hub.html#metrics">Hub reference</a>.</p>
+            </section>
+
+            <section class="panel" id="audit">
+              <h2>Audit log</h2>
+              <p><code>~/.roomy/audit.jsonl</code> by default (<code>audit.path</code>). One JSON object per line, each carrying the hash of the previous one:</p>
+              <pre><code>{"seq":42,"time":"2026-10-27T01:00:00Z","host":"agent-07","runID":"…","event":"disposed","actor":"roomy-fleet",
+ "edition":"fleet","policy":"agent-host","path":"/home/agent/.cache/uv","bytes":492000000,"tier":"safe",
+ "category":"globalCaches","ruleID":"uv-cache","method":"quarantine",
+ "destination":"/home/agent/.roomy/quarantine/20261027T010000-uv","prevHash":"…","hash":"…"}</code></pre>
+              <p>Events: <code>runStarted</code>, <code>licenseChecked</code>, <code>scanCompleted</code>, <code>planned</code>, <code>skipped</code>, <code>disposed</code>, <code>disposeFailed</code>, <code>purged</code>, <code>runFinished</code>, <code>hubReported</code>, <code>error</code>.</p>
+              <p><code>hash = SHA256(prevHash ‖ record-without-hash)</code>. <code>roomy fleet audit verify</code> recomputes the chain and exits 1 on any edit or gap. Ship the file to your SIEM as-is; it is plain JSON Lines. <code>roomy clean</code> appends to the same log with <code>actor</code> set from <code>--actor</code>, so an agent's manual cleanups and the policy's automatic ones sit in one record.</p>
+              <pre><code>roomy fleet audit tail -n 20
+roomy fleet audit verify          <span class="c"># exit 0 = chain intact</span></code></pre>
+            </section>
+
+            <section class="panel" id="licensing">
+              <h2>Licensing</h2>
+              <p>Without a license every fleet command works in the <strong>community</strong> edition, and metrics and audit records say so. A <strong>fleet</strong> license is an offline Ed25519 token that sets the edition, records the organisation and host allowance, and is what commercial support is attached to.</p>
+              <div class="table-wrap">
+              <table class="wrap-ok">
+                <thead><tr><th></th><th>Community</th><th>Fleet</th></tr></thead>
+                <tbody>
+                  <tr><td>Mac app, <code>roomy scan/clean/purge/restore/rules/doctor</code></td><td>✓ free</td><td>✓</td></tr>
+                  <tr><td><code>roomy fleet</code> commands (policy runs, serve, audit, metrics)</td><td>✓ work, labelled <code>edition="community"</code></td><td>✓ labelled <code>fleet</code>, org and host allowance recorded</td></tr>
+                  <tr><td><code>roomy hub</code> (inventory, dashboard, managed policies, fleet metrics)</td><td>✓ up to 5 hosts</td><td>✓ up to the license's <code>maxHosts</code></td></tr>
+                  <tr><td>Commercial support, SLA, security contact</td><td>—</td><td>✓</td></tr>
+                </tbody>
+              </table>
+              </div>
+              <h3>Tokens</h3>
+              <p>A token looks like <code>ROOMY1.&lt;payload&gt;.&lt;signature&gt;</code>. The payload is JSON: id, org, edition, <code>maxHosts</code>, issued and expiry dates, features. Verification is <strong>offline</strong> against a public key compiled into the binary; no network call is ever made. An expired or malformed token falls back to community with the reason shown by <code>roomy fleet license show</code> and <code>roomy doctor</code>.</p>
+              <p>Where Roomy looks, in order: the policy's <code>license.key</code>, the policy's <code>license.keyFile</code>, <code>/etc/roomy/license.key</code>, <code>~/.roomy/license.key</code>, <code>$ROOMY_LICENSE</code>.</p>
+              <pre><code>roomy fleet license install ROOMY1.…                       <span class="c"># writes ~/.roomy/license.key, mode 0600</span>
+roomy fleet license install ROOMY1.… --path /etc/roomy/license.key   <span class="c"># system-wide</span>
+roomy fleet license show</code></pre>
+              <p class="small"><code>maxHosts</code> is enforced by the hub: a report from a host it has not seen before is refused once the inventory holds <code>maxHosts</code> hosts (5 without a license). Hosts already in the inventory keep reporting, so an expired license degrades to a warning, not an outage. To get a license, <a href="mailto:teodor@azbouki.com?subject=Roomy%20Fleet%20license">write to us</a>.</p>
+            </section>
+
+            <section class="panel" id="rollout">
+              <h2>Rollout advice</h2>
+              <ol>
+                <li>Start with <code>"dryRun": true</code> for a week. Read <code>roomy fleet policy check</code> and the <code>skipped</code> reasons; tune <code>minIdleDays</code>, <code>never.paths</code>, <code>disabledRules</code>.</li>
+                <li>Switch to <code>quarantine</code> with <code>retentionDays: 7</code>. Watch <code>roomy_quarantine_bytes</code>; space is reclaimed on purge.</li>
+                <li>Only then consider <code>method: delete</code> for throwaway hosts, or adding <code>caution</code> to <code>autoClean.tiers</code> for specific categories.</li>
+                <li>With more than a handful of hosts, run a <a href="docs-hub.html">hub</a>, push the policy there once, and let the hosts pull it.</li>
+              </ol>
+              <div class="note">Irreversible items (<code>warning</code> tier: session transcripts, archives, volumes) stay in <code>never.tiers</code> by default. A policy can take them out, but no profile does, and the hub dashboard shows them as "not allowed by policy" rather than as reclaimable.</div>
+            </section>
+
+            <p class="foot"><a href="index.html">Home</a> · <a href="documentation.html">Mac app</a> · <a href="docs-cli.html">CLI</a> · <a href="docs-hub.html">Hub</a> · <a href="fleet.html">Fleet &amp; Hub overview</a> · <a href="privacy.html">Privacy</a> · <a href="eula.html">EULA</a></p>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

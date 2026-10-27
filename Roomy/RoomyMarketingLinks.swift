@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RoomyCore
 
 enum RoomyMarketingLinks {
     private static let siteRoot = "https://getroomy.dev"

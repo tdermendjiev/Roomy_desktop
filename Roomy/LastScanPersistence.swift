@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RoomyCore
 
 enum LastScanPersistence {
     private static let summaryKey = "roomy.lastScanSummary.v1"

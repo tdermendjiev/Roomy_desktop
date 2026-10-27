@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import RoomyCore
 
 struct ScanResultsSummary: Equatable, Codable {
     var totalRecoverableGB: Double

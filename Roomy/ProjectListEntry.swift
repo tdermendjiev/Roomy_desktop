@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RoomyCore
 
 enum ProjectListEntry: Equatable {
     case reviewAll

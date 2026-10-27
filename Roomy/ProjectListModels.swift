@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RoomyCore
 
 struct ArtifactRowModel: Identifiable, Equatable {
     let id: UUID
@@ -27,16 +28,6 @@ struct ProjectListRowModel: Identifiable, Equatable {
     var ecosystems: [String]
     var sizeBytes: Int64
     var artifacts: [ArtifactRowModel]
-}
-
-struct ProjectGitMetadata: Equatable {
-    var isGitRepo: Bool
-    var lastCommitDate: Date?
-    var commitSubject: String
-    var isClean: Bool
-    var gitStatusLine: String
-    var totalProjectSizeBytes: Int64
-    var lastModified: Date?
 }
 
 func formatByteCount(_ bytes: Int64) -> String {

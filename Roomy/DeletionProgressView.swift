@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import RoomyCore
 
 struct DeletionProgressView: View {
     let snapshot: DeletionRunSnapshot

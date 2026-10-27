@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import RoomyCore
 
 struct RoomyPrimaryButtonStyle: ButtonStyle {
     @Environment(\.isEnabled) private var isEnabled
