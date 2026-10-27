@@ -113,9 +113,9 @@ packaging/scripts/release.sh 1.3.0      # everything + SBOM + checksums
 
 What stands between the current tree and a product people can install and pay for. Items are removed as they ship.
 
-- [ ] **Publish.** The public repo [tdermendjiev/Roomy](https://github.com/tdermendjiev/Roomy) carries the open-source subset (`main` synced 2026-10-27 with `packaging/scripts/export-os.sh`). Still to do: create the tap `tdermendjiev/homebrew-roomy`, add `HOMEBREW_TAP_TOKEN` to the public repo, then `export-os.sh ../Roomy v1.3.0` and push the tag. The workflow there builds the Linux packages, the container image and the macOS CLI and updates the tap ([docs/packaging.md](docs/packaging.md)).
+- [x] **Publish.** Done 2026-10-27: [tdermendjiev/Roomy](https://github.com/tdermendjiev/Roomy) carries the open-source subset, `v1.3.0` is released there with Linux packages, the container image `ghcr.io/tdermendjiev/roomy` and the signed, notarized macOS CLI; `brew install tdermendjiev/roomy/roomy` installs the notarized binary. Each release is `packaging/scripts/export-os.sh ../Roomy vX.Y.Z` plus a push ([docs/packaging.md](docs/packaging.md)).
 - [x] **Replace placeholders.** Done: `tdermendjiev/Roomy`, `ghcr.io/tdermendjiev/roomy`, `brew install tdermendjiev/roomy/roomy`, hello@getroomy.dev.
-- [ ] **Sign the macOS CLI.** Developer ID signature and notarization for the universal `roomy` binary; the app's 1.3.0 archive and notarization pass.
+- [x] **Sign the macOS CLI.** Done: the release workflow signs with Developer ID and notarizes the universal `roomy` binary; the 1.3.0 app is notarized and on getroomy.dev.
 - [ ] **Sell licenses.** Pricing page, checkout, license delivery and renewal for the Fleet edition. Today a token is minted by hand with `roomy-licensetool`.
 - [x] **Central fleet view.** Done in 1.3.0: `roomy hub` with inventory, dashboard, managed policies and fleet-wide metrics ([docs/hub.md](docs/hub.md)). Still to come: alert routing from the hub itself and a hosted option.
 - [ ] **Rule coverage from real fleets.** The catalog reflects two machines and public issue trackers; expect a round of rule fixes from early users.
