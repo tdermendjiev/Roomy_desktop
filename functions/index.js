@@ -50,7 +50,8 @@ exports.stripeWebhook = onRequest(
 
     const session = event.data.object;
     const isMac = session.metadata?.roomy_edition === "mac" || session.payment_link === MAC_PAYMENT_LINK;
-    if (!isMac || session.payment_status !== "paid") {
+    // "no_payment_required": a 100%-off promotion code (giveaways, reviewers).
+    if (!isMac || !["paid", "no_payment_required"].includes(session.payment_status)) {
       return res.status(200).send("not a paid Roomy purchase");
     }
     const email = session.customer_details?.email;
