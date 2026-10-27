@@ -1111,6 +1111,24 @@ img {
   color: var(--text-primary);
 }
 
+.price-was {
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--text-tertiary);
+  text-decoration: line-through;
+  vertical-align: middle;
+  margin-right: 4px;
+}
+
+.pricing-foot {
+  margin-top: 16px;
+  color: var(--text-tertiary);
+}
+
+.pricing-foot a {
+  color: var(--accent);
+}
+
 .price-sub {
   font-size: 16px;
   color: var(--text-tertiary);

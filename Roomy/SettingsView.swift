@@ -15,6 +15,9 @@ struct SettingsView: View {
     var dismissContext: SettingsDismissContext
     var onDismiss: () -> Void
     var onManageExclusions: () -> Void
+    @ObservedObject private var updater = RoomyUpdater.shared
+    @ObservedObject private var license = RoomyLicenseStore.shared
+    @State private var showUnlockSheet = false
 
     private var backTitle: String {
         switch dismissContext {
@@ -412,6 +415,21 @@ struct SettingsView: View {
         )
     }
 
+    private var licenseSummary: String {
+        switch license.state {
+        case .licensed(let email): return "Licensed to \(email)"
+        case .grandfathered: return "Free for you: you used Roomy before it went paid"
+        case .unlicensed: return "Scanning is free. Cleaning needs a one-time license."
+        }
+    }
+
+    private var automaticUpdatesBinding: Binding<Bool> {
+        Binding(
+            get: { updater.automaticallyChecksForUpdates },
+            set: { updater.automaticallyChecksForUpdates = $0 }
+        )
+    }
+
     // MARK: - Exclusions bridge
 
     private var exclusionsBridgeSection: some View {
@@ -466,17 +484,58 @@ struct SettingsView: View {
                     .foregroundStyle(Color.roomyTextPrimary)
                 Spacer()
                 Button("Check now →") {
-                    if let url = URL(string: RoomyMarketingLinks.releases) {
-                        NSWorkspace.shared.open(url)
-                    }
+                    updater.checkForUpdates()
                 }
                 .buttonStyle(.plain)
                 .font(.system(size: 13, weight: .regular))
                 .foregroundStyle(Color.roomyAccent)
+                .disabled(!updater.canCheckForUpdates)
             }
             .frame(height: 44)
+            preferenceRow(
+                title: "Check for updates automatically",
+                subtitle: "Once a day, from getroomy.dev. This is the only network request Roomy makes.",
+                subtitleDanger: false,
+                control: {
+                    Toggle("", isOn: automaticUpdatesBinding)
+                        .labelsHidden()
+                        .toggleStyle(.switch)
+                }
+            )
             HStack {
-                Text("License")
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("License")
+                        .font(.system(size: 13, weight: .regular))
+                        .foregroundStyle(Color.roomyTextPrimary)
+                    Text(licenseSummary)
+                        .font(.system(size: 11, weight: .regular))
+                        .foregroundStyle(Color.roomyTextTertiary)
+                }
+                Spacer()
+                switch license.state {
+                case .licensed:
+                    Button("Remove key") { license.deactivate() }
+                        .buttonStyle(.plain)
+                        .font(.system(size: 13, weight: .regular))
+                        .foregroundStyle(Color.roomyTextTertiary)
+                case .grandfathered, .unlicensed:
+                    Button(license.state == .unlicensed ? "Buy or enter key →" : "Enter key →") { showUnlockSheet = true }
+                        .buttonStyle(.plain)
+                        .font(.system(size: 13, weight: .regular))
+                        .foregroundStyle(Color.roomyAccent)
+                }
+            }
+            .frame(height: 44)
+            .sheet(isPresented: $showUnlockSheet) {
+                RoomyUnlockSheet(
+                    license: license,
+                    pendingBytes: nil,
+                    onUnlocked: { showUnlockSheet = false },
+                    onCancel: { showUnlockSheet = false }
+                )
+            }
+            HStack {
+                Text("Terms")
                     .font(.system(size: 13, weight: .regular))
                     .foregroundStyle(Color.roomyTextPrimary)
                 Spacer()

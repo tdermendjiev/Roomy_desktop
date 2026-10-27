@@ -209,7 +209,7 @@
       <div class="wrap">
         <span class="kicker">Legal</span>
         <h1>Privacy Policy</h1>
-        <p class="meta">Last updated: May 29, 2026 · Applies to Roomy v1.0.0 and later.</p>
+        <p class="meta">Last updated: October 27, 2026 · Applies to Roomy v1.4.0 and later.</p>
 
         <div class="panel">
           <p>
@@ -220,8 +220,9 @@
 
           <div class="note">
             Roomy is designed to operate locally on Your Mac. The app does not require an account, and does not
-            transmit Your filenames, project contents, or personal files to Azbouki or any third party as part
-            of normal operation.
+            transmit Your filenames, project contents, or personal files to Azbouki or any third party. Its only
+            network request is an optional update check (Section 3). If You buy a license, Azbouki receives Your
+            email address to deliver the key (Section 4).
           </div>
 
           <h2>1. What Roomy does locally</h2>
@@ -230,17 +231,52 @@
             <li>Reports recoverable artifacts and project metadata, grouped by project root.</li>
             <li>Persists Your settings, exclusions, and a summary of Your last scan locally using <code>UserDefaults</code> and Application Support storage.</li>
             <li>Deletes the files You select either to the system Trash or, if You enable it, permanently.</li>
+            <li>Stores Your license key, if You enter one, in the macOS Keychain, and verifies it on Your Mac without contacting Azbouki.</li>
           </ul>
 
           <h2>2. What Roomy does not do</h2>
           <ul>
             <li>It does not require a Roomy account, sign-up, or login.</li>
             <li>It does not upload Your scan results, project contents, or filenames to a Roomy server.</li>
-            <li>It does not send analytics, telemetry, or crash reports to Azbouki in v1.0.0.</li>
+            <li>It does not send analytics, telemetry, or crash reports to Azbouki.</li>
             <li>It does not contain in-app advertising or third-party trackers.</li>
           </ul>
 
-          <h2>3. Marketing website</h2>
+          <h2>3. Update checks</h2>
+          <p>
+            Roomy uses the open-source <a href="https://sparkle-project.org" target="_blank" rel="noopener">Sparkle</a>
+            framework to offer updates. On the second launch it asks whether to check automatically. If You agree,
+            or if You choose <em>Check for Updates</em>, Roomy requests an update feed from <code>getroomy.dev</code>
+            (hosted on Google Firebase Hosting), by default once a day, and downloads an update only when You choose
+            to install it.
+          </p>
+          <p>
+            This request contains standard information that any web request carries: Your IP address and a user
+            agent naming the app and its version. It contains no identifier, no license key, and
+            nothing about Your files. Azbouki does not use it to identify You. You can turn automatic checks off in
+            Settings → About.
+          </p>
+
+          <h2>4. Purchases and license keys</h2>
+          <p>
+            Payments are handled by <a href="https://stripe.com/privacy" target="_blank" rel="noopener">Stripe</a>,
+            which collects Your payment details, email address, and billing country as an independent processor of
+            payment data. Azbouki never receives Your card number.
+          </p>
+          <p>
+            After a purchase Azbouki receives from Stripe Your email address, the amount, currency, and a purchase
+            reference. Azbouki uses them to create Your license key, show it on the confirmation page, email it to You
+            through <a href="https://resend.com/legal/privacy-policy" target="_blank" rel="noopener">Resend</a>, resend
+            it if You lose it, and handle refunds. The license key contains Your email address. These records are
+            stored in Google Cloud Firestore in the United States and kept for as long as needed to support Your
+            license and to meet accounting and tax obligations.
+          </p>
+          <p>
+            <strong>Legal basis (EEA / UK).</strong> Processing purchase data is necessary to perform our contract
+            with You and to meet legal obligations such as bookkeeping and tax.
+          </p>
+
+          <h2>5. Marketing website</h2>
           <p>
             The Roomy marketing website is a static site hosted on
             <a href="https://firebase.google.com/docs/hosting" target="_blank" rel="noopener">Google Firebase Hosting</a>.
@@ -263,14 +299,15 @@
             in operating the Site. Analytics is based on Your consent, which You may withdraw at any time.
           </p>
 
-          <h2>4. International transfers</h2>
+          <h2>6. International transfers</h2>
           <p>
-            Service providers such as Google may process Site data in the United States and other countries. Where
+            Service providers such as Google, Stripe, and Resend may process Site and purchase data in the United
+            States and other countries. Where
             required, appropriate safeguards (such as standard contractual clauses) may apply as described in
             Google's documentation.
           </p>
 
-          <h2>5. Your privacy rights</h2>
+          <h2>7. Your privacy rights</h2>
           <p>
             Depending on where You live, You may have rights to access, correct, delete, or restrict processing of
             personal information, or to object to certain processing. To exercise these rights regarding the Site,
@@ -284,32 +321,32 @@
             <a href="#" onclick="window.roomyOpenCookiePreferences(); return false;">cookie preferences</a>.
           </p>
 
-          <h2>6. Crash logs and macOS</h2>
+          <h2>8. Crash logs and macOS</h2>
           <p>
             macOS may collect crash logs for installed applications and may offer to share them with Apple if You
             have opted in to Apple's diagnostics. Azbouki does not directly receive crash logs from Your Mac.
           </p>
 
-          <h2>7. Support communications</h2>
+          <h2>9. Support communications</h2>
           <p>
             If You contact <a href="mailto:hello@getroomy.dev">hello@getroomy.dev</a>, Azbouki will receive
             the contents of Your message and Your email address, and may store them for the purpose of providing
             support and improving Roomy. Please do not include sensitive personal data in support emails.
           </p>
 
-          <h2>8. Children</h2>
+          <h2>10. Children</h2>
           <p>
             Roomy is a developer-focused tool and is not directed to children under 13. Azbouki does not
             knowingly collect personal information from children under 13.
           </p>
 
-          <h2>9. Changes</h2>
+          <h2>11. Changes</h2>
           <p>
             Azbouki may update this Privacy Policy from time to time. The "Last updated" date above reflects the
             most recent revision. Material changes will be reflected on this page.
           </p>
 
-          <h2>10. Contact</h2>
+          <h2>12. Contact</h2>
           <p>
             For questions about this Privacy Policy or about Roomy's data handling, contact
             <a href="mailto:hello@getroomy.dev">hello@getroomy.dev</a>.

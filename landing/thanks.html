@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <title>Thanks for buying Roomy</title>
+    <link rel="icon" href="/logo.png" type="image/png" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/geist-sans@5.2.5/latin.css" />
+    <link rel="stylesheet" href="/guide.css" />
+    <style>
+      .license-key {
+        font-family: ui-monospace, Menlo, monospace;
+        font-size: 13px;
+        word-break: break-all;
+        padding: 14px 16px;
+        border-radius: 10px;
+        background: rgba(127, 127, 127, 0.12);
+        margin: 12px 0;
+      }
+      .key-actions { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+      .key-actions button { font: inherit; cursor: pointer; }
+      .muted { opacity: 0.7; }
+    </style>
+  </head>
+  <body>
+    <header class="top">
+      <div class="wrap">
+        <a class="brand" href="/"><img src="/logo.png" alt="" /><span>Roomy</span></a>
+        <nav class="nav-links"><a href="/#download" class="btn-download">Download Roomy</a></nav>
+      </div>
+    </header>
+    <main>
+      <div class="wrap">
+        <span class="kicker">Purchase complete</span>
+        <h1>Thanks for buying Roomy</h1>
+        <p class="sub" id="status">Getting your license key…</p>
+
+        <section class="card" id="key-card" hidden>
+          <p>Your license key<span id="key-email"></span>:</p>
+          <div class="license-key" id="key"></div>
+          <div class="key-actions">
+            <button type="button" class="btn-download" id="copy">Copy key</button>
+            <span class="muted" id="copied" hidden>Copied</span>
+          </div>
+          <p>In Roomy, press <strong>Clean</strong> and paste the key when asked, or go to <strong>Settings → About → License</strong>. It works on all the Macs you use and includes free updates through 2.x.</p>
+          <p class="muted">We also emailed the key to you. Don't have Roomy installed yet? <a href="/downloads/Roomy-latest.zip">Download it</a>.</p>
+        </section>
+
+        <section class="card" id="slow" hidden>
+          <p>Your payment went through, but the key is taking longer than usual. It is on its way to your email. If it has not arrived in a few minutes, write to <a href="mailto:hello@getroomy.dev?subject=Roomy%20license%20key">hello@getroomy.dev</a> and we will send it by hand.</p>
+        </section>
+      </div>
+    </main>
+    <script>
+      (function () {
+        var id = new URLSearchParams(location.search).get("session_id");
+        var status = document.getElementById("status");
+        if (!id) {
+          status.textContent = "This page shows your license key after you buy Roomy.";
+          return;
+        }
+        var tries = 0;
+        function show(data) {
+          status.textContent = "Here is your key. Keep it somewhere safe.";
+          document.getElementById("key").textContent = data.key;
+          if (data.email) document.getElementById("key-email").textContent = " for " + data.email;
+          document.getElementById("key-card").hidden = false;
+        }
+        function poll() {
+          tries++;
+          fetch("/api/license?session_id=" + encodeURIComponent(id))
+            .then(function (r) {
+              if (r.ok) return r.json().then(show);
+              if (r.status === 404 && tries < 20) return void setTimeout(poll, 1500);
+              throw new Error("status " + r.status);
+            })
+            .catch(function () {
+              status.textContent = "Payment received.";
+              document.getElementById("slow").hidden = false;
+            });
+        }
+        poll();
+        document.getElementById("copy").addEventListener("click", function () {
+          navigator.clipboard.writeText(document.getElementById("key").textContent).then(function () {
+            document.getElementById("copied").hidden = false;
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>

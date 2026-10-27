@@ -35,7 +35,54 @@
             "value": "public, max-age=300"
           }
         ]
+      },
+      {
+        "source": "appcast.xml",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=300"
+          }
+        ]
+      }
+    ],
+    "redirects": [
+      {
+        "source": "/buy",
+        "destination": "https://buy.stripe.com/4gM3cu1yc9f41Im4rbfQI00",
+        "type": 302
+      }
+    ],
+    "rewrites": [
+      {
+        "source": "/api/stripe-webhook",
+        "function": {
+          "functionId": "stripeWebhook",
+          "region": "us-central1"
+        }
+      },
+      {
+        "source": "/api/license",
+        "function": {
+          "functionId": "licenseForSession",
+          "region": "us-central1"
+        }
       }
     ]
+  },
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default",
+      "runtime": "nodejs22",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "*.test.js"
+      ]
+    }
+  ],
+  "firestore": {
+    "rules": "firestore.rules"
   }
 }

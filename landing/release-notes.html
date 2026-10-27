@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Roomy release notes — v1.3.0 adds the roomy CLI for macOS and Linux, Roomy Fleet for unattended cleanup across agent hosts, Roomy Hub with a fleet dashboard, and new rules for agent leftovers."
+      content="Roomy release notes — v1.4.0 makes the Mac app a one-time purchase with free scanning and adds automatic updates; v1.3.0 added the roomy CLI, Roomy Fleet and Roomy Hub."
     />
     <title>Roomy Changelog — release notes for every version</title>
     <!-- seo:meta -->
@@ -17,14 +17,14 @@
     <meta property="og:locale" content="en_US" />
     <meta property="og:url" content="https://getroomy.dev/release-notes" />
     <meta property="og:title" content="Roomy Changelog — release notes for every version" />
-    <meta property="og:description" content="Roomy release notes — v1.3.0 adds the roomy CLI for macOS and Linux, Roomy Fleet for unattended cleanup across agent hosts, Roomy Hub with a fleet dashboard, and new rules for agent leftovers." />
+    <meta property="og:description" content="Roomy release notes — v1.4.0 makes the Mac app a one-time purchase with free scanning and adds automatic updates; v1.3.0 added the roomy CLI, Roomy Fleet and Roomy Hub." />
     <meta property="og:image" content="https://getroomy.dev/og-default.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Roomy for macOS" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Roomy Changelog — release notes for every version" />
-    <meta name="twitter:description" content="Roomy release notes — v1.3.0 adds the roomy CLI for macOS and Linux, Roomy Fleet for unattended cleanup across agent hosts, Roomy Hub with a fleet dashboard, and new rules for agent leftovers." />
+    <meta name="twitter:description" content="Roomy release notes — v1.4.0 makes the Mac app a one-time purchase with free scanning and adds automatic updates; v1.3.0 added the roomy CLI, Roomy Fleet and Roomy Hub." />
     <meta name="twitter:image" content="https://getroomy.dev/og-default.png" />
     <script type="application/ld+json">
     {
@@ -271,6 +271,30 @@
         <p class="sub">What's new in Roomy: the Mac app, the CLI and Fleet.</p>
 
         <section class="release-block">
+          <h2 class="version">v1.4.0</h2>
+          <p class="release-meta">October 27, 2026 · macOS 13+ app</p>
+
+          <section class="card">
+            <h3>Roomy for Mac is now a one-time purchase</h3>
+            <ul>
+              <li>Scanning and reviewing stay free, so you see exactly what you would get back. Cleaning from the app needs a license: $14.99, $9.99 at launch, no subscription, free updates through 2.x, 14-day refund.</li>
+              <li>If you used Roomy 1.3 or earlier on this Mac, nothing changes: the app recognises you and cleaning stays free.</li>
+              <li>License keys arrive by email and on the confirmation page, and are checked on your Mac without contacting a server. Settings → About shows your license.</li>
+              <li>The <code>roomy</code> CLI stays free and open source.</li>
+            </ul>
+          </section>
+
+          <section class="card">
+            <h3>Automatic updates</h3>
+            <ul>
+              <li>Roomy now updates itself. <strong>Roomy → Check for Updates…</strong> and Settings → About check on demand, and on the second launch Roomy asks whether to check daily.</li>
+              <li>Updates are signed and installed only when you confirm. Automatic checks can be turned off in Settings.</li>
+              <li>The update check is the only network request Roomy makes. It sends nothing about your files.</li>
+            </ul>
+          </section>
+        </section>
+
+        <section class="release-block">
           <h2 class="version">v1.3.0</h2>
           <p class="release-meta">October 27, 2026 · macOS 13+ app · roomy CLI for macOS and Linux</p>
 
@@ -424,7 +448,7 @@
           </section>
         </section>
 
-        <p class="foot">Roomy is currently free. New releases are published on this page.</p>
+        <p class="foot">Versions up to 1.3 are free. Later versions are a one-time purchase with a free scan; see <a href="index.html#pricing">pricing</a>. New releases are published on this page.</p>
         <p class="foot" style="margin-top: 20px">
           <a href="documentation.html">Documentation</a> · <a href="docs-fleet.html">Fleet docs</a> · <a href="https://github.com/tdermendjiev/Roomy">GitHub</a> ·
           <a href="privacy.html">Privacy</a> · <a href="cookies.html">Cookies</a> ·

@@ -1,6 +1,13 @@
 (function () {
   "use strict";
 
+  var buyUrl = window.ROOMY_SITE && window.ROOMY_SITE.buyUrl;
+  if (buyUrl) {
+    document.querySelectorAll("[data-buy]").forEach(function (el) {
+      el.setAttribute("href", buyUrl);
+    });
+  }
+
   var nav = document.getElementById("site-nav");
   var heroWindow = document.getElementById("hero-window");
 

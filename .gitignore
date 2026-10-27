@@ -27,3 +27,11 @@ license-signing.key
 Roomy 20*/
 tools/licensetool/.build/
 tools/licensetool/.swiftpm/
+
+# Xcode command-line builds
+build/
+
+# Secrets
+.stripe.pk
+functions/node_modules/
+.resend.pk

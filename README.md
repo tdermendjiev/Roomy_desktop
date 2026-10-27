@@ -124,4 +124,4 @@ What stands between the current tree and a product people can install and pay fo
 
 ## License
 
-The Mac app and CLI are free to use (see [EULA.md](EULA.md) and [LICENSE](LICENSE)). Roomy Fleet features run in community mode without a license and are unlocked for commercial fleets with a license token; see [docs/licensing.md](docs/licensing.md).
+The CLI is free and open source ([LICENSE](LICENSE)). The Mac app scans for free; cleaning needs a one-time license, and versions up to 1.3 stay free ([EULA.md](EULA.md)). Roomy Fleet features run in community mode without a license and are unlocked for commercial fleets with a license token; see [docs/licensing.md](docs/licensing.md).

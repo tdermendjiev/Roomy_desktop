@@ -72,7 +72,7 @@
 
     <main>
       <div class="wrap">
-        <span class="kicker">v1.3.0</span>
+        <span class="kicker">v1.4.0</span>
         <h1>Documentation</h1>
         <p class="sub">Roomy is one engine with three ways to use it: a Mac app, a command-line tool for macOS and Linux, and a fleet mode with a central hub. This page covers the Mac app. The CLI, Fleet and Hub have their own references.</p>
         <p class="meta">Last reviewed: October 27, 2026</p>
@@ -232,7 +232,7 @@
 
             <section class="panel" id="persistence">
               <h2>Data persistence</h2>
-              <p>Roomy persists settings, exclusions, and the last scan locally. Nothing leaves the Mac.</p>
+              <p>Roomy persists settings, exclusions, and the last scan locally, and never uploads them. The only network request is the optional update check (Settings → About), which fetches <code>getroomy.dev/appcast.xml</code>.</p>
               <ul>
                 <li>Settings are stored in <code>UserDefaults</code> under a versioned key.</li>
                 <li>Exclusions are stored as encoded entries in <code>UserDefaults</code>.</li>

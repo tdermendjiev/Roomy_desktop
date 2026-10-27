@@ -33,6 +33,9 @@ struct ContentView: View {
     @State private var scanRootURL = FileManager.default.homeDirectoryForCurrentUser
     @State private var resultsSummary: ScanResultsSummary = .empty
     @State private var lastListEntry: ProjectListEntry = .reviewAll
+    @ObservedObject private var license = RoomyLicenseStore.shared
+    /// Cleanup waiting on the unlock sheet (unlicensed users).
+    @State private var pendingDeletion: DeletionRunSnapshot?
 
     var body: some View {
         NavigationStack {
@@ -216,7 +219,11 @@ struct ContentView: View {
                             diskUsedBeforeGB: diskUsedGB,
                             diskTotalGB: diskTotalGB
                         ) else { return }
-                        phase = .deletionProgress(snap)
+                        if license.state.canClean {
+                            phase = .deletionProgress(snap)
+                        } else {
+                            pendingDeletion = snap
+                        }
                     }
                 )
             case .deletionProgress(let snapshot):
@@ -290,6 +297,21 @@ struct ContentView: View {
                 )
             }
             }
+        }
+        .sheet(isPresented: Binding(
+            get: { pendingDeletion != nil },
+            set: { if !$0 { pendingDeletion = nil } }
+        )) {
+            RoomyUnlockSheet(
+                license: license,
+                pendingBytes: pendingDeletion?.totalBytes,
+                onUnlocked: {
+                    let snap = pendingDeletion
+                    pendingDeletion = nil
+                    if let snap { phase = .deletionProgress(snap) }
+                },
+                onCancel: { pendingDeletion = nil }
+            )
         }
         .onChange(of: settingsStore.settings) { newSettings in
             resultsSummary = Self.reconciledSummary(
