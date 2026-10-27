@@ -30,7 +30,7 @@
     {
       "@context": "https://schema.org",
       "@graph": [
-        { "@type": "Organization", "@id": "https://getroomy.dev/#org", "name": "Azbouki", "url": "https://getroomy.dev", "logo": "https://getroomy.dev/logo.png", "email": "teodor@azbouki.com" },
+        { "@type": "Organization", "@id": "https://getroomy.dev/#org", "name": "Azbouki", "url": "https://getroomy.dev", "logo": "https://getroomy.dev/logo.png", "email": "hello@getroomy.dev" },
         { "@type": "BreadcrumbList", "itemListElement": [
           { "@type": "ListItem", "position": 1, "name": "Roomy", "item": "https://getroomy.dev/" },
           { "@type": "ListItem", "position": 2, "name": "Documentation", "item": "https://getroomy.dev/documentation" },
@@ -64,6 +64,7 @@
           <a href="ai.html">AI tools</a>
           <a href="fleet.html">Fleet &amp; Hub</a>
           <a href="release-notes.html">Release notes</a>
+          <a href="https://github.com/tdermendjiev/Roomy">GitHub</a>
           <a class="btn-top" href="index.html#download">Download</a>
         </nav>
       </div>
@@ -102,13 +103,13 @@
             <section class="panel" id="install">
               <h2>Install</h2>
               <p><strong>macOS</strong> (universal, Apple Silicon and Intel):</p>
-              <pre><code>brew install azbouki/roomy/roomy</code></pre>
+              <pre><code>brew install tdermendjiev/roomy/roomy</code></pre>
               <p><strong>Linux</strong> (x86_64 and arm64, one static binary, no runtime to install):</p>
               <pre><code>sudo dpkg -i roomy_1.3.0_amd64.deb                 <span class="c"># Debian, Ubuntu: installs /usr/bin/roomy, systemd units, /etc/roomy/policy.json</span>
 sudo rpm -i roomy-1.3.0-1.x86_64.rpm               <span class="c"># RHEL, Fedora</span>
 apk add --allow-untrusted roomy_1.3.0_x86_64.apk   <span class="c"># Alpine</span>
 tar xzf roomy-1.3.0-linux-amd64.tar.gz &amp;&amp; sudo install -m 755 roomy /usr/bin/
-docker run --rm ghcr.io/azbouki/roomy version      <span class="c"># container image</span></code></pre>
+docker run --rm ghcr.io/tdermendjiev/roomy version      <span class="c"># container image</span></code></pre>
               <p>Then check the environment:</p>
               <pre><code>roomy doctor</code></pre>
               <p><code>doctor</code> reports whether <code>du</code>, <code>git</code>, <code>docker</code> and <code>conda</code> are available, whether the Trash and quarantine directory are usable, the volume capacity and the license in effect. Nothing is modified except creating the quarantine directory.</p>
@@ -297,10 +298,10 @@ roomy scan --disable-rule cursor-state-backup             <span class="c"># swit
               <h3>Containers</h3>
               <p>The image runs <code>roomy</code> as its entrypoint. Mount the home to clean and the policy:</p>
               <pre><code>docker run --rm -v /home/agent:/home/agent -v /etc/roomy:/etc/roomy:ro \
-  ghcr.io/azbouki/roomy scan --home /home/agent --json
+  ghcr.io/tdermendjiev/roomy scan --home /home/agent --json
 
 docker run -d --name roomy -p 9477:9477 -v /home/agent:/home/agent -v /etc/roomy:/etc/roomy:ro \
-  ghcr.io/azbouki/roomy fleet serve --listen 0.0.0.0:9477</code></pre>
+  ghcr.io/tdermendjiev/roomy fleet serve --listen 0.0.0.0:9477</code></pre>
               <p class="small">Set <code>scan.home</code> to the mounted path. Mount <code>/var/run/docker.sock</code> to enable the Docker category inside the container.</p>
               <h3>What differs from macOS</h3>
               <table>
@@ -359,7 +360,7 @@ roomy clean --plan /tmp/roomy-plan.json --yes --json --actor "claude-code"</code
               </table>
             </section>
 
-            <p class="foot"><a href="index.html">Home</a> · <a href="documentation.html">Mac app</a> · <a href="docs-fleet.html">Fleet</a> · <a href="docs-hub.html">Hub</a> · <a href="release-notes.html">Release notes</a> · <a href="privacy.html">Privacy</a> · <a href="eula.html">EULA</a></p>
+            <p class="foot"><a href="index.html">Home</a> · <a href="documentation.html">Mac app</a> · <a href="docs-fleet.html">Fleet</a> · <a href="docs-hub.html">Hub</a> · <a href="release-notes.html">Release notes</a> · <a href="privacy.html">Privacy</a> · <a href="eula.html">EULA</a> · <a href="https://github.com/tdermendjiev/Roomy">Source on GitHub</a></p>
           </div>
         </div>
       </div>

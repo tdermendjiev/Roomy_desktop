@@ -30,7 +30,7 @@
     {
       "@context": "https://schema.org",
       "@graph": [
-        { "@type": "Organization", "@id": "https://getroomy.dev/#org", "name": "Azbouki", "url": "https://getroomy.dev", "logo": "https://getroomy.dev/logo.png", "email": "teodor@azbouki.com" },
+        { "@type": "Organization", "@id": "https://getroomy.dev/#org", "name": "Azbouki", "url": "https://getroomy.dev", "logo": "https://getroomy.dev/logo.png", "email": "hello@getroomy.dev" },
         { "@type": "BreadcrumbList", "itemListElement": [
           { "@type": "ListItem", "position": 1, "name": "Roomy", "item": "https://getroomy.dev/" },
           { "@type": "ListItem", "position": 2, "name": "Documentation", "item": "https://getroomy.dev/documentation" },
@@ -67,6 +67,7 @@
           <a href="ai.html">AI tools</a>
           <a href="fleet.html">Fleet &amp; Hub</a>
           <a href="release-notes.html">Release notes</a>
+          <a href="https://github.com/tdermendjiev/Roomy">GitHub</a>
           <a class="btn-top" href="index.html#download">Download</a>
         </nav>
       </div>
@@ -129,7 +130,7 @@ sudoedit /etc/roomy/hub.env            <span class="c"># ROOMY_HUB_LISTEN=0.0.0.
 sudo systemctl enable --now roomy-hub.service</code></pre>
               <p><code>roomy-hub.service</code> runs as a <code>DynamicUser</code> with state in <code>/var/lib/roomy-hub</code>, settings in <code>/etc/roomy/hub.env</code>, and the two token files above.</p>
               <h3>In a container</h3>
-              <pre><code>docker run -d --name roomy-hub -p 9478:9478 -v roomy-hub:/data ghcr.io/azbouki/roomy \
+              <pre><code>docker run -d --name roomy-hub -p 9478:9478 -v roomy-hub:/data ghcr.io/tdermendjiev/roomy \
   hub serve --listen 0.0.0.0:9478 --data-dir /data --agent-token … --admin-token …</code></pre>
               <h3>Options</h3>
               <table>
@@ -273,7 +274,7 @@ roomy hub demo [--hosts 24] [--seed 7] [--org "Example"] [--reset]   <span class
 roomy hub token                        <span class="c"># print a random token</span></code></pre>
             </section>
 
-            <p class="foot"><a href="index.html">Home</a> · <a href="documentation.html">Mac app</a> · <a href="docs-cli.html">CLI</a> · <a href="docs-fleet.html">Fleet</a> · <a href="fleet.html">Fleet &amp; Hub overview</a> · <a href="privacy.html">Privacy</a> · <a href="eula.html">EULA</a></p>
+            <p class="foot"><a href="index.html">Home</a> · <a href="documentation.html">Mac app</a> · <a href="docs-cli.html">CLI</a> · <a href="docs-fleet.html">Fleet</a> · <a href="fleet.html">Fleet &amp; Hub overview</a> · <a href="privacy.html">Privacy</a> · <a href="eula.html">EULA</a> · <a href="https://github.com/tdermendjiev/Roomy">Source on GitHub</a></p>
           </div>
         </div>
       </div>

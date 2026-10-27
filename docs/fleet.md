@@ -69,7 +69,7 @@ Every series carries `host` and `policy`. Useful alerts: `roomy_volume_available
 {"seq":42,"time":"2026-10-27T01:00:00Z","host":"agent-07","runID":"…","event":"disposed","actor":"roomy-fleet","edition":"fleet","policy":"agent-host","path":"/home/agent/.cache/uv","bytes":492000000,"tier":"safe","category":"globalCaches","ruleID":"uv-cache","method":"quarantine","destination":"/home/agent/.roomy/quarantine/20261027T010000-uv","prevHash":"…","hash":"…"}
 ```
 
-Events: `runStarted`, `licenseChecked`, `scanCompleted`, `planned`, `skipped`, `disposed`, `disposeFailed`, `purged`, `runFinished`, `hubReported`, `error`. `hash = SHA256(prevHash ‖ record-without-hash)`; `roomy fleet audit verify` recomputes the chain and exits 1 on any edit or gap. Ship the file to your SIEM as-is; it is plain JSON Lines. `roomy clean` appends to the same log with `actor` set from `--actor`.
+Events: `runStarted`, `licenseChecked`, `scanCompleted`, `planned`, `skipped`, `disposed`, `disposeFailed`, `purged`, `runFinished`, `hubReported`, `error`. `hash = SHA256(prevHash ‖ record-without-hash)`; `roomy fleet audit verify` recomputes the chain and exits 1 on any edit or gap. Ship the file to your SIEM as-is; it is plain JSON Lines. `roomy clean` appends to the same log with `actor` set from `--actor`. Records written by a dry run carry `dryRun: true`; their `disposed` events describe what would have been removed and are not counted in totals, metrics or the hub.
 
 ## Licensing
 

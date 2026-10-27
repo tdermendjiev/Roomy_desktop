@@ -33,6 +33,15 @@ struct AuditLogTests {
         let log2 = try AuditLog(url: url)
         let c = try log2.append { seq, prev in AuditRecord(seq: seq, runID: "r2", event: .runFinished, actor: "test", edition: "community", prevHash: prev) }
         #expect(c.seq == 3 && c.prevHash == b.hash)
+        // Dry-run disposals (new field, or only the message in older logs) never count as freed.
+        try log2.append { seq, prev in
+            var r = AuditRecord(seq: seq, runID: "r3", event: .disposed, actor: "test", edition: "community", dryRun: true, prevHash: prev)
+            r.bytes = 1_000; return r
+        }
+        try log2.append { seq, prev in
+            var r = AuditRecord(seq: seq, runID: "r4", event: .disposed, actor: "test", edition: "community", prevHash: prev)
+            r.bytes = 2_000; r.message = "dry run"; return r
+        }
         #expect(AuditLog.verify(url: url).ok)
         let totals = AuditLog.totals(from: url)
         #expect(totals.disposedBytes == 42 && totals.disposedItems == 1 && totals.runs == 1)

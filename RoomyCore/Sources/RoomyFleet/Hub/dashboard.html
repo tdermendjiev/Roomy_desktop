@@ -347,8 +347,9 @@ function drawOverviewCharts() {
 function columnChart(svg, data) {
   const W = svg.clientWidth || 600, H = 190, padL = 44, padR = 8, padT = 18, padB = 24;
   svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  const empty = data.every(d => d.v <= 0);
   const max = Math.max(...data.map(d => d.v), 1);
-  const nice = niceMax(max);
+  const nice = empty ? 1024 ** 3 : niceMax(max);   // an empty chart still gets a readable axis
   const x = i => padL + (i + 0.5) * (W - padL - padR) / data.length;
   const y = v => padT + (H - padT - padB) * (1 - v / nice);
   const slot = (W - padL - padR) / data.length, bw = Math.min(24, slot * 0.6);
@@ -495,7 +496,7 @@ function drawHostCharts() {
   const pts = h.history.map(p => ({ t: new Date(p.time).getTime(), v: p.reclaimableBytes, extra: p.volumeAvailableBytes != null ? fmtBytes(p.volumeAvailableBytes) + ' free' : '' }));
   lineChart(recl, pts);
   const last = h.history.slice(-30);
-  columnChart(freed, last.map(p => ({ x: new Date(p.time).toLocaleDateString(undefined, {month:'numeric', day:'numeric'}), v: p.disposedBytes, fail: p.failures, runs: 1, day: fmtDate(p.time) + (p.dryRun ? ' · dry run' : '') })));
+  columnChart(freed, last.map(p => ({ x: new Date(p.time).toLocaleDateString(undefined, {month:'numeric', day:'numeric'}), v: p.dryRun ? 0 : p.disposedBytes, fail: p.failures, runs: 1, day: fmtDate(p.time) + (p.dryRun ? ' · dry run' : '') })));
   $('#removebtn').onclick = async () => { if (!confirm(`Remove ${h.host} from the inventory? It reappears on its next report.`)) return; try { await api('/api/v1/hosts/' + encodeURIComponent(h.host), { method: 'DELETE' }); location.hash = '#/hosts'; load(); } catch (e) { alert(e.message); } };
   $('#notebtn').onclick = async () => { const n = prompt('Note for ' + h.host, h.note || ''); if (n === null) return; try { await api('/api/v1/hosts/' + encodeURIComponent(h.host) + '/note', { method: 'PUT', body: n, headers: { 'Content-Type': 'text/plain' } }); load(); } catch (e) { alert(e.message); } };
 }

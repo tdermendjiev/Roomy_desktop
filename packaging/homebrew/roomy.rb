@@ -1,12 +1,12 @@
-# Homebrew formula for the roomy CLI. Lives in the tap repo (azbouki/homebrew-roomy) as Formula/roomy.rb.
+# Homebrew formula for the roomy CLI. Lives in the tap repo (tdermendjiev/homebrew-roomy) as Formula/roomy.rb.
 # Update `url`, `sha256` and `version` per release; packaging/scripts/release.sh prints the values.
 class Roomy < Formula
   desc "Find and remove regenerable developer and AI-agent artifacts safely"
   homepage "https://getroomy.dev"
-  url "https://github.com/azbouki/roomy/archive/refs/tags/v1.3.0.tar.gz"
+  url "https://github.com/tdermendjiev/Roomy/archive/refs/tags/v1.3.0.tar.gz"
   sha256 "REPLACE_WITH_SOURCE_TARBALL_SHA256"
   license :cannot_represent
-  head "https://github.com/azbouki/roomy.git", branch: "main"
+  head "https://github.com/tdermendjiev/Roomy.git", branch: "main"
 
   depends_on xcode: ["15.0", :build]
   depends_on macos: :ventura

@@ -25,7 +25,7 @@ Agents are now the heaviest producers of disk waste on developer machines and se
 
 ```sh
 # macOS
-brew install azbouki/roomy/roomy
+brew install tdermendjiev/roomy/roomy
 # Linux (Debian/Ubuntu); .rpm and .apk on the releases page
 sudo dpkg -i roomy_1.3.0_amd64.deb
 
@@ -69,12 +69,12 @@ Disposal is **Trash** on macOS, **quarantine** (a Roomy-managed holding area wit
 ```
 Roomy/                 SwiftUI macOS app (front-end only)
 Roomy.xcodeproj        depends on the local package below
-RoomyCore/             Swift package: core library, fleet library, CLI, license tool, tests
+RoomyCore/             Swift package: core library, fleet library, CLI, tests (published as github.com/tdermendjiev/Roomy)
   Sources/RoomyCore    Foundation-only scanner, rule catalog (JSON), probes, disposal, reports
   Sources/RoomyFleet   policy, evaluator, audit log, metrics, metrics server, license, runner, hub (server, store, client, dashboard.html)
   Sources/roomy        the CLI
-  Sources/roomy-licensetool   issuer-side tool (not shipped)
-packaging/             systemd units, nfpm spec, Dockerfile, Homebrew formula, release scripts, example policy
+packaging/             systemd units, nfpm spec, Dockerfile, Homebrew formula, release scripts, example policy, oss/ (public README + LICENSE)
+tools/licensetool/     issuer-side license tool (private, not exported)
 docs/                  documentation (see below)
 skills/roomy/          Claude Code skill teaching agents how to call roomy
 landing/               getroomy.dev
@@ -113,8 +113,8 @@ packaging/scripts/release.sh 1.3.0      # everything + SBOM + checksums
 
 What stands between the current tree and a product people can install and pay for. Items are removed as they ship.
 
-- [ ] **Publish.** Tag `1.3.0`, let `release.yml` build the Linux packages, container image and macOS CLI, create the Homebrew tap and fill in the formula hash.
-- [ ] **Replace placeholders.** The Homebrew formula, CI and Docker tags assume `azbouki/roomy` on GitHub and `ghcr.io/azbouki/roomy`.
+- [ ] **Publish.** The public repo [tdermendjiev/Roomy](https://github.com/tdermendjiev/Roomy) carries the open-source subset (`main` synced 2026-10-27 with `packaging/scripts/export-os.sh`). Still to do: create the tap `tdermendjiev/homebrew-roomy`, add `HOMEBREW_TAP_TOKEN` to the public repo, then `export-os.sh ../Roomy v1.3.0` and push the tag. The workflow there builds the Linux packages, the container image and the macOS CLI and updates the tap ([docs/packaging.md](docs/packaging.md)).
+- [x] **Replace placeholders.** Done: `tdermendjiev/Roomy`, `ghcr.io/tdermendjiev/roomy`, `brew install tdermendjiev/roomy/roomy`, hello@getroomy.dev.
 - [ ] **Sign the macOS CLI.** Developer ID signature and notarization for the universal `roomy` binary; the app's 1.3.0 archive and notarization pass.
 - [ ] **Sell licenses.** Pricing page, checkout, license delivery and renewal for the Fleet edition. Today a token is minted by hand with `roomy-licensetool`.
 - [x] **Central fleet view.** Done in 1.3.0: `roomy hub` with inventory, dashboard, managed policies and fleet-wide metrics ([docs/hub.md](docs/hub.md)). Still to come: alert routing from the hub itself and a hosted option.

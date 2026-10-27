@@ -36,7 +36,7 @@
           "name": "Azbouki",
           "url": "https://getroomy.dev",
           "logo": "https://getroomy.dev/logo.png",
-          "email": "teodor@azbouki.com"
+          "email": "hello@getroomy.dev"
         },
         {
           "@type": "WebSite",
@@ -56,7 +56,7 @@
           "operatingSystem": "macOS 13 or later",
           "softwareVersion": "1.3.0",
           "datePublished": "2026-05-20",
-          "dateModified": "2026-10-26",
+          "dateModified": "2026-10-27",
           "downloadUrl": "https://getroomy.dev/downloads/Roomy-latest.zip",
           "fileFormat": "application/zip",
           "releaseNotes": "https://getroomy.dev/release-notes",
@@ -147,6 +147,14 @@
               "acceptedAnswer": {
                 "@type": "Answer",
                 "text": "Yes. Since version 1.2.0 Roomy has an AI coding tools category covering local model stores (Ollama, LM Studio, Hugging Face), editor and app caches (Cursor, Claude desktop, Windsurf) and agent session history (Claude Code, Codex, Gemini CLI and others). Session history is marked Irreversible and never bulk-selected."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is Roomy open source?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The engine, the roomy CLI, Fleet and Hub are open source under the Apache 2.0 license at https://github.com/tdermendjiev/Roomy. The Mac app is free but not open source."
               }
             }
           ]
@@ -444,7 +452,7 @@
         <p class="body-lg reveal reveal-delay-1" data-reveal style="margin-top: 16px; max-width: 640px">
           Disks fill up on CI runners and agent hosts too. Since 1.3.0 the same engine ships as <code>roomy</code> for macOS and Linux, so a machine can free its own space on a schedule, and an agent that hits "no space left on device" can fix it. Agents call it with <code>--json</code>, write a plan, and clean exactly what the plan lists. Nothing above the Safe tier is removed without a flag; irreversible items never are. Every removal lands in a tamper-evident audit log. Many machines? <a href="fleet.html">Roomy Fleet &amp; Hub</a> puts every host on one dashboard.
         </p>
-        <pre class="reveal reveal-delay-2" data-reveal style="margin-top: 20px; padding: 16px 20px; border-radius: 12px; background: rgba(0,0,0,0.06); overflow-x: auto; font-size: 13px; line-height: 1.6"><code>brew install azbouki/roomy/roomy        # or the .deb / .rpm on Linux
+        <pre class="reveal reveal-delay-2" data-reveal style="margin-top: 20px; padding: 16px 20px; border-radius: 12px; background: rgba(0,0,0,0.06); overflow-x: auto; font-size: 13px; line-height: 1.6"><code>brew install tdermendjiev/roomy/roomy        # or the .deb / .rpm on Linux
 roomy scan --json                       # what could be reclaimed, as data
 roomy scan --plan plan.json             # safe tier only, by default
 roomy clean --plan plan.json            # Trash on macOS, quarantine on Linux
@@ -460,7 +468,8 @@ curl -s localhost:9477/metrics          # Prometheus</code></pre>
           <li>Roomy Fleet: JSON policies, hash-chained audit log, Prometheus metrics, systemd units, offline license tokens. Free in community mode on any number of hosts; licensed with support for commercial fleets.</li>
           <li>One rule catalog as data. Add your agent's cache directory in a JSON file, no release needed.</li>
         </ul>
-        <p class="body-lg reveal" data-reveal style="margin-top: 16px"><a href="docs-cli.html">CLI documentation</a> · <a href="docs-fleet.html">Fleet documentation</a> · <a href="docs-hub.html">Hub documentation</a></p>
+        <p class="body-lg reveal" data-reveal style="margin-top: 16px"><a href="docs-cli.html">CLI documentation</a> · <a href="docs-fleet.html">Fleet documentation</a> · <a href="docs-hub.html">Hub documentation</a> · <a href="https://github.com/tdermendjiev/Roomy">Source on GitHub</a></p>
+        <p class="body-lg reveal" data-reveal style="margin-top: 12px">The engine, the CLI, Fleet and Hub are open source under the Apache 2.0 license. The Mac app is free and built on the same package.</p>
       </section>
 
       <section class="philo" aria-label="Product philosophy">
@@ -502,7 +511,7 @@ curl -s localhost:9477/metrics          # Prometheus</code></pre>
             <span>Offline · No account · No telemetry</span>
           </div>
           <div class="pricing-actions">
-            <a href="downloads/Roomy-latest.zip" class="btn btn-hero-primary btn-block cta-text">Download</a>
+            <a href="downloads/Roomy-1.3.0-macOS-universal.zip" class="btn btn-hero-primary btn-block cta-text">Download</a>
             <a href="release-notes.html" class="btn btn-pricing-secondary btn-block cta-text">View release notes</a>
           </div>
         </div>
@@ -546,6 +555,10 @@ curl -s localhost:9477/metrics          # Prometheus</code></pre>
             <h4>Is there a CLI, and does it run on Linux?</h4>
             <p>Yes. <code>roomy</code> is the same engine as the app, for macOS and Linux (a single static binary, .deb/.rpm/.apk, Homebrew, container image). It is built for agents: <code>roomy scan --json</code> never deletes, <code>roomy clean --plan</code> removes only what a plan file lists, and irreversible items are refused without an explicit flag. <code>roomy fleet</code> adds policy-driven unattended runs with an audit log and Prometheus metrics for many hosts.</p>
           </div>
+          <div class="faq-item reveal" data-reveal>
+            <h4>Is Roomy open source?</h4>
+            <p>The engine, the <code>roomy</code> CLI, Fleet and Hub are open source under the Apache 2.0 license at <a href="https://github.com/tdermendjiev/Roomy">github.com/tdermendjiev/Roomy</a>. Rules are JSON, so a missing cache is one pull request away. The Mac app is free but not open source.</p>
+          </div>
           </div>
         </div>
       </section>
@@ -588,7 +601,8 @@ curl -s localhost:9477/metrics          # Prometheus</code></pre>
                 <li><a href="docs-cli.html">CLI reference</a></li>
                 <li><a href="docs-fleet.html">Fleet reference</a></li>
                 <li><a href="docs-hub.html">Hub reference</a></li>
-                <li><a href="mailto:teodor@azbouki.com">Contact</a></li>
+                <li><a href="https://github.com/tdermendjiev/Roomy">Source on GitHub</a></li>
+                <li><a href="mailto:hello@getroomy.dev">Contact</a></li>
               </ul>
             </div>
             <div class="footer-links">

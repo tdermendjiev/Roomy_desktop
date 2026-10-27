@@ -19,7 +19,7 @@ See `docs/agents.md`.
 
 ## Working on this codebase
 
-- Core logic lives in `RoomyCore/` (Swift package). The Mac app in `Roomy/` is a front-end; do not add scanning or deletion logic there.
+- Core logic lives in `RoomyCore/` (Swift package). The Mac app (`Roomy/`, in the private repository) is a front-end; do not add scanning or deletion logic there.
 - New fixed-path targets are rules in `RoomyCore/Sources/RoomyCore/Rules/builtin-rules.json`, not Swift.
 - Run `cd RoomyCore && swift test` before and after changes; `xcodebuild -project Roomy.xcodeproj -scheme Roomy build` for the app.
 - JSON shapes that leave the process (`ScanReport`, `CleanupPlan`, `FleetPolicy`, `AuditRecord`, `HubHostReport`, `HubSummary`) are additive-only.

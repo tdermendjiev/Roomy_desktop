@@ -7,7 +7,7 @@ Roomy on Linux is the same `roomy` binary as on macOS, built with the Swift stan
 - Debian/Ubuntu: `sudo dpkg -i roomy_<version>_<arch>.deb` — installs `/usr/bin/roomy`, systemd units, `/etc/roomy/policy.json` (kept on upgrade).
 - RHEL/Fedora: `sudo rpm -i roomy-<version>.<arch>.rpm`. Alpine: `apk add --allow-untrusted roomy-<version>.apk`.
 - Tarball: `tar xzf roomy-<version>-linux-<arch>.tar.gz && sudo install -m 755 roomy /usr/bin/`.
-- Container: `ghcr.io/azbouki/roomy` — see `packaging/docker/Dockerfile`.
+- Container: `ghcr.io/tdermendjiev/roomy` — see `packaging/docker/Dockerfile`.
 
 `roomy doctor` tells you what is missing. `du` (coreutils) is used for sizes; `git` improves project-age detection; `docker` and `conda` enable those categories.
 
@@ -26,9 +26,9 @@ Artifacts belong to the user who created them. Run Roomy as that user: `roomy-fl
 The image runs `roomy` as its entrypoint. Mount the home to clean and the policy:
 
 ```sh
-docker run --rm -v /home/agent:/home/agent -v /etc/roomy:/etc/roomy:ro ghcr.io/azbouki/roomy scan --home /home/agent --json
+docker run --rm -v /home/agent:/home/agent -v /etc/roomy:/etc/roomy:ro ghcr.io/tdermendjiev/roomy scan --home /home/agent --json
 docker run -d --name roomy -p 9477:9477 -v /home/agent:/home/agent -v /etc/roomy:/etc/roomy:ro \
-  ghcr.io/azbouki/roomy fleet serve --listen 0.0.0.0:9477
+  ghcr.io/tdermendjiev/roomy fleet serve --listen 0.0.0.0:9477
 ```
 
 Set `scan.home` to the mounted path. Mount `/var/run/docker.sock` to enable the Docker category inside the container.

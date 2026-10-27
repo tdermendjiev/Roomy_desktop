@@ -79,7 +79,8 @@ public struct FleetRunner {
 
         func record(_ event: AuditRecord.Event, _ fill: (inout AuditRecord) -> Void = { _ in }) {
             _ = try? audit.append { seq, prev in
-                var r = AuditRecord(seq: seq, runID: runID, event: event, actor: actor, edition: edition, policy: policy.name, prevHash: prev)
+                var r = AuditRecord(seq: seq, runID: runID, event: event, actor: actor, edition: edition, policy: policy.name,
+                                    dryRun: dryRun ? true : nil, prevHash: prev)
                 fill(&r)
                 return r
             }

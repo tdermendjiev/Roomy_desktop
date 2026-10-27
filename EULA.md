@@ -151,4 +151,4 @@ acceptance of the revised Agreement.
 
 For questions regarding this Agreement, contact:
 
-**Azbouki** — teodor@azbouki.com
+**Azbouki** — hello@getroomy.dev

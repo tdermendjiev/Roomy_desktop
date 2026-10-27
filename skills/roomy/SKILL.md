@@ -9,7 +9,7 @@ Roomy finds regenerable artifacts and removes only what a plan file lists. Use i
 
 ## Steps
 
-1. Check it is available: `roomy version` (install: `brew install azbouki/roomy/roomy` on macOS; `.deb`/`.rpm` from https://getroomy.dev on Linux).
+1. Check it is available: `roomy version` (install: `brew install tdermendjiev/roomy/roomy` on macOS; `.deb`/`.rpm` from https://getroomy.dev on Linux).
 2. Scan: `roomy scan --json --quiet`. Read `bytesByTier.safe` and the top `items`. Tell the user what is reclaimable and from where (`category`, `label`, `displayPath`).
 3. Plan safe items only: `roomy scan --plan /tmp/roomy-plan.json --quiet` (add `--min-idle-days 7` on a workstation; omit on a disposable agent host).
 4. Preview: `roomy clean --plan /tmp/roomy-plan.json --dry-run --json`.

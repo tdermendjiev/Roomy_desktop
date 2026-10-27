@@ -14,16 +14,33 @@ struct HubTests {
     }
 
     static func report(host: String, at: Date = Date(), reclaimable: Int64 = 10_000_000_000, disposed: Int64 = 1_000_000_000,
-                       failures: Int = 0, freeFraction: Double = 0.5, interval: Int? = 21_600) -> HubHostReport {
+                       failures: Int = 0, freeFraction: Double = 0.5, interval: Int? = 21_600, dryRun: Bool = false) -> HubHostReport {
         HubHostReport(host: host, platform: .linux, roomyVersion: "1.3.0", catalogVersion: "2026.10.27", policyName: "agent-host", edition: "fleet",
-                      org: "Test", tags: ["role": "agent"], runID: UUID().uuidString, startedAt: at, durationSeconds: 3, dryRun: false,
+                      org: "Test", tags: ["role": "agent"], runID: UUID().uuidString, startedAt: at, durationSeconds: 3, dryRun: dryRun,
                       succeeded: failures == 0, intervalSeconds: interval, findings: 12, reclaimableBytes: reclaimable,
                       bytesByTier: ["safe": reclaimable * 7 / 10, "caution": reclaimable * 2 / 10, "warning": reclaimable / 10],
                       bytesByCategory: ["aiTools": reclaimable / 2, "globalCaches": reclaimable / 2], plannedItems: 3, plannedBytes: disposed,
-                      disposedItems: 3, disposedBytes: disposed, failures: failures, disposedBytesTotal: disposed * 10, disposedItemsTotal: 30,
+                      disposedItems: 3, disposedBytes: disposed, failures: failures, disposedBytesTotal: dryRun ? 0 : disposed * 10, disposedItemsTotal: dryRun ? 0 : 30,
                       failuresTotal: failures, runsTotal: 10, quarantineBytes: disposed, quarantineItems: 3, volumeTotalBytes: 1_000_000_000_000,
                       volumeAvailableBytes: Int64(1_000_000_000_000 * freeFraction), auditSeq: 99, auditHeadHash: "ab", licenseExpiresAt: nil,
                       topItems: [HubTopItem(path: "/home/agent/.cache/uv", label: "uv cache", bytes: 5_000_000_000, tier: .safe, category: "globalCaches", ruleID: "uv-cache", idleDays: 3)])
+    }
+
+    @Test func dryRunsAreNotCountedAsFreed() throws {
+        let dir = try Self.tempDir(); defer { try? FileManager.default.removeItem(at: dir) }
+        let store = try HubStore(dataDir: dir, staleAfter: 3600)
+        let now = Date()
+        try store.ingest(Self.report(host: "dry", at: now.addingTimeInterval(-60), disposed: 5_000_000_000, dryRun: true), receivedAt: now)
+        try store.ingest(Self.report(host: "wet", at: now.addingTimeInterval(-30), disposed: 1_000_000_000), receivedAt: now)
+        let license = HubLicenseInfo(edition: "community", org: nil, maxHosts: 5, expiresAt: nil, problem: nil, hostsKnown: 2, hostsOverLimit: [])
+        let s = store.summary(now: now, license: license)
+        #expect(s.hostsDryRun == 1)
+        #expect(s.disposedBytesLast24h == 1_000_000_000)
+        #expect(s.disposedBytesLast7d == 1_000_000_000)
+        #expect(s.trend.map(\.disposedBytes).reduce(0, +) == 1_000_000_000)
+        #expect(s.trend.map(\.runs).reduce(0, +) == 2)   // the dry run still counts as a run
+        #expect(s.recentRuns.first { $0.host == "dry" }?.dryRun == true)
+        #expect(s.recentRuns.first { $0.host == "dry" }?.disposedBytes == 5_000_000_000)   // "would remove", labelled as such
     }
 
     @Test func storeIngestsComputesStatusAndSummary() throws {

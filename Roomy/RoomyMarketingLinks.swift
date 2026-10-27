@@ -16,7 +16,7 @@ enum RoomyMarketingLinks {
     static let documentation = "\(siteRoot)/documentation"
     static let eula = "\(siteRoot)/eula"
     static let privacy = "\(siteRoot)/privacy"
-    static let supportEmail = "teodor@azbouki.com"
+    static let supportEmail = "hello@getroomy.dev"
 
     static var mailtoSupport: String {
         "mailto:\(supportEmail)"

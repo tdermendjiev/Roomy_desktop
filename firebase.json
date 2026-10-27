@@ -1,7 +1,11 @@
 {
   "hosting": {
     "public": "landing",
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
     "cleanUrls": true,
     "trailingSlash": false,
     "headers": [
@@ -20,6 +24,15 @@
           {
             "key": "Cache-Control",
             "value": "public, max-age=86400"
+          }
+        ]
+      },
+      {
+        "source": "**/*.zip",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=300"
           }
         ]
       }

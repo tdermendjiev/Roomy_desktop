@@ -32,18 +32,23 @@ public struct AuditRecord: Codable, Equatable, Sendable {
     public var destination: String?
     public var reason: String?
     public var message: String?
+    /// True for records written by a dry run: `disposed` events then describe what would have been removed.
+    public var dryRun: Bool?
     public var prevHash: String
     public var hash: String?
 
     public init(seq: Int, time: Date = Date(), host: String = RoomyHost.name, runID: String, event: Event, actor: String,
                 edition: String, policy: String? = nil, path: String? = nil, bytes: Int64? = nil, tier: ArtifactSafetyTier? = nil,
                 category: String? = nil, ruleID: String? = nil, method: DisposalMethod? = nil, destination: String? = nil,
-                reason: String? = nil, message: String? = nil, prevHash: String) {
+                reason: String? = nil, message: String? = nil, dryRun: Bool? = nil, prevHash: String) {
         self.seq = seq; self.time = time; self.host = host; self.runID = runID; self.event = event; self.actor = actor
         self.edition = edition; self.policy = policy; self.path = path; self.bytes = bytes; self.tier = tier; self.category = category
         self.ruleID = ruleID; self.method = method; self.destination = destination; self.reason = reason; self.message = message
-        self.prevHash = prevHash; self.hash = nil
+        self.dryRun = dryRun; self.prevHash = prevHash; self.hash = nil
     }
+
+    /// Logs written before 1.3.0 carried only the message.
+    public var isDryRun: Bool { dryRun == true || message == "dry run" }
 }
 
 public final class AuditLog: @unchecked Sendable {
@@ -143,12 +148,13 @@ public final class AuditLog: @unchecked Sendable {
         return VerifyResult(records: records.count, ok: true, firstBadSeq: nil, message: "OK (\(records.count) records)")
     }
 
-    /// Bytes disposed so far according to the log (for monotonic counters).
+    /// Bytes disposed so far according to the log (for monotonic counters). Dry runs are not counted.
     public static func totals(from url: URL) -> (disposedBytes: Int64, disposedItems: Int, failures: Int, purgedBytes: Int64, runs: Int) {
         guard let records = try? readAll(from: url) else { return (0, 0, 0, 0, 0) }
         var bytes: Int64 = 0, items = 0, failures = 0, purged: Int64 = 0, runs = 0
         for r in records {
             switch r.event {
+            case .disposed where r.isDryRun: break
             case .disposed: bytes += r.bytes ?? 0; items += 1
             case .disposeFailed: failures += 1
             case .purged: purged += r.bytes ?? 0

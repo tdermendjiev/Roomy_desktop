@@ -6,7 +6,8 @@
 //   RoomyCore           Foundation-only scanner, rule catalog, probes, disposal. macOS + Linux.
 //   RoomyFleet          Policy, audit log, Prometheus metrics, licensing, hub (central inventory + dashboard). macOS + Linux.
 //   roomy               The CLI (ArgumentParser). Same binary logic on macOS and Linux.
-//   roomy-licensetool   Developer-only tool to mint and verify license tokens. Not shipped.
+//
+// The license-minting tool lives in tools/licensetool (private, not part of the public export).
 //
 import PackageDescription
 
@@ -17,7 +18,6 @@ let package = Package(
         .library(name: "RoomyCore", targets: ["RoomyCore"]),
         .library(name: "RoomyFleet", targets: ["RoomyFleet"]),
         .executable(name: "roomy", targets: ["roomy"]),
-        .executable(name: "roomy-licensetool", targets: ["roomy-licensetool"]),
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-argument-parser.git", from: "1.5.0"),
@@ -42,14 +42,6 @@ let package = Package(
                 "RoomyCore",
                 "RoomyFleet",
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
-            ]
-        ),
-        .executableTarget(
-            name: "roomy-licensetool",
-            dependencies: [
-                "RoomyFleet",
-                .product(name: "ArgumentParser", package: "swift-argument-parser"),
-                .product(name: "Crypto", package: "swift-crypto"),
             ]
         ),
         .testTarget(name: "RoomyCoreTests", dependencies: ["RoomyCore"]),

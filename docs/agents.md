@@ -33,9 +33,9 @@ Filter the report and keep these fields per item: `id, path, label, bytes, tier,
 - `agentHost` — leftovers on servers: OpenClaw build captures, crash dumps, Claude Code scratch dirs, stale Cursor agent builds, un-emptied Trash.
 - `globalCaches`, `python`, `docker`, `globalModules`, `xcode`, `homebrew` — tool caches outside repositories.
 
-## Claude Code skill
+## Packaging this as a skill
 
-[`skills/roomy/SKILL.md`](../skills/roomy/SKILL.md) packages the above as a skill. Install it by copying `skills/roomy` into `~/.claude/skills/` (or your project's `.claude/skills/`). For other agents, the snippet in [`AGENTS.md`](../AGENTS.md) is enough.
+The commands above are everything an agent needs. Put them in your agent's instruction or skill format; `AGENTS.md` at the repository root is a ready-made version that any agent reads.
 
 ## MCP
 

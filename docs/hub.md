@@ -96,7 +96,7 @@ Plain files: back up with rsync, inspect with `jq`, delete a host file to forget
 ## Running it
 
 - **systemd** (from the packages): `roomy-hub.service` with `DynamicUser`, state in `/var/lib/roomy-hub`, settings in `/etc/roomy/hub.env`, tokens in `/etc/roomy/hub.agent.token` and `/etc/roomy/hub.admin.token` (`roomy hub token` makes one).
-- **Docker**: `docker run -p 9478:9478 -v roomy-hub:/data ghcr.io/azbouki/roomy hub serve --listen 0.0.0.0:9478 --data-dir /data --agent-token … --admin-token …`.
+- **Docker**: `docker run -p 9478:9478 -v roomy-hub:/data ghcr.io/tdermendjiev/roomy hub serve --listen 0.0.0.0:9478 --data-dir /data --agent-token … --admin-token …`.
 - **A laptop**: `roomy hub serve` listens on `127.0.0.1:9478` with no tokens; good for a first look with `roomy hub demo`.
 
 ## Editions

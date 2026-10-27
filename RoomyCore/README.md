@@ -7,7 +7,6 @@ The platform-independent part of Roomy. See the repository [README](../README.md
 | `RoomyCore` | library | Foundation | Scanner, rule catalog, probes, disposal, reports. Builds on macOS and Linux. |
 | `RoomyFleet` | library | RoomyCore, swift-crypto | Policy, evaluator, audit log, metrics, metrics server, license, runner. |
 | `roomy` | executable | both, swift-argument-parser | The CLI. |
-| `roomy-licensetool` | executable | RoomyFleet | Mints license tokens. Not shipped. |
 
 ```sh
 swift build && swift test

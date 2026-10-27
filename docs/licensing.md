@@ -27,7 +27,7 @@ Install one: `roomy fleet license install ROOMY1.…` (writes `~/.roomy/license.
 
 ## Issuing (vendor side)
 
-`roomy-licensetool` is built from the package but not shipped.
+`roomy-licensetool` is the issuer-side tool. It is not shipped and not part of the public repository; the verifier in `RoomyFleet/License.swift` is.
 
 ```sh
 # once: generate the signing key pair, embed the public key in RoomyFleet/License.swift

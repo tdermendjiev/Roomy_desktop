@@ -30,7 +30,7 @@
     {
       "@context": "https://schema.org",
       "@graph": [
-        { "@type": "Organization", "@id": "https://getroomy.dev/#org", "name": "Azbouki", "url": "https://getroomy.dev", "logo": "https://getroomy.dev/logo.png", "email": "teodor@azbouki.com" },
+        { "@type": "Organization", "@id": "https://getroomy.dev/#org", "name": "Azbouki", "url": "https://getroomy.dev", "logo": "https://getroomy.dev/logo.png", "email": "hello@getroomy.dev" },
         { "@type": "BreadcrumbList", "itemListElement": [
           { "@type": "ListItem", "position": 1, "name": "Roomy", "item": "https://getroomy.dev/" },
           { "@type": "ListItem", "position": 2, "name": "Documentation", "item": "https://getroomy.dev/documentation" },
@@ -64,6 +64,7 @@
           <a href="ai.html">AI tools</a>
           <a href="fleet.html">Fleet &amp; Hub</a>
           <a href="release-notes.html">Release notes</a>
+          <a href="https://github.com/tdermendjiev/Roomy">GitHub</a>
           <a class="btn-top" href="index.html#download">Download</a>
         </nav>
       </div>
@@ -265,7 +266,7 @@ roomy_reclaimable_bytes{tier="safe"} &gt; 50e9                         <span cla
  "category":"globalCaches","ruleID":"uv-cache","method":"quarantine",
  "destination":"/home/agent/.roomy/quarantine/20261027T010000-uv","prevHash":"…","hash":"…"}</code></pre>
               <p>Events: <code>runStarted</code>, <code>licenseChecked</code>, <code>scanCompleted</code>, <code>planned</code>, <code>skipped</code>, <code>disposed</code>, <code>disposeFailed</code>, <code>purged</code>, <code>runFinished</code>, <code>hubReported</code>, <code>error</code>.</p>
-              <p><code>hash = SHA256(prevHash ‖ record-without-hash)</code>. <code>roomy fleet audit verify</code> recomputes the chain and exits 1 on any edit or gap. Ship the file to your SIEM as-is; it is plain JSON Lines. <code>roomy clean</code> appends to the same log with <code>actor</code> set from <code>--actor</code>, so an agent's manual cleanups and the policy's automatic ones sit in one record.</p>
+              <p><code>hash = SHA256(prevHash ‖ record-without-hash)</code>. <code>roomy fleet audit verify</code> recomputes the chain and exits 1 on any edit or gap. Ship the file to your SIEM as-is; it is plain JSON Lines. <code>roomy clean</code> appends to the same log with <code>actor</code> set from <code>--actor</code>, so an agent's manual cleanups and the policy's automatic ones sit in one record. Records written by a dry run carry <code>dryRun: true</code>; their <code>disposed</code> events describe what would have been removed and are not counted in totals, metrics or the hub.</p>
               <pre><code>roomy fleet audit tail -n 20
 roomy fleet audit verify          <span class="c"># exit 0 = chain intact</span></code></pre>
             </section>
@@ -290,7 +291,7 @@ roomy fleet audit verify          <span class="c"># exit 0 = chain intact</span>
               <pre><code>roomy fleet license install ROOMY1.…                       <span class="c"># writes ~/.roomy/license.key, mode 0600</span>
 roomy fleet license install ROOMY1.… --path /etc/roomy/license.key   <span class="c"># system-wide</span>
 roomy fleet license show</code></pre>
-              <p class="small"><code>maxHosts</code> is enforced by the hub: a report from a host it has not seen before is refused once the inventory holds <code>maxHosts</code> hosts (5 without a license). Hosts already in the inventory keep reporting, so an expired license degrades to a warning, not an outage. To get a license, <a href="mailto:teodor@azbouki.com?subject=Roomy%20Fleet%20license">write to us</a>.</p>
+              <p class="small"><code>maxHosts</code> is enforced by the hub: a report from a host it has not seen before is refused once the inventory holds <code>maxHosts</code> hosts (5 without a license). Hosts already in the inventory keep reporting, so an expired license degrades to a warning, not an outage. To get a license, <a href="mailto:hello@getroomy.dev?subject=Roomy%20Fleet%20license">write to us</a>.</p>
             </section>
 
             <section class="panel" id="rollout">
@@ -304,7 +305,7 @@ roomy fleet license show</code></pre>
               <div class="note">Irreversible items (<code>warning</code> tier: session transcripts, archives, volumes) stay in <code>never.tiers</code> by default. A policy can take them out, but no profile does, and the hub dashboard shows them as "not allowed by policy" rather than as reclaimable.</div>
             </section>
 
-            <p class="foot"><a href="index.html">Home</a> · <a href="documentation.html">Mac app</a> · <a href="docs-cli.html">CLI</a> · <a href="docs-hub.html">Hub</a> · <a href="fleet.html">Fleet &amp; Hub overview</a> · <a href="privacy.html">Privacy</a> · <a href="eula.html">EULA</a></p>
+            <p class="foot"><a href="index.html">Home</a> · <a href="documentation.html">Mac app</a> · <a href="docs-cli.html">CLI</a> · <a href="docs-hub.html">Hub</a> · <a href="fleet.html">Fleet &amp; Hub overview</a> · <a href="privacy.html">Privacy</a> · <a href="eula.html">EULA</a> · <a href="https://github.com/tdermendjiev/Roomy">Source on GitHub</a></p>
           </div>
         </div>
       </div>

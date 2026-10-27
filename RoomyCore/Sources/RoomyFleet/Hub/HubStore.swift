@@ -317,11 +317,12 @@ public final class HubStore: @unchecked Sendable {
             for label in Set(r.topItems.map { $0.label + "|" + $0.tier.rawValue }) { rules[label]?.hosts += 1 }
             for p in h.history where p.time >= since14 {
                 let age = now.timeIntervalSince(p.time)
-                if age <= 86_400 { d24 += p.disposedBytes; f24 += p.failures }
-                if age <= 7 * 86_400 { d7 += p.disposedBytes }
+                let freed = p.dryRun ? 0 : p.disposedBytes   // a dry run frees nothing
+                if age <= 86_400 { d24 += freed; f24 += p.failures }
+                if age <= 7 * 86_400 { d7 += freed }
                 let day = dayFormatter.string(from: p.time)
                 var dp = days[day] ?? .init(day: day, disposedBytes: 0, runs: 0, failures: 0)
-                dp.disposedBytes += p.disposedBytes; dp.runs += 1; dp.failures += p.failures
+                dp.disposedBytes += freed; dp.runs += 1; dp.failures += p.failures
                 days[day] = dp
             }
             recent.append(.init(host: h.host, startedAt: r.startedAt, disposedBytes: r.disposedBytes, disposedItems: r.disposedItems,

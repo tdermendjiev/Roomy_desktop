@@ -27,4 +27,4 @@ packaging/scripts/sbom.py "$VERSION" > "dist/release/roomy-$VERSION.cdx.json"
 packaging/scripts/sign.sh dist/release
 echo
 echo "Homebrew: update packaging/homebrew/roomy.rb url to v$VERSION and sha256 of the source tarball:"
-echo "  curl -sL https://github.com/azbouki/roomy/archive/refs/tags/v$VERSION.tar.gz | shasum -a 256"
+echo "  curl -sL https://github.com/tdermendjiev/Roomy/archive/refs/tags/v$VERSION.tar.gz | shasum -a 256"

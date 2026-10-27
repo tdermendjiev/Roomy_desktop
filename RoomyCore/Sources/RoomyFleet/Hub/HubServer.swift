@@ -211,7 +211,7 @@ public final class HubServer: @unchecked Sendable {
         let limit = hostLimit()
         do {
             try store.ingest(report, hostLimit: limit)
-            log("report from \(report.host): \(report.findings) findings, \(ByteFormatting.format(report.disposedBytes)) removed\(report.dryRun ? " (dry run)" : "")")
+            log("report from \(report.host): \(report.findings) findings, \(ByteFormatting.format(report.disposedBytes)) \(report.dryRun ? "would be removed (dry run)" : "removed")")
             let ack = HubAck(accepted: true, host: report.host, hostsKnown: store.hostCount, hostLimit: limit,
                              edition: licenseStatus().edition.rawValue, message: "ok")
             return .json(ack)
@@ -274,8 +274,8 @@ public final class HubServer: @unchecked Sendable {
              inv.flatMap { h in ArtifactSafetyTier.allCases.map { ([("host", h.host), ("tier", $0.rawValue)], "\(h.latest.bytesByTier[$0.rawValue] ?? 0)") } })
         emit("roomy_hub_host_disposed_bytes_total", "counter", "Bytes removed per host since its audit log began.",
              inv.map { ([("host", $0.host)], "\($0.latest.disposedBytesTotal)") })
-        emit("roomy_hub_host_last_run_disposed_bytes", "gauge", "Bytes removed in the host's last run.",
-             inv.map { ([("host", $0.host)], "\($0.latest.disposedBytes)") })
+        emit("roomy_hub_host_last_run_disposed_bytes", "gauge", "Bytes removed in the host's last run (0 for a dry run).",
+             inv.map { ([("host", $0.host)], "\($0.latest.dryRun ? 0 : $0.latest.disposedBytes)") })
         emit("roomy_hub_host_last_run_failures", "gauge", "Disposal failures in the host's last run.",
              inv.map { ([("host", $0.host)], "\($0.latest.failures)") })
         emit("roomy_hub_host_last_run_success", "gauge", "1 if the host's last run completed without failures.",
